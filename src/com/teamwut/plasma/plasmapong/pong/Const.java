@@ -8,10 +8,10 @@ public class Const {
 	
 	
 	
-	public final static int PREGAME_WAIT_COUNT = 60;
-	public final static int JUST_SCORED_COUNT = 60;
-	public final static int JUST_SCORED_WAIT_COUNT = 60;
-	public final static int GAME_OVER_COUNT = 60;
+	public final static int PREGAME_WAIT_COUNT = 120;
+	public final static int JUST_SCORED_COUNT = 120;
+	public final static int JUST_SCORED_WAIT_COUNT = 120;
+	public final static int GAME_OVER_COUNT = 120;
 
 	
 	
