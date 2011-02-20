@@ -5,6 +5,7 @@ import processing.core.PConstants;
 import android.content.Intent;
 
 import com.teamwut.plasma.plasmapong.PlasmaFluid;
+import com.teamwut.plasma.plasmapong.pong.Const;
 import com.teamwut.plasma.plasmapong.pong.Game;
 import com.teamwut.plasma.plasmapong.pong.objects.Ball;
 
@@ -74,9 +75,9 @@ public class WatsonAI {
 		p.ellipse(x, y, 5, 5);
 		
 		if (y < p.height / 3) {
-			fluid.addForce(p, (x-5)/p.width, y/p.height, 0, MAX_FORCE/p.height);
-			fluid.addForce(p, (x)/p.width, y/p.height, 0, MAX_FORCE/p.height);
-			fluid.addForce(p, (x+5)/p.width, y/p.height, 0, MAX_FORCE/p.height);
+			fluid.addForce(p, (x-5)/p.width, y/p.height, 0, MAX_FORCE/p.height, Const.PLAYER_2_OFFSET);
+			fluid.addForce(p, (x)/p.width, y/p.height, 0, MAX_FORCE/p.height, Const.PLAYER_2_OFFSET);
+			fluid.addForce(p, (x+5)/p.width, y/p.height, 0, MAX_FORCE/p.height, Const.PLAYER_2_OFFSET);
 		}
 	}
 }
