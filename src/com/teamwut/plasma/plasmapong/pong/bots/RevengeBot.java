@@ -14,19 +14,19 @@ import com.teamwut.plasma.plasmapong.pong.objects.Ball;
  *
  * Currently a completely non-intelligent AI that shoots balls back when needed. Pretty damn stupid.
  */
-public class WatsonAI {
+public class RevengeBot {
 	Game parent;
 	PlasmaFluid fluid;
 	Ball ball;
 	
 	float target_x=0, target_y=0, x=-1, y=-1;
 	
-	static final float MAX_FORCE = 25;
+	static final float MAX_FORCE = 30;
 	static final float MAX_VELOCITY_Y = 2.0f;
-	static final float MAX_VELOCITY_X = 5.0f; // pixels per frame
+	static final float MAX_VELOCITY_X = 4.0f; // pixels per frame
 	static final float DESIRED_DIST_BEHIND = 160;
 	
-	public WatsonAI(Game parent, PlasmaFluid fluid, Ball ball) {
+	public RevengeBot(Game parent, PlasmaFluid fluid, Ball ball) {
 		this.parent = parent;
 		this.fluid = fluid;
 		this.ball = ball;
@@ -56,9 +56,6 @@ public class WatsonAI {
 			if (y > target_y) y -= MAX_VELOCITY_Y;
 			else if (y < target_y) y += MAX_VELOCITY_Y;
 		}
-		
-		if (y <= 0) y = 1;
-		if (y > p.height-1) y = p.height-1; 
 		
 		p.colorMode(PConstants.RGB);
 		p.fill(255,0, 0);
