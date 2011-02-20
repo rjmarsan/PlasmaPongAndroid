@@ -29,6 +29,8 @@ public class StatusOverlay extends PObject {
 		}
 		
 		else if (g.mode == Game.GAME_OVER) {
+			p.stroke(255);
+			p.fill(255);
 			p.rect(width/2, height/2, g.modeFrameCountdown*3, 30);
 		}
 		

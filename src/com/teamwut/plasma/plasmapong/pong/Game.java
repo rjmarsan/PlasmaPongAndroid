@@ -39,12 +39,12 @@ public class Game {
 	StatusOverlay statoverlay;
 	
 	PFont font;
-
-
-	int scoreP1 = 0;
-	int scoreP2 = 0;
-
+	
+	
 	int maxScore = 7;
+	int scoreP1 = maxScore;
+	int scoreP2 = maxScore;
+
 
 	
 	int whoJustScored = Const.NO_PLAYER;
@@ -71,15 +71,15 @@ public class Game {
 		p.textMode(PApplet.MODEL);
 		//font = p.loadFont("GillSans-Bold-48.vlw");
 
-		p.textFont(font, 48);
+//		p.textFont(font, 48);
 		p.textAlign(PApplet.CENTER);
 		p.rectMode(PApplet.CENTER);
 
 	}
 
 	public void initGameLogic() {
-		scoreP1 = 0;
-		scoreP2 = 0;
+		scoreP1 = maxScore;
+		scoreP2 = maxScore;
 		setGameState(PREGAME_WAIT);
 	}
 	
@@ -147,10 +147,18 @@ public class Game {
 		int scored = goals.puckGoalStatus(ball);
 		if (scored == Const.PLAYER_1) {
 			this.whoJustScored = Const.PLAYER_1;
-			transitionToJustScored();
+			this.scoreP1 -= 1;
+			if (this.scoreP1 > 0)
+				transitionToJustScored();
+			else 
+				transitionToGameOver();
 		} else if (scored == Const.PLAYER_2) {
 			this.whoJustScored = Const.PLAYER_2;
-			transitionToJustScored();
+			this.scoreP2 -= 1;
+			if (this.scoreP2 > 0)
+				transitionToJustScored();
+			else 
+				transitionToGameOver();
 		}
 		makeGameHarder();
 	}
