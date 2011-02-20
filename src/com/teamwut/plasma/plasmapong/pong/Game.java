@@ -4,6 +4,10 @@ import processing.core.PFont;
 
 import com.teamwut.plasma.plasmapong.PlasmaFluid;
 import com.teamwut.plasma.plasmapong.PlasmaPong;
+import com.teamwut.plasma.plasmapong.pong.objects.Ball;
+import com.teamwut.plasma.plasmapong.pong.objects.Goals;
+import com.teamwut.plasma.plasmapong.pong.objects.HUD;
+import com.teamwut.plasma.plasmapong.pong.objects.StatusOverlay;
 
 public class Game {
 	final PlasmaPong p;
@@ -12,11 +16,13 @@ public class Game {
 	final float width;
 	final float height;
 
-	Ball b;
+	Ball ball;
+	Goals goals;
+	HUD hud;
+	StatusOverlay statoverlay;
+	
 	PFont font;
 
-	int goalBoarder = 70;
-	int goalColor;
 
 	int scoreP1 = 0;
 	int scoreP2 = 0;
@@ -29,7 +35,20 @@ public class Game {
 	int gameOver = 0; // the frame it happened
 	int initWait = 0; // the frame it happened
 
-	int eventFrame = -1;
+	
+	public final static int NOTHING = 0;
+	public final static int PREGAME_WAIT = 1;
+	public final static int PLAYING = 2;
+	public final static int JUST_SCORED = 3;
+	public final static int JUST_SCORED_WAIT = 4;
+	public final static int GAME_OVER = 5;
+	
+	int mode = NOTHING;
+	
+	
+	int modeFrameCountdown = -1;
+	
+	
 	String statusMessage;
 
 	public Game(PlasmaPong p, PlasmaFluid fluid) {
@@ -37,86 +56,64 @@ public class Game {
 		this.p = p;
 		this.width = p.width;
 		this.height = p.height;
-
-		goalColor = p.color(150, 150, 150, 150);
-
 	}
 
 	public void initPong() {
-		// textMode(SHAPE);
+		glInit();
+		ball = new Ball(p);
+		goals = new Goals(p);
+		hud = new HUD(p);
+		statoverlay = new StatusOverlay(p);
+		initGameLogic();
+	}
+	
+	public void glInit() {
 		p.textMode(p.MODEL);
-		b = new Ball(p);
-		// load font
 		font = p.loadFont("GillSans-Bold-48.vlw");
-		// font = loadFont("SansSerif-48.vlw");
+
 		p.textFont(font, 48);
 		p.textAlign(p.CENTER);
 		p.rectMode(p.CENTER);
-		initGameLogic();
+
 	}
 
 	public void initGameLogic() {
 		scoreP1 = 0;
 		scoreP2 = 0;
-
-		justScored = 0;
-		lastScored = 0;
-		gameOver = 0;
-		initWait = 0;
-
-		setStatus("Ready? Go!");
 	}
-
-	public void drawPong() {
-		p.pushStyle();
-		p.colorMode(p.RGB, 255, 255, 255, 255);
-		p.fill(150, 150, 150, 150);
-
-		b.draw(fluid.fluidSolver);
-		drawStatusMessage();
-		drawScore();
-		drawGoals();
-		updateGameLogic();
-		p.popStyle();
+	
+	
+	public void updateGameState() {
+		switch (mode) {
+		case NOTHING:
+			this.initGameLogic();
+			break;
+		case PREGAME_WAIT:
+			break;
+		case PLAYING:
+			break;
+		case JUST_SCORED:
+			break;
+		case JUST_SCORED_WAIT:
+			break;
+		case GAME_OVER:
+			break;
+		}
 	}
-
-	public void setStatus(String s) {
-		p.println("New status at frame " + p.frameCount + ": " + s);
-		eventFrame = p.frameCount;
-		statusMessage = s;
-	}
+	
 
 	public void updateGameLogic() {
 		if (justScored == 0) {
-			if (b.x < goalBoarder) {
-				justScored = p.frameCount;
-				scoreP2 += 1;
-				lastScored = 2;
-				if (scoreP2 < maxScore) {
-					setStatus("Player " + lastScored + " Scores!");
-				} else {
-					setStatus("Player " + lastScored + " wins!");
-					gameOver = p.frameCount;
-				}
-			} else if (b.x > width - goalBoarder) {
-				justScored = p.frameCount;
-				scoreP1 += 1;
-				lastScored = 1;
-				if (scoreP1 < maxScore) {
-					setStatus("Player " + lastScored + " Scores!");
-				} else {
-					setStatus("Player " + lastScored + " wins!");
-					gameOver = p.frameCount;
-				}
+			int scored = goals.puckGoalStatus(ball);
+			if (scored == Const.PLAYER_1) {
+				
+			} else if (scored == Const.PLAYER_2) {
 
 			}
 
 		}
 		makeGameHarder();
-		resetPuck();
-		if (gameOver != 0) {
-			gameOver();
-		}
+		
 	}
 
 	public void makeGameHarder() {
@@ -125,26 +122,10 @@ public class Game {
 		// println(fluidSolver.getVisc());
 	}
 
-	public void drawStatusMessage() {
-		if (eventFrame != -1) {
-			if (p.frameCount - eventFrame < waitPeriod) {
-				drawStatusText(statusMessage);
-				drawCountdownBar(eventFrame);
-			} else {
-				eventFrame = -1;
-			}
-		}
-	}
-
-	public void gameOver() {
-		if (p.frameCount - gameOver > waitPeriod) {
-			initGameLogic();
-		}
-	}
 
 	public void resetPuck() {
 		if (justScored != 0 && p.frameCount - justScored > waitPeriod) {
-			b.resetBall();
+			ball.resetBall();
 			justScored = 0;
 			resetFluid();
 		}
@@ -156,28 +137,24 @@ public class Game {
 		fluid.fluidSolver.reset();
 	}
 
-	public void drawScore() {
-		p.stroke(0);
-		p.text(maxScore-scoreP2, 100, 100);
-		p.text(maxScore-scoreP1, width - 100, 100);
+
+	
+	
+	public void drawPong() {
+		p.pushStyle();
+		p.colorMode(p.RGB, 255, 255, 255, 255);
+
+		ball.draw(fluid.fluidSolver);
+		goals.draw(p);
+		hud.draw(p);
+		statoverlay.draw(p);
+		
+		
+		p.popStyle();
+		
+		updateGameLogic();
 	}
 
-	public void drawStatusText(String s) {
-		p.text(s, width / 2, height / 2);
-	}
 
-	public void drawCountdownBar(int frameSince) {
-		p.rect(width / 2, height / 2 + 20,
-				3 * (waitPeriod - (p.frameCount - frameSince)), 10);
-	}
-
-	public void drawGoals() {
-		// for now
-		p.stroke(goalColor);
-		p.strokeWeight(3);
-		p.line(goalBoarder, goalBoarder, goalBoarder, height - goalBoarder);
-		p.line(width - goalBoarder, goalBoarder, width - goalBoarder, height
-				- goalBoarder);
-	}
 
 }
