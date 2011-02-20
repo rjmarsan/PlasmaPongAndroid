@@ -98,7 +98,7 @@ public class PlasmaPongStartActivity extends PApplet implements MTCallback {
 		int max = 200;
 		float dx = r.nextInt(max) - max/2;
 		float dy = r.nextInt(max) - max/2;
-		fluid.addForce(this, x/width, y/height, dy/width, dx/height, 50);
+		fluid.addForce(this, x/width, y/height, dy/width, dx/height, 0, 50);
 	}
 	
 	public void updateCursors() {

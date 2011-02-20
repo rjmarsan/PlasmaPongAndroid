@@ -15,6 +15,7 @@ import android.widget.Button;
 import com.teamwut.plasma.plasmapong.mt.Cursor;
 import com.teamwut.plasma.plasmapong.mt.MTCallback;
 import com.teamwut.plasma.plasmapong.mt.MTManager;
+import com.teamwut.plasma.plasmapong.pong.Const;
 import com.teamwut.plasma.plasmapong.pong.objects.Goals;
 
 public class PlasmaPongFinishedActivity extends PApplet implements MTCallback {
@@ -32,8 +33,20 @@ public class PlasmaPongFinishedActivity extends PApplet implements MTCallback {
 	
 	Random r = new Random();
 	
+	
+	int p1score;
+	int p2score;
+	int winner;
+	
 	public void onCreate(Bundle savedinstance) {
 		super.onCreate(savedinstance);
+		
+		Intent i = this.getIntent();
+		p1score = i.getIntExtra(Const.PLAYER_1_SCORE, 0);
+		p2score = i.getIntExtra(Const.PLAYER_2_SCORE, 0);
+		winner = i.getIntExtra(Const.WINNER, Const.NO_PLAYER);
+
+		
     	View v = this.getLayoutInflater().inflate(com.teamwut.plasma.plasmapong.R.layout.done_screen_on, null);
     	this.addContentView(v, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
     	Button again = (Button) this.findViewById(com.teamwut.plasma.plasmapong.R.id.again);
@@ -91,7 +104,7 @@ public class PlasmaPongFinishedActivity extends PApplet implements MTCallback {
 		int max = 200;
 		float dx = r.nextInt(max) - max/2;
 		float dy = r.nextInt(max) - max/2;
-		fluid.addForce(this, x/width, y/height, dy/width, dx/height, 50);
+		fluid.addForce(this, x/width, y/height, dy/width, dx/height, 0, 50);
 	}
 	
 	public void updateCursors() {

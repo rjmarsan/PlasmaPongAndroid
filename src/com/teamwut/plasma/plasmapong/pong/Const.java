@@ -13,4 +13,11 @@ public class Const {
 	public final static int JUST_SCORED_WAIT_COUNT = 60;
 	public final static int GAME_OVER_COUNT = 60;
 
+	
+	
+	
+	
+	public final static String WINNER = "winner";
+	public final static String PLAYER_1_SCORE = "winner";
+	public final static String PLAYER_2_SCORE = "winner";
 }
