@@ -2,9 +2,11 @@ package com.teamwut.plasma.plasmapong.pong;
 
 import processing.core.PApplet;
 import processing.core.PFont;
+import android.content.Intent;
 
 import com.teamwut.plasma.plasmapong.PlasmaFluid;
 import com.teamwut.plasma.plasmapong.PlasmaPong;
+import com.teamwut.plasma.plasmapong.PlasmaPongFinishedActivity;
 import com.teamwut.plasma.plasmapong.pong.objects.Ball;
 import com.teamwut.plasma.plasmapong.pong.objects.Goals;
 import com.teamwut.plasma.plasmapong.pong.objects.HUD;
@@ -183,7 +185,8 @@ public class Game {
 		transitionToPlaying();
 	}
 	public void transitionFromGameOver() {
-		//finish!
+		Intent i = new Intent(p, PlasmaPongFinishedActivity.class);
+		p.startActivity(i);
 	}
 	
 	public void transitionToPlaying() {

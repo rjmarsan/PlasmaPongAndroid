@@ -16,5 +16,9 @@
       </intent-filter>
     </activity>
     
+    <activity android:name=".PlasmaPongFinishedActivity"
+    		  android:screenOrientation="portrait">
+    </activity>
+    
   </application>
 </manifest>
