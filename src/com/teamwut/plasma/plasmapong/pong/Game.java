@@ -248,7 +248,7 @@ public class Game {
 		ball.draw(fluid, stepforward && mode == PLAYING);
 
 		hud.draw(p);
-		statoverlay.draw(p, this);
+		statoverlay.draw(p, this, fluid);
 		
 		
 		p.popStyle();

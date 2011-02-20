@@ -11,7 +11,7 @@ public class Goals {
 	final float width;
 	final float height;
 
-	int goalBoarder = 70;
+	int goalBoarder = 80;
 	int goalColor;
 
 	PImage top;
