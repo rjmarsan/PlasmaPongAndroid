@@ -20,17 +20,36 @@
 			android:textSize="40dip"
     	/>
     </LinearLayout>
-   	<TextView
-		android:id="@+id/player2_score"
+    <LinearLayout
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:textSize="150dip"
+		android:orientation="horizontal"
+		android:layout_centerInParent="true"
 		android:layout_centerHorizontal="true"
 		android:layout_below="@+id/player2_bar"
-		android:text="0"
-		/>
+		android:layout_above="@+id/middle_bar">
+		<TextView
+			android:id="@+id/player2_score"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="140dip"
+			android:gravity="center"
+			android:text="0"
+			/>
+		<TextView
+			android:id="@+id/player2_record"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:textSize="40dip"
+			android:lines="3"
+			android:text="0\nof\n3"
+			android:gravity="center"
+			/>
+	</LinearLayout>
+    
 		
 	<LinearLayout
+		android:id="@+id/middle_bar"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
@@ -40,20 +59,42 @@
 			android:id="@+id/again"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="again??????"
+			android:text="again?"
+		/>
+		<Button
+			android:id="@+id/quit"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="quit"
 		/>
 	
 	</LinearLayout>
 	
-	<TextView
-		android:id="@+id/player1_score"
+	<LinearLayout
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:textSize="150dip"
+		android:orientation="horizontal"
+		android:layout_centerInParent="true"
 		android:layout_centerHorizontal="true"
 		android:layout_above="@+id/player1_bar"
-		android:text="0"
-		/>
+		android:layout_below="@+id/middle_bar">
+		<TextView
+			android:id="@+id/player1_score"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="140dip"
+			android:gravity="center"
+			android:text="0"
+			/>
+		<TextView
+			android:id="@+id/player1_record"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:textSize="40dip"
+			android:text="0\nof\n3"
+			android:gravity="center"
+			/>
+	</LinearLayout>
 	<LinearLayout    		
 		android:id="@+id/player1_bar"
 		android:layout_width="fill_parent"

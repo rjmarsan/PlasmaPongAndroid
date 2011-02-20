@@ -24,4 +24,10 @@ public class Const {
 	public final static String WINNER = "winner";
 	public final static String PLAYER_1_SCORE = "p1score";
 	public final static String PLAYER_2_SCORE = "p2score";
+	
+	
+	public final static String GAMES_KEY = "games";
+	public final static String PLAYER_1_KEY = "p1score";
+	public final static String PLAYER_2_KEY = "p2score";
+
 }
