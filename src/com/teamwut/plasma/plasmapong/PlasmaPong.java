@@ -1,16 +1,15 @@
 package com.teamwut.plasma.plasmapong;
 
-import msafluid.MSAFluidSolver2D;
+import java.util.ArrayList;
+
 import processing.core.PApplet;
-import processing.core.PFont;
-import processing.core.PImage;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 
+import com.teamwut.plasma.plasmapong.mt.Cursor;
 import com.teamwut.plasma.plasmapong.mt.MTCallback;
 import com.teamwut.plasma.plasmapong.mt.MTManager;
 import com.teamwut.plasma.plasmapong.pong.Game;
-import com.teamwut.plasma.plasmapong.pong.objects.Ball;
 
 public class PlasmaPong extends PApplet implements MTCallback {
 
@@ -36,7 +35,7 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	    frameRate(60);
 	
 	    fluid = new PlasmaFluid(this);
-	    mtManager = new MTManager(this);
+	    mtManager = new MTManager();
 	    
 	    //GAME CODE
 	    g = new Game(this, fluid);
@@ -66,23 +65,28 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	
 	}
 	
-	public void touchEvent(MotionEvent me, int i, float x, float y, float vx,
-			float vy, float size) {
-				
-		println(""+vx+","+vy);
-	
+	public void addForce(float x, float y) {
+		float vx, vy;	
 		if (x/width > 0.5f) 
-			vx = -6;
+			vx = -50;
 		else 
-			vx = 6;
+			vx = 40;
 		vy = 0;
 		
 	    fluid.addForce(this, x/width, y/height, vx/width, vy/height);
 	}
 	
+	public void updateCursors() {
+		ArrayList<Cursor> cursors = (ArrayList<Cursor>) mtManager.cursors.clone();
+		for (Cursor c : cursors ) {
+			if (c != null && c.currentPoint != null)
+				addForce(c.currentPoint.x, c.currentPoint.y);
+		}
+	}
 	
 	
 	public void draw() {
+		updateCursors();
 	    background(0);
 	
 	    fluid.draw(this);
@@ -99,6 +103,12 @@ public class PlasmaPong extends PApplet implements MTCallback {
 
 	public void drawPong() {
 		g.drawPong();
+	}
+	@Override
+	public void touchEvent(MotionEvent me, int i, float x, float y, float vx,
+			float vy, float size) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

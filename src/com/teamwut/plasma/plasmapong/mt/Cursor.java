@@ -1,8 +1,11 @@
 package com.teamwut.plasma.plasmapong.mt;
 
+import java.util.ArrayList;
+
 
 public class Cursor {
 	public final Point firstPoint;
+	public ArrayList<Point> points;
 	public Point currentPoint;
 	public final int curId;
 	
@@ -17,6 +20,8 @@ public class Cursor {
 		firstPoint = p;
 		currentPoint = p;
 		this.curId = curId;
+		this.points = new ArrayList<Point>();
+		points.add(p);
 	}
 	
 	public void updateCursor(Point p) {
@@ -41,5 +46,6 @@ public class Cursor {
 		}
 		
 		currentPoint = p;
+		points.add(p);
 	}
 }
