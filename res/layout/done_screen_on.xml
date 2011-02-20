@@ -3,7 +3,33 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#11ffffff"
+    android:padding="20dip"
     >
+	<LinearLayout
+	    android:id="@+id/player2_bar"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:layout_centerHorizontal="true"
+		android:layout_alignParentTop="true">
+    	<TextView
+    		android:id="@+id/player2_name"
+    		android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:text="Bob"
+			android:textSize="40dip"
+    	/>
+    </LinearLayout>
+   	<TextView
+		android:id="@+id/player2_score"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textSize="150dip"
+		android:layout_centerHorizontal="true"
+		android:layout_below="@+id/player2_bar"
+		android:text="0"
+		/>
+		
 	<LinearLayout
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -14,8 +40,34 @@
 			android:id="@+id/again"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="again?"
+			android:text="again??????"
 		/>
 	
 	</LinearLayout>
+	
+	<TextView
+		android:id="@+id/player1_score"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textSize="150dip"
+		android:layout_centerHorizontal="true"
+		android:layout_above="@+id/player1_bar"
+		android:text="0"
+		/>
+	<LinearLayout    		
+		android:id="@+id/player1_bar"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:layout_centerHorizontal="true"
+		android:layout_alignParentBottom="true">
+    	<TextView
+    		android:id="@+id/player1_name"
+    		android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:text="Joe"
+    		android:textSize="40dip"
+    	/>
+    </LinearLayout>
+	
 </RelativeLayout>

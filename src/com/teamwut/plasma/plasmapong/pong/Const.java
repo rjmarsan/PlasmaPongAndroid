@@ -22,6 +22,6 @@ public class Const {
 	
 	
 	public final static String WINNER = "winner";
-	public final static String PLAYER_1_SCORE = "winner";
-	public final static String PLAYER_2_SCORE = "winner";
+	public final static String PLAYER_1_SCORE = "p1score";
+	public final static String PLAYER_2_SCORE = "p2score";
 }

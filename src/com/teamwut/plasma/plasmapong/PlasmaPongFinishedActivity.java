@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import processing.core.PApplet;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.teamwut.plasma.plasmapong.mt.Cursor;
 import com.teamwut.plasma.plasmapong.mt.MTCallback;
@@ -38,6 +40,9 @@ public class PlasmaPongFinishedActivity extends PApplet implements MTCallback {
 	int p2score;
 	int winner;
 	
+	String p1name = "Bob";
+	String p2name = "Joe";
+	
 	public void onCreate(Bundle savedinstance) {
 		super.onCreate(savedinstance);
 		
@@ -54,8 +59,20 @@ public class PlasmaPongFinishedActivity extends PApplet implements MTCallback {
 			public void onClick(View v) {
 				Intent i = new Intent(PlasmaPongFinishedActivity.this, PlasmaPong.class);
 				i.putExtra(PlasmaPong.PLAYER_KEY, PlasmaPong.TWO_PLAYER_PLAY);
+				i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(i);
 			}});
+    	
+    	
+    	TextView p1scoreview = (TextView)this.findViewById(com.teamwut.plasma.plasmapong.R.id.player1_score);
+    	p1scoreview.setText(p1score+"");
+    	TextView p2scoreview = (TextView)this.findViewById(com.teamwut.plasma.plasmapong.R.id.player2_score);
+    	p2scoreview.setText(p2score+"");
+    	
+    	TextView p1nameview = (TextView)this.findViewById(com.teamwut.plasma.plasmapong.R.id.player1_name);
+    	p1nameview.setText(p1name+"");
+    	TextView p2nameview = (TextView)this.findViewById(com.teamwut.plasma.plasmapong.R.id.player2_name);
+    	p2nameview.setText(p2name+"");
 	}
 
 	
