@@ -64,8 +64,6 @@ public class WatsonAI {
 		if (y <= 75) y = 75;
 		if (y > p.height-75) y = p.height-75; 
 		
-		System.out.println("bot y: " + y + ", bot x: " + x);
-		
 		p.colorMode(PConstants.RGB);
 		p.fill(255,0, 0);
 		p.ellipse(x, y, 10, 10);
