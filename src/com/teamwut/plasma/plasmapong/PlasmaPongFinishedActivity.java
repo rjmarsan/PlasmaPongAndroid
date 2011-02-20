@@ -40,8 +40,8 @@ public class PlasmaPongFinishedActivity extends PApplet implements MTCallback {
 	int p2score;
 	int winner;
 	
-	String p1name = "Bob";
-	String p2name = "Joe";
+	String p1name = "Player 1";
+	String p2name = "Player 2";
 	
 	public void onCreate(Bundle savedinstance) {
 		super.onCreate(savedinstance);
