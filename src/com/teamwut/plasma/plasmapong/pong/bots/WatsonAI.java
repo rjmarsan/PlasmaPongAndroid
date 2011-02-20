@@ -2,6 +2,8 @@ package com.teamwut.plasma.plasmapong.pong.bots;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PImage;
+
 import com.teamwut.plasma.plasmapong.PlasmaFluid;
 import com.teamwut.plasma.plasmapong.pong.Const;
 import com.teamwut.plasma.plasmapong.pong.Game;
@@ -66,8 +68,8 @@ public class WatsonAI {
 		
 		p.colorMode(PConstants.RGB);
 		p.fill(255,0, 0);
-		p.ellipse(x, y, 10, 10);
-		
+		PImage icon = p.loadImage("smiler.gif");
+		p.image(icon, x, y);
 		if (y < p.height / 3) {
 			fluid.addForce(p, (x-5)/p.width, y/p.height, 0, MAX_FORCE/p.height, Const.PLAYER_2_OFFSET);
 			fluid.addForce(p, (x)/p.width, y/p.height, 0, MAX_FORCE/p.height, Const.PLAYER_2_OFFSET);
