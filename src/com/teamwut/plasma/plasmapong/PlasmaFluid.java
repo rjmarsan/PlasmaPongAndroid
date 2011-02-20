@@ -72,7 +72,7 @@ public class PlasmaFluid {
 	        p.colorMode(PApplet.HSB, 360, 1, 1);
 	        float hue = (p.frameCount/10) % 360;
 	        if (x < 0.5f)
-	        	hue += 135;
+	        	hue = (hue + 135) % 360;
 	        drawColor = p.color(hue, 1, 1);
 	        p.colorMode(PApplet.RGB, 1);  
 //	        for (int i=0; i<3; i++) {
