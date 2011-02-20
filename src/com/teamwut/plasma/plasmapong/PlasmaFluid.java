@@ -1,4 +1,4 @@
-package com.rj.processing;
+package com.teamwut.plasma.plasmapong;
 
 import msafluid.MSAFluidSolver2D;
 import processing.core.PApplet;
@@ -7,17 +7,17 @@ import processing.core.PImage;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 
-import com.rj.processing.mt.MTCallback;
-import com.rj.processing.mt.MTManager;
-import com.rj.processing.pong.Ball;
-import com.rj.processing.pong.Game;
+import com.teamwut.plasma.plasmapong.mt.MTCallback;
+import com.teamwut.plasma.plasmapong.mt.MTManager;
+import com.teamwut.plasma.plasmapong.pong.Ball;
+import com.teamwut.plasma.plasmapong.pong.Game;
 
 public class PlasmaFluid {
 	PApplet p;
 	
 	final float FLUID_WIDTH = 60;
 	
-	public MSAFluidSolver2D fluidSolver;
+	public final MSAFluidSolver2D fluidSolver;
 	
 	PImage imgFluid;
 	boolean touchupdated = false;

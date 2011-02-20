@@ -1,4 +1,4 @@
-package com.rj.processing.mt;
+package com.teamwut.plasma.plasmapong.mt;
 
 public class Point {
 	public final float x; 

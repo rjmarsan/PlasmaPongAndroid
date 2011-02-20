@@ -1,13 +1,14 @@
-package com.rj.processing.pong;
+package com.teamwut.plasma.plasmapong.pong;
 
 import processing.core.PFont;
 
-import com.rj.processing.PlasmaPong;
-
-import processing.core.PFont;
+import com.teamwut.plasma.plasmapong.PlasmaFluid;
+import com.teamwut.plasma.plasmapong.PlasmaPong;
 
 public class Game {
 	final PlasmaPong p;
+	final PlasmaFluid fluid;
+	
 	final float width;
 	final float height;
 
@@ -31,7 +32,8 @@ public class Game {
 	int eventFrame = -1;
 	String statusMessage;
 
-	public Game(PlasmaPong p) {
+	public Game(PlasmaPong p, PlasmaFluid fluid) {
+		this.fluid = fluid;
 		this.p = p;
 		this.width = p.width;
 		this.height = p.height;
@@ -70,7 +72,7 @@ public class Game {
 		p.colorMode(p.RGB, 255, 255, 255, 255);
 		p.fill(150, 150, 150, 150);
 
-		b.draw(p.fluidSolver);
+		b.draw(fluid.fluidSolver);
 		drawStatusMessage();
 		drawScore();
 		drawGoals();
@@ -150,8 +152,8 @@ public class Game {
 	}
 
 	public void resetFluid() {
-		p.setupFluid();
-		p.fluidSolver.reset();
+		fluid.setupFluid();
+		fluid.fluidSolver.reset();
 	}
 
 	public void drawScore() {

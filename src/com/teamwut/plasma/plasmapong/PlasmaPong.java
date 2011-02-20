@@ -1,4 +1,4 @@
-package com.rj.processing;
+package com.teamwut.plasma.plasmapong;
 
 import msafluid.MSAFluidSolver2D;
 import processing.core.PApplet;
@@ -7,10 +7,10 @@ import processing.core.PImage;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 
-import com.rj.processing.mt.MTCallback;
-import com.rj.processing.mt.MTManager;
-import com.rj.processing.pong.Ball;
-import com.rj.processing.pong.Game;
+import com.teamwut.plasma.plasmapong.mt.MTCallback;
+import com.teamwut.plasma.plasmapong.mt.MTManager;
+import com.teamwut.plasma.plasmapong.pong.Ball;
+import com.teamwut.plasma.plasmapong.pong.Game;
 
 public class PlasmaPong extends PApplet implements MTCallback {
 
@@ -39,7 +39,7 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	    mtManager = new MTManager(this);
 	    
 	    //GAME CODE
-	    g = new Game(this);
+	    g = new Game(this, fluid);
 	    initPong(); 
 	    
 	    debug();

@@ -1,4 +1,4 @@
-package com.rj.processing.pong;
+package com.teamwut.plasma.plasmapong.pong;
 
 import msafluid.MSAFluidSolver2D;
 import processing.core.PApplet;
