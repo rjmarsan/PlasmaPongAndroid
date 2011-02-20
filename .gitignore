@@ -2,6 +2,5 @@
 default.properties
 bin
 gen
-res
 .classpath
 .project
