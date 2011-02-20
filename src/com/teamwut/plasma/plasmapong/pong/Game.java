@@ -187,6 +187,7 @@ public class Game {
 	}
 	public void transitionFromGameOver() {
 		Intent i = new Intent(p, PlasmaPongFinishedActivity.class);
+		i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		int winner = 0;
 		if (this.scoreP1 == 0) winner = Const.PLAYER_2;
 		if (this.scoreP2 == 0) winner = Const.PLAYER_1;
@@ -194,6 +195,7 @@ public class Game {
 		i.putExtra(Const.PLAYER_1_SCORE, scoreP1);
 		i.putExtra(Const.PLAYER_2_SCORE, scoreP2);
 		p.startActivity(i);
+		p.finish();
 	}
 	
 	public void transitionToPlaying() {

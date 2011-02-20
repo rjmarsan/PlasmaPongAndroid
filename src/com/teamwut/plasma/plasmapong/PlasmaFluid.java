@@ -52,21 +52,31 @@ public class PlasmaFluid {
 	public void draw(PApplet p) {
 		draw(p, true);
 	}
+	
+	int r,g,b;
 	public void draw(PApplet p, boolean stepforward) {
-	    p.colorMode(PApplet.RGB, 1);  
+//	    p.colorMode(PApplet.RGB, 1);  
 
 	    if (stepforward) fluidSolver.update();
 	    
 	    imgFluid.loadPixels();
 	    int cellcount = fluidSolver.getNumCells();
 	    for(int i=0; i<cellcount; i++) { //optimize here.
-	        imgFluid.pixels[i] = p.color(fluidSolver.r[i], fluidSolver.g[i], fluidSolver.b[i]);
+//	        imgFluid.pixels[i] = p.color(fluidSolver.r[i], fluidSolver.g[i], fluidSolver.b[i]);
+            r=(int)(fluidSolver.r[i]*255);
+            g=(int)(fluidSolver.g[i]*255);
+            b=(int)(fluidSolver.b[i]*255);
+            if (r > 255) r = 255; else if (r < 0) r = 0;
+            if (g > 255) g = 255; else if (g < 0) g = 0;
+            if (b > 255) b = 255; else if (b < 0) b = 0;
+
+            imgFluid.pixels[i] = 0xff000000 | (r << 16) | (g << 8) | b;
 	    }  
 	    imgFluid.updatePixels();//  fastblur(imgFluid, 2);
 	    
 	    p.image(imgFluid, 0, 0, p.width, p.height);
 	
-	    p.colorMode(PApplet.RGB, 255);  
+//	    p.colorMode(PApplet.RGB, 255);  
 	
 	}
 	
