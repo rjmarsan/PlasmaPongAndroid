@@ -8,11 +8,11 @@ import android.os.Bundle;
 import com.teamwut.plasma.plasmapong.PlasmaFluid;
 import com.teamwut.plasma.plasmapong.PlasmaPong;
 import com.teamwut.plasma.plasmapong.PlasmaPongFinishedActivity;
+import com.teamwut.plasma.plasmapong.pong.bots.WatsonAI;
 import com.teamwut.plasma.plasmapong.pong.objects.Ball;
 import com.teamwut.plasma.plasmapong.pong.objects.Goals;
 import com.teamwut.plasma.plasmapong.pong.objects.HUD;
 import com.teamwut.plasma.plasmapong.pong.objects.StatusOverlay;
-import com.teamwut.plasma.plasmapong.pong.objects.WatsonAI;
 
 public class Game {
 	final PlasmaPong p;
