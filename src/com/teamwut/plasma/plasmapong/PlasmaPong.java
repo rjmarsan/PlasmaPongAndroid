@@ -132,7 +132,6 @@ public class PlasmaPong extends PApplet implements MTCallback {
 		
 		if (y/height > 0.5f) 
 			vy = -vy;
-
 		
 		if (y / height > 0.5f) {
 			fluid.addForce(this, x/width, y/height, vx/width, vy/height, Const.PLAYER_1_OFFSET);
