@@ -61,34 +61,40 @@ public class PlasmaFluid {
 	
 	// add force and dye to fluid, and create particles
 	public void addForce(PApplet p, float x, float y, float dx, float dy) {
-	        float colorMult = 5;
-	        colorMult=colorMult*y;
+	        float colorMult = 9;
 	        float velocityMult = 30.0f;
 	
-	        if (dx > 1) dx = 1;
-	        if (dy > 5) dy = 1;
+//	        if (dx > 1) dx = 1;
+//	        if (dy > 5) dy = 1;
 	
 	        int drawColor;
 	
 	        p.colorMode(PApplet.HSB, 360, 1, 1);
-	        float hue = ((x + y) * 180 + p.frameCount) % 360;
+	        float hue = (p.frameCount/10) % 360;
 	        if (x < 0.5f)
-	        	hue = 0;
-	        else
-	        	hue = 180;
+	        	hue += 135;
 	        drawColor = p.color(hue, 1, 1);
 	        p.colorMode(PApplet.RGB, 1);  
-	        for (int i=0; i<3; i++) {
-	        	for (int j=0; j<1; j++) {
-		        	int index = fluidSolver.getIndexForNormalizedPosition(x+.01f*i, y+.01f*j);
-			        fluidSolver.rOld[index]  += p.red(drawColor) * colorMult;
-			        fluidSolver.gOld[index]  += p.green(drawColor) * colorMult;
-			        fluidSolver.bOld[index]  += p.blue(drawColor) * colorMult;
-			
-			        fluidSolver.uOld[index] += dx * velocityMult;
-			        fluidSolver.vOld[index] += dy * velocityMult;
-	        	}
-	        }
+//	        for (int i=0; i<3; i++) {
+//	        	for (int j=0; j<1; j++) {
+//		        	int index = fluidSolver.getIndexForNormalizedPosition(x+.01f*i, y+.01f*j);
+//			        fluidSolver.rOld[index]  += p.red(drawColor) * colorMult;
+//			        fluidSolver.gOld[index]  += p.green(drawColor) * colorMult;
+//			        fluidSolver.bOld[index]  += p.blue(drawColor) * colorMult;
+//			
+//			        fluidSolver.uOld[index] += dx * velocityMult;
+//			        fluidSolver.vOld[index] += dy * velocityMult;
+//	        	}
+//	        }
+	        
+        	int index = fluidSolver.getIndexForNormalizedPosition(x, y);
+	        fluidSolver.rOld[index]  += p.red(drawColor) * colorMult;
+	        fluidSolver.gOld[index]  += p.green(drawColor) * colorMult;
+	        fluidSolver.bOld[index]  += p.blue(drawColor) * colorMult;
+	
+	        fluidSolver.uOld[index] += dx * velocityMult;
+	        fluidSolver.vOld[index] += dy * velocityMult;
+
 	        //experimental code. interpolate between points.
 	        //convert back to normal
 	//        x = x * width;

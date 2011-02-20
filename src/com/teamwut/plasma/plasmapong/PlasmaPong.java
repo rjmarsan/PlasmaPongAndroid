@@ -68,26 +68,19 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	
 	public void touchEvent(MotionEvent me, int i, float x, float y, float vx,
 			float vy, float size) {
-		
-		float velocityScale = 30f;
-		float maxVel = 0.2f;
-	//	float velocityScale = 30f;
-	//	float maxVel = 0.2f;
-		
+				
 		println(""+vx+","+vy);
 	
-		vx = vx * velocityScale;
-		vy = vy * velocityScale;
+		if (x/width > 0.5f) 
+			vx = -6;
+		else 
+			vx = 6;
+		vy = 0;
 		
 	    fluid.addForce(this, x/width, y/height, vx/width, vy/height);
-		this.x=x;
-		this.y=y;
-		this.x2=x+vx*100;
-		this.y2=y+vy*100;
 	}
 	
 	
-	float x,y,x2,y2;
 	
 	public void draw() {
 	    background(0);
