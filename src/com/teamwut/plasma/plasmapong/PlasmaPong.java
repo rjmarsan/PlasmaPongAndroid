@@ -121,13 +121,13 @@ public class PlasmaPong extends PApplet implements MTCallback {
 		vx = 0;
 		
 		float distancesqrt = (x-targetx)*(x-targetx) + (y-targety)*(y-targety);
-		if (distancesqrt < 60010) {
+		if (distancesqrt < 30010) {
 			println("Redirecting!");
 			float diffx = (targetx-x)/width;
 			float diffy = Math.abs((targety-y)/height);
-//			float diff = diffx/diffy;
-			vx = diffx*30/diffy;
-			vy = diffy*30/Math.abs(diffx);
+			float diffangle = (float)Math.atan2(diffy, diffx);
+			vx = (float) Math.cos(diffangle)*30;
+			vy = (float) Math.sin(diffangle)*30;
 		}
 		
 		if (y/height > 0.5f) 
