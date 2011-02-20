@@ -17,8 +17,8 @@ public class Ball {
 	  final float width;
 	  final float height;
 	  
-	  float vx=0;
-	  float vy=0;
+	  public float vx=0;
+	  public float vy=0;
 	  
 	  float maxvel = 0.0f;
 	  

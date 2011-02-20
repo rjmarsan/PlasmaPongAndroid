@@ -2,8 +2,6 @@ package com.teamwut.plasma.plasmapong.pong.bots;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
-import android.content.Intent;
-
 import com.teamwut.plasma.plasmapong.PlasmaFluid;
 import com.teamwut.plasma.plasmapong.pong.Const;
 import com.teamwut.plasma.plasmapong.pong.Game;
@@ -23,8 +21,7 @@ public class WatsonAI {
 	float target_x=-1, target_y=-1, x=-1, y=-1;
 	
 	static final float MAX_FORCE = 25;
-	static final float MAX_VELOCITY_Y = 2.0f;
-	static final float MAX_VELOCITY_X = 5.0f; // pixels per frame
+	static final float MAX_VELOCITY = 10.0f; // pixels per frame
 	static final float DESIRED_DIST_BEHIND = 160;
 	
 	public WatsonAI(Game parent, PlasmaFluid fluid, Ball ball) {
@@ -45,34 +42,31 @@ public class WatsonAI {
 		if (x == -1) x = p.width/2;
 		if (y == -1) y = p.height/3;
 		
-		target_x = ball.x;
-		target_y = ball.y - DESIRED_DIST_BEHIND; //want to get behind the ball
+		target_x = ball.x + ball.vx*2;
+		target_y = ball.y + ball.vy*2 - DESIRED_DIST_BEHIND; //want to get behind the ball
 		
 		float diff_x = target_x - x;
 		float diff_y = target_y - y;
-		if (diff_x < MAX_VELOCITY_X) {
+		float d_sqrd = diff_x*diff_x + diff_y*diff_y;
+		double angle = Math.atan2(Math.abs(diff_y), Math.abs(diff_x));
+		if (d_sqrd < MAX_VELOCITY*MAX_VELOCITY) {
 			x = target_x;
-		}
-		else {
-			if (x < target_x) x += MAX_VELOCITY_X;
-			else if (x > target_x) x -= MAX_VELOCITY_X;
-		}
-		if (diff_y < MAX_VELOCITY_Y) {
 			y = target_y;
 		}
 		else {
-			if (y > target_y) y -= MAX_VELOCITY_Y;
-			else if (y < target_y) y += MAX_VELOCITY_Y;
+			if (x < target_x) x += MAX_VELOCITY * Math.cos(angle);
+			else if (x > target_x) x -= MAX_VELOCITY * Math.cos(angle);
+			
+			if (y < target_y) y += MAX_VELOCITY * Math.sin(angle);
+			else if (y > target_y) y -= MAX_VELOCITY * Math.sin(angle);
 		}
 		
-		if (y <= 0) y = 75;
-		if (y > p.height-1) y = p.height-75; 
-		
-		System.out.println("bot y: " + y + ", bot x: " + x);
+		if (y <= 75) y = 75;
+		if (y > p.height-75) y = p.height-75; 
 		
 		p.colorMode(PConstants.RGB);
 		p.fill(255,0, 0);
-		p.ellipse(x, y, 5, 5);
+		p.ellipse(x, y, 10, 10);
 		
 		if (y < p.height / 3) {
 			fluid.addForce(p, (x-5)/p.width, y/p.height, 0, MAX_FORCE/p.height, Const.PLAYER_2_OFFSET);
