@@ -1,5 +1,6 @@
 package com.teamwut.plasma.plasmapong.pong;
 
+import processing.core.PApplet;
 import processing.core.PFont;
 
 import com.teamwut.plasma.plasmapong.PlasmaFluid;
@@ -104,6 +105,7 @@ public class Game {
 	}
 	
 	public void testGameStateChange() {
+//		PApplet.println("modeFrameCountdown:"+this.modeFrameCountdown + " for mode: "+this.mode);
 		if (this.modeFrameCountdown >= 0)
 			this.modeFrameCountdown -= 1;
 		if (this.modeFrameCountdown == 0) {
@@ -121,6 +123,7 @@ public class Game {
 	}
 	
 	public void setGameState(int mode) {
+		PApplet.println("Changing mode to:"+mode);
 		this.mode = mode;
 		this.modeFrameCountdown = -1;
 		switch (mode) {
@@ -159,15 +162,19 @@ public class Game {
 	}
 	
 	public void transitionFromJustScored() {
-		setGameState(JUST_SCORED_WAIT);
+		transitionToJustScoredWait();
 	}
 	public void transitionFromJustScoredWait() {
-		setGameState(PLAYING);
+		transitionToPlaying();
 	}
 	public void transitionFromGameOver() {
 		//finish!
 	}
 	
+	public void transitionToPlaying() {
+		resetPuck();
+		setGameState(PLAYING);
+	}
 	public void transitionToJustScored() {
 		updateScores();
 		setGameState(JUST_SCORED);
@@ -214,12 +221,12 @@ public class Game {
 		ball.draw(fluid.fluidSolver);
 		goals.draw(p);
 		hud.draw(p);
-		statoverlay.draw(p);
+		statoverlay.draw(p, this);
 		
 		
 		p.popStyle();
 		
-		updateGameLogic();
+		updateGameState();
 	}
 
 
