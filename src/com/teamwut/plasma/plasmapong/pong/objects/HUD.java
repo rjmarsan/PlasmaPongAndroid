@@ -19,29 +19,24 @@ public class HUD extends PObject {
 	}
 	
 	public void draw(PApplet p) {
+		System.out.println("p1score: " + p1score + ", p2score: " + p2score);
 		// Player 1
 		p.pushMatrix();
 		p.pushStyle();
-		p.translate(p.width/2-50, 50);
+		p.translate(50, p.height/2-50);
 		p.rotate(PApplet.PI);
 	    p.colorMode(p.RGB, 255);
 	    p.fill(255, 0, 0);
 	    p.textFont(font, 25);
 	    p.fill(255);
-	    p.text(p1score, 0, 0);
-	    p.popStyle();
-	    p.popMatrix();
-	    
-	    
-		p.pushMatrix();
-		p.pushStyle();
-		p.translate(p.width/2+50, 50);
-	    p.colorMode(p.RGB, 255);
-	    p.rotate(PApplet.PI);
+	    p.text(p2score, 0, 0);
+
+		p.translate(0, -100);
+		p.rotate(PApplet.PI);
 	    p.fill(255, 0, 0);
 	    p.textFont(font, 25);
 	    p.fill(255);
-	    p.text(p2score, 0, 0);
+	    p.text(p1score, 0, 0);
 	    p.popStyle();
 	    p.popMatrix();
 	}

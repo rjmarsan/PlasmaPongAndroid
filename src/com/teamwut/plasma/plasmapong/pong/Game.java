@@ -73,6 +73,7 @@ public class Game {
 		ball = new Ball(p);
 		goals = new Goals(p);
 		hud = new HUD(p);
+		updateScores();
 		statoverlay = new StatusOverlay(p);
 		initGameLogic();
 	}
@@ -157,15 +158,15 @@ public class Game {
 		int scored = goals.puckGoalStatus(ball);
 		if (scored == Const.PLAYER_1) {
 			this.whoJustScored = Const.PLAYER_1;
-			this.scoreP1 -= 1;
-			if (this.scoreP1 > 0)
+			this.scoreP2 -= 1;
+			if (this.scoreP2 > 0)
 				transitionToJustScored();
-			else 
+			else
 				transitionToGameOver();
 		} else if (scored == Const.PLAYER_2) {
 			this.whoJustScored = Const.PLAYER_2;
-			this.scoreP2 -= 1;
-			if (this.scoreP2 > 0)
+			this.scoreP1 -= 1;
+			if (this.scoreP1 > 0)
 				transitionToJustScored();
 			else 
 				transitionToGameOver();
