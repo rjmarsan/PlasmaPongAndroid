@@ -19,7 +19,7 @@ public class WatsonAI {
 	PlasmaFluid fluid;
 	Ball ball;
 	
-	float target_x=0, target_y=0, x=-1, y=-1;
+	float target_x=-1, target_y=-1, x=-1, y=-1;
 	
 	static final float MAX_FORCE = 25;
 	static final float MAX_VELOCITY_Y = 2.0f;
@@ -30,6 +30,13 @@ public class WatsonAI {
 		this.parent = parent;
 		this.fluid = fluid;
 		this.ball = ball;
+	}
+	
+	public void youJustLost() {
+		x = -1;
+		y = -1;
+		target_x = -1;
+		target_y = -1;
 	}
 	
 	public void thinkAndMove(PApplet p) {
@@ -57,8 +64,10 @@ public class WatsonAI {
 			else if (y < target_y) y += MAX_VELOCITY_Y;
 		}
 		
-		if (y <= 0) y = 1;
-		if (y > p.height-1) y = p.height-1; 
+		if (y <= 0) y = 75;
+		if (y > p.height-1) y = p.height-75; 
+		
+		System.out.println("bot y: " + y + ", bot x: " + x);
 		
 		p.colorMode(PConstants.RGB);
 		p.fill(255,0, 0);

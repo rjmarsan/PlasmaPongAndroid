@@ -229,6 +229,7 @@ public class Game {
 	public void resetPuck() {
 		ball.resetBall();
 		resetFluid();
+		watson.youJustLost();
 	}
 
 	public void resetFluid() {
