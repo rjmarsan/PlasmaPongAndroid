@@ -23,7 +23,7 @@ public class HUD extends PObject {
 	}
 	
 	public void draw(PApplet p) {
-		System.out.println("p1score: " + p1score + ", p2score: " + p2score);
+//		System.out.println("p1score: " + p1score + ", p2score: " + p2score);
 		// Player 1
 		p.pushMatrix();
 		p.pushStyle();

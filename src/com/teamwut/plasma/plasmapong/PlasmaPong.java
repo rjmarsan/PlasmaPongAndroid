@@ -111,13 +111,29 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	}
 	
 	public void addForce(float x, float y) {
+		addForce(x,y,x,y);
+	}
+	public void addForce(float x, float y, float targetx, float targety) {
 		float vx, vy;	
 		
 		vy = 30;
+
+		vx = 0;
+		
+		float distancesqrt = (x-targetx)*(x-targetx) + (y-targety)*(y-targety);
+		if (distancesqrt < 60010) {
+			println("Redirecting!");
+			float diffx = (targetx-x)/width;
+			float diffy = Math.abs((targety-y)/height);
+//			float diff = diffx/diffy;
+			vx = diffx*30/diffy;
+			vy = diffy*30/Math.abs(diffx);
+		}
+		
 		if (y/height > 0.5f) 
 			vy = -vy;
 
-		vx = 0;
+		
 		if (y / height > 0.5f) {
 			fluid.addForce(this, x/width, y/height, vx/width, vy/height, Const.PLAYER_1_OFFSET);
 			fluid.addForce(this, (x+5)/width, y/height, -vy/width/4, vy/height/2, Const.PLAYER_1_OFFSET);
@@ -134,7 +150,7 @@ public class PlasmaPong extends PApplet implements MTCallback {
 		ArrayList<Cursor> cursors = (ArrayList<Cursor>) mtManager.cursors.clone();
 		for (Cursor c : cursors ) {
 			if (c != null && c.currentPoint != null)
-				addForce(c.currentPoint.x, c.currentPoint.y);
+				addForce(c.currentPoint.x, c.currentPoint.y, g.getBall().x, g.getBall().y);
 		}
 	}
 	
