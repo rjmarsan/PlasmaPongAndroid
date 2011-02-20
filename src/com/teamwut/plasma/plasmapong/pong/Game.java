@@ -68,12 +68,12 @@ public class Game {
 	}
 	
 	public void glInit() {
-		p.textMode(p.MODEL);
-		font = p.loadFont("GillSans-Bold-48.vlw");
+		p.textMode(PApplet.MODEL);
+		//font = p.loadFont("GillSans-Bold-48.vlw");
 
 		p.textFont(font, 48);
-		p.textAlign(p.CENTER);
-		p.rectMode(p.CENTER);
+		p.textAlign(PApplet.CENTER);
+		p.rectMode(PApplet.CENTER);
 
 	}
 
