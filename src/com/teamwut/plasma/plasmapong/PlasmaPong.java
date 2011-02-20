@@ -103,19 +103,20 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	public void addForce(float x, float y) {
 		float vx, vy;	
 		
-		vx = 30;
-		if (x/width > 0.5f) 
-			vx = -vx;
+		vy = 30;
+		if (y/height > 0.5f) 
+			vy = -vy;
 
-		vy = 0;
-		fluid.addForce(this, x/width, y/height, vx/width, vy/height);
-		if (x / width > 0.5f) {
-			fluid.addForce(this, x/width, (y+5)/height, vx/width/4, -vx/height/2);
-			fluid.addForce(this, x/width, (y-5)/height, vx/width/4, vx/height/2);
+		vx = 0;
+		if (y / height > 0.5f) {
+			fluid.addForce(this, x/width, y/height, vx/width, vy/height, 0);
+			fluid.addForce(this, (x+5)/width, y/height, -vy/width/4, vy/height/2, 0);
+			fluid.addForce(this, (x-5)/width, y/height, vy/width/4, vy/height/2, 0);
 		}
 		else {
-			fluid.addForce(this, x/width, (y+5)/height, vx/width/4, vx/height/2);
-			fluid.addForce(this, x/width, (y-5)/height, vx/width/4, -vx/height/2);
+			fluid.addForce(this, x/width, y/height, vx/width, vy/height, 135);
+			fluid.addForce(this, (x+5)/width, y/height, vy/width/4, vy/height/2, 135);
+			fluid.addForce(this, (x-5)/width, y/height, -vy/width/4, vy/height/2, 135);
 		}
 	}
 	

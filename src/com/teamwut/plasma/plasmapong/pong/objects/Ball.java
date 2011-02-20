@@ -2,6 +2,9 @@ package com.teamwut.plasma.plasmapong.pong.objects;
 
 import msafluid.MSAFluidSolver2D;
 import processing.core.PApplet;
+import processing.core.PImage;
+
+import com.teamwut.plasma.plasmapong.PlasmaFluid;
 
 public class Ball {
 	  final static float FLUID_SCALE = 10;
@@ -20,12 +23,14 @@ public class Ball {
 	  float maxvel = 0.0f;
 	  
 	  float yPadding = 20;
+	  float padding = 30;
 	  float upperBoundsY = yPadding;
 	  float lowerBoundsY;
 	  
+	  
 	  float scalingFactor = 500;
 	  
-	  
+	  PImage ballimage;
 	  public Ball(PApplet p) {
 		  this.p = p;
 		  this.x = p.width/2;
@@ -33,16 +38,18 @@ public class Ball {
 		  this.width = p.width;
 		  this.height = p.height;
 		  this.lowerBoundsY = height - yPadding;
+		  ballimage = p.loadImage("ball.png");
 	  }
 	  
 	  
 	  float noiseScale, noiseVal, fluidvx,fluidvy;
 	  int index;
-	  public void draw(MSAFluidSolver2D fluidSolver, boolean stepforward) {
+	  public void draw(PlasmaFluid fluid, boolean stepforward) {
+		  MSAFluidSolver2D fluidSolver = fluid.fluidSolver;
 	    p.pushStyle();
-	    noiseScale = 0.01f;
-	    noiseVal = p.noise(x*noiseScale, y*noiseScale)*255;
-	    p.fill(noiseVal,noiseVal,noiseVal,150);
+//	    noiseScale = 0.01f;
+//	    noiseVal = p.noise(x*noiseScale, y*noiseScale)*255;
+//	    p.fill(noiseVal,noiseVal,noiseVal,150);
 	    p.stroke(0);
 	    p.strokeWeight(3);
 	    index = fluidSolver.getIndexForNormalizedPosition(x/width,y/height);
@@ -58,23 +65,27 @@ public class Ball {
 	    vx = (fluidvx)/FLUID_SCALE+(FLUID_SCALE-1)*vx/FLUID_SCALE;
 	    if (vx > 200) vx = 200;
 	    if (vy > 200) vy = 200;
-	    p.ellipse(x,y,30,30);
+//	    p.ellipse(x,y,30,30);
+	    p.imageMode(PApplet.CENTER);
+	    p.image(ballimage, x, y);
 	    p.popStyle();
 	    
 	    if (stepforward) {
 		    x = x+vx;
 		    y = y+vy;
 	    }
-	    checkBounds();
+	    checkBounds(fluid);
 	  }
-	  public void checkBounds() {
-	    if (x < 0) {
-	      x=0;
+	  public void checkBounds(PlasmaFluid fluid) {
+	    if (x < padding) {
+	      x=padding;
 	      vx = -vx;
+	      fluid.addForce(p, x/width, y/height, vx/width*2, 0, 270, 30);
 	    }
-	    else if (x > width) {
-	      x=width;
+	    else if (x > width-padding) {
+	      x=width-padding;
 	      vx = -vx;
+	      fluid.addForce(p, x/width, y/height, vx/width*2, 0, 270, 30);
 	    }
 	    if (y < upperBoundsY) {
 	      y=upperBoundsY;

@@ -3,6 +3,7 @@ package com.teamwut.plasma.plasmapong.pong;
 import processing.core.PApplet;
 import processing.core.PFont;
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.teamwut.plasma.plasmapong.PlasmaFluid;
 import com.teamwut.plasma.plasmapong.PlasmaPong;
@@ -186,6 +187,12 @@ public class Game {
 	}
 	public void transitionFromGameOver() {
 		Intent i = new Intent(p, PlasmaPongFinishedActivity.class);
+		int winner = 0;
+		if (this.scoreP1 == 0) winner = Const.PLAYER_2;
+		if (this.scoreP2 == 0) winner = Const.PLAYER_1;
+		i.putExtra(Const.WINNER, winner);
+		i.putExtra(Const.PLAYER_1_SCORE, scoreP1);
+		i.putExtra(Const.PLAYER_2_SCORE, scoreP2);
 		p.startActivity(i);
 	}
 	
@@ -236,8 +243,9 @@ public class Game {
 		p.pushStyle();
 		p.colorMode(p.RGB, 255, 255, 255, 255);
 
-		ball.draw(fluid.fluidSolver, stepforward);
 		goals.draw(p);
+		ball.draw(fluid, stepforward);
+
 		hud.draw(p);
 		statoverlay.draw(p, this);
 		

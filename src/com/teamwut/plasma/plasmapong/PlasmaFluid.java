@@ -71,11 +71,16 @@ public class PlasmaFluid {
 	}
 	
 	public void addForce(PApplet p, float x, float y, float dx, float dy) {
-		this.addForce(p, x, y, dx, dy, 4);
+		this.addForce(p, x, y, dx, dy, 0);
+	}
+	
+	public void addForce(PApplet p, float x, float y, float dx, float dy, float colorOffset) {
+		this.addForce(p, x, y, dx, dy, colorOffset, 4);
 	}
 
+
 	// add force and dye to fluid, and create particles
-	public void addForce(PApplet p, float x, float y, float dx, float dy, float colorMult) {
+	public void addForce(PApplet p, float x, float y, float dx, float dy, float colorOffset, float colorMult) {
 	        float velocityMult = 30.0f;
 	
 //	        if (dx > 1) dx = 1;
@@ -84,12 +89,12 @@ public class PlasmaFluid {
 	        int drawColor;
 	
 	        p.colorMode(PApplet.HSB, 360, 1, 1);
-	        float hue = (p.frameCount/10) % 360;
+	        float hue = (p.frameCount/10 + colorOffset) % 360;
 	        if (!random) {
-		        if (x < 0.5f)
-		        	hue = (hue + 135) % 360;
+//		        if (y < 0.5f)
+//		        	hue = (hue + 135) % 360;
 	        } else {
-	        	hue = (((x+10) * (y+10))*10 + p.frameCount/10) % 360;
+	        	hue = (((x+10) * (y+10))*10 + p.frameCount/10 + colorOffset) % 360;
 	        }
 	        drawColor = p.color(hue, 1, 1);
 	        p.colorMode(PApplet.RGB, 1);  

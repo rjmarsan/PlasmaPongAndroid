@@ -5,7 +5,7 @@
     
     
     <activity android:name=".PlasmaPong"
-    		  android:screenOrientation="landscape">
+    		  android:screenOrientation="portrait">
     </activity>
     
    <activity android:name=".PlasmaPongStartActivity"
