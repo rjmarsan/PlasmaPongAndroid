@@ -3,6 +3,7 @@ package com.teamwut.plasma.plasmapong;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -37,6 +38,7 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	
 	public void onCreate(Bundle savedinstance) {
 		super.onCreate(savedinstance);
+		
     	pauseoverlay = this.getLayoutInflater().inflate(com.teamwut.plasma.plasmapong.R.layout.pause_screen_on, null);
     	this.addContentView(pauseoverlay, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
     	Button unpause = (Button) this.findViewById(com.teamwut.plasma.plasmapong.R.id.unpause);
@@ -75,7 +77,14 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	    mtManager = new MTManager();
 	    
 	    //GAME CODE
-	    g = new Game(this, fluid);
+	    Intent lastIntent = this.getIntent();
+		String playerKey = lastIntent.getStringExtra(PLAYER_KEY);
+		int players = 0;
+		if (playerKey.equals(ONE_PLAYER_PLAY))
+			players = 1;
+		else if (playerKey.equals(TWO_PLAYER_PLAY))
+			players = 2;
+			g = new Game(this, fluid, players);
 	    initPong(); 
 	    
 	    debug();

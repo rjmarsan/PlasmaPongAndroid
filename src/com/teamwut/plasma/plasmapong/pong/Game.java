@@ -12,6 +12,7 @@ import com.teamwut.plasma.plasmapong.pong.objects.Ball;
 import com.teamwut.plasma.plasmapong.pong.objects.Goals;
 import com.teamwut.plasma.plasmapong.pong.objects.HUD;
 import com.teamwut.plasma.plasmapong.pong.objects.StatusOverlay;
+import com.teamwut.plasma.plasmapong.pong.objects.WatsonAI;
 
 public class Game {
 	final PlasmaPong p;
@@ -19,7 +20,8 @@ public class Game {
 	
 	final float width;
 	final float height;
-
+	final int players;
+	
 	public boolean paused;
 	
 	public final static int NOTHING = 0;
@@ -32,14 +34,13 @@ public class Game {
 	public int mode = NOTHING;
 	public int modeFrameCountdown = -1;
 	
-
-	
 	
 	
 	Ball ball;
 	Goals goals;
 	HUD hud;
 	StatusOverlay statoverlay;
+	WatsonAI watson;
 	
 	PFont font;
 	
@@ -47,18 +48,17 @@ public class Game {
 	int maxScore = 7;
 	int scoreP1 = maxScore;
 	int scoreP2 = maxScore;
-
-
 	
 	int whoJustScored = Const.NO_PLAYER;
 	
 	
 
-	public Game(PlasmaPong p, PlasmaFluid fluid) {
+	public Game(PlasmaPong p, PlasmaFluid fluid, int players) {
 		this.fluid = fluid;
 		this.p = p;
 		this.width = p.width;
 		this.height = p.height;
+		this.players = players;
 	}
 	
 	public void pause() {
@@ -73,6 +73,7 @@ public class Game {
 		ball = new Ball(p);
 		goals = new Goals(p);
 		hud = new HUD(p);
+		watson = new WatsonAI(this, fluid, ball);
 		updateScores();
 		statoverlay = new StatusOverlay(p);
 		initGameLogic();
@@ -85,7 +86,6 @@ public class Game {
 //		p.textFont(font, 48);
 		p.textAlign(PApplet.CENTER);
 		p.rectMode(PApplet.CENTER);
-
 	}
 
 	public void initGameLogic() {
@@ -174,7 +174,6 @@ public class Game {
 		makeGameHarder();
 	}
 	
-	
 	public void transitionFromPregameWait() {
 		resetPuck();
 		setGameState(PLAYING);
@@ -250,12 +249,23 @@ public class Game {
 		hud.draw(p);
 		statoverlay.draw(p, this);
 		
+		watson.thinkAndMove(p);
 		
 		p.popStyle();
 		
 		if (!paused && stepforward) updateGameState();
 	}
 
+	public Ball getBall() {
+		return ball;
+	}
 
+	public Goals getGoals() {
+		return goals;
+	}
+
+	public int getWhoJustScored() {
+		return whoJustScored;
+	}
 
 }

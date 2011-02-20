@@ -15,7 +15,7 @@ public class HUD extends PObject {
 
 	public HUD(PApplet p) {
 		super(p);
-		font = p.loadFont("Courier10PitchBT-Bold-25.vlw");
+		font = p.loadFont("AmericanTypewriter-48.vlw");
 	}
 	
 	public void draw(PApplet p) {
@@ -27,14 +27,14 @@ public class HUD extends PObject {
 		p.rotate(PApplet.PI);
 	    p.colorMode(p.RGB, 255);
 	    p.fill(255, 0, 0);
-	    p.textFont(font, 25);
+	    p.textFont(font, 48);
 	    p.fill(255);
 	    p.text(p2score, 0, 0);
 
 		p.translate(0, -100);
 		p.rotate(PApplet.PI);
 	    p.fill(255, 0, 0);
-	    p.textFont(font, 25);
+	    p.textFont(font, 48);
 	    p.fill(255);
 	    p.text(p1score, 0, 0);
 	    p.popStyle();
