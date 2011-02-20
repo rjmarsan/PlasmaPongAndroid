@@ -38,7 +38,7 @@ public class Ball {
 		  this.width = p.width;
 		  this.height = p.height;
 		  this.lowerBoundsY = height - yPadding;
-		  ballimage = p.loadImage("ball.png");
+		  ballimage = p.loadImage("puck.png");
 	  }
 	  
 	  

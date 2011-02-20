@@ -25,8 +25,11 @@ public class Goals {
 		goalColor = p.color(150, 150, 150, 150);
 		
 		top = p.loadImage("TopGoalLine_5pxSq.png");
+		top.resize(p.width, top.height);
 		bottom = p.loadImage("BottomGoalLine_5pxSq.png");
+		bottom.resize(p.width, bottom.height);
 		middle = p.loadImage("MiddleLine_Small.png");
+		middle.resize(p.width, middle.height);
 	}
 
 	public void draw(PApplet p) {

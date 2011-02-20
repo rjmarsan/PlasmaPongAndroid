@@ -22,7 +22,7 @@ public class StatusOverlay extends PObject {
 		if (g.mode == Game.PREGAME_WAIT || g.mode == Game.JUST_SCORED || g.mode == Game.JUST_SCORED_WAIT) {
 			int count = g.modeFrameCountdown;
 			float stepsize = width/6;
-			float size = 50;
+			float size = width/6.5f;
 			if (count > (Const.PREGAME_WAIT_COUNT * 2 / 3)) {
 				p.ellipse(stepsize, height/2, size, size);
 				p.ellipse(stepsize*5, height/2, size, size);
