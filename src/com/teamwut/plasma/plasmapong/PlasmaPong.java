@@ -16,6 +16,7 @@ import android.widget.Button;
 import com.teamwut.plasma.plasmapong.mt.Cursor;
 import com.teamwut.plasma.plasmapong.mt.MTCallback;
 import com.teamwut.plasma.plasmapong.mt.MTManager;
+import com.teamwut.plasma.plasmapong.pong.Const;
 import com.teamwut.plasma.plasmapong.pong.Game;
 
 public class PlasmaPong extends PApplet implements MTCallback {
@@ -118,14 +119,14 @@ public class PlasmaPong extends PApplet implements MTCallback {
 
 		vx = 0;
 		if (y / height > 0.5f) {
-			fluid.addForce(this, x/width, y/height, vx/width, vy/height, 0);
-			fluid.addForce(this, (x+5)/width, y/height, -vy/width/4, vy/height/2, 0);
-			fluid.addForce(this, (x-5)/width, y/height, vy/width/4, vy/height/2, 0);
+			fluid.addForce(this, x/width, y/height, vx/width, vy/height, Const.PLAYER_1_OFFSET);
+			fluid.addForce(this, (x+5)/width, y/height, -vy/width/4, vy/height/2, Const.PLAYER_1_OFFSET);
+			fluid.addForce(this, (x-5)/width, y/height, vy/width/4, vy/height/2, Const.PLAYER_1_OFFSET);
 		}
 		else {
-			fluid.addForce(this, x/width, y/height, vx/width, vy/height, 135);
-			fluid.addForce(this, (x+5)/width, y/height, vy/width/4, vy/height/2, 135);
-			fluid.addForce(this, (x-5)/width, y/height, -vy/width/4, vy/height/2, 135);
+			fluid.addForce(this, x/width, y/height, vx/width, vy/height, Const.PLAYER_2_OFFSET);
+			fluid.addForce(this, (x+5)/width, y/height, vy/width/4, vy/height/2, Const.PLAYER_2_OFFSET);
+			fluid.addForce(this, (x-5)/width, y/height, -vy/width/4, vy/height/2, Const.PLAYER_2_OFFSET);
 		}
 	}
 	
