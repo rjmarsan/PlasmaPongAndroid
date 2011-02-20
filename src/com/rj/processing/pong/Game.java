@@ -2,12 +2,12 @@ package com.rj.processing.pong;
 
 import processing.core.PFont;
 
-import com.rj.processing.MSAPong;
+import com.rj.processing.PlasmaPong;
 
 import processing.core.PFont;
 
 public class Game {
-	final MSAPong p;
+	final PlasmaPong p;
 	final float width;
 	final float height;
 
@@ -31,7 +31,7 @@ public class Game {
 	int eventFrame = -1;
 	String statusMessage;
 
-	public Game(MSAPong p) {
+	public Game(PlasmaPong p) {
 		this.p = p;
 		this.width = p.width;
 		this.height = p.height;

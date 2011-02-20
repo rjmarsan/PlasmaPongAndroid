@@ -1,4 +1,5 @@
 .DS_Store
+default.properties
 bin
 gen
 res
