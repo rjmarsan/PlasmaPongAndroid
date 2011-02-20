@@ -15,23 +15,24 @@ public class StatusOverlay extends PObject {
 		p.pushStyle();
 		
 		p.stroke(255);
-		p.fill(150);
+		p.strokeWeight(3);
+		p.fill(150,150);
 		p.ellipseMode(PApplet.CENTER);
 		
 		p.rectMode(PApplet.CORNER);
 		if (g.mode == Game.PREGAME_WAIT || g.mode == Game.JUST_SCORED || g.mode == Game.JUST_SCORED_WAIT) {
 			int count = g.modeFrameCountdown;
-			float stepsize = width/6;
-			float size = width/6.5f;
+			float stepsize = width/8;
+			float size = width/9f;
 			if (count > (Const.PREGAME_WAIT_COUNT * 2 / 3)) {
-				p.ellipse(stepsize, height/2, size, size);
-				p.ellipse(stepsize*5, height/2, size, size);
+				p.ellipse(stepsize*2, height/2, size*0.75f, size*0.75f);
+				p.ellipse(stepsize*6, height/2, size*0.75f, size*0.75f);
 			}
 			if (count > (Const.PREGAME_WAIT_COUNT / 3)) {
-				p.ellipse(stepsize*4, height/2, size, size);
-				p.ellipse(stepsize*2, height/2, size, size);
+				p.ellipse(stepsize*5, height/2, size*0.9f, size*0.9f);
+				p.ellipse(stepsize*3, height/2, size*0.9f, size*0.9f);
 			}
-			p.ellipse(stepsize*3, height/2, size, size);
+			p.ellipse(stepsize*4, height/2, size, size);
 		}
 		
 		else if (g.mode == Game.GAME_OVER) {
