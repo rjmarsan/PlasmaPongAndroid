@@ -45,7 +45,7 @@ public class Game {
 	PFont font;
 	
 	
-	int maxScore = 2;
+	int maxScore = 7;
 	int scoreP1 = maxScore;
 	int scoreP2 = maxScore;
 	
