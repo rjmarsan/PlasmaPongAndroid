@@ -3,8 +3,14 @@ package com.teamwut.plasma.plasmapong;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
+import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Menu;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 
 import com.teamwut.plasma.plasmapong.mt.Cursor;
 import com.teamwut.plasma.plasmapong.mt.MTCallback;
@@ -25,6 +31,37 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	MTManager mtManager;
 		
 	Game g;
+	boolean paused = false;
+	
+	View pauseoverlay;
+	
+	public void onCreate(Bundle savedinstance) {
+		super.onCreate(savedinstance);
+    	pauseoverlay = this.getLayoutInflater().inflate(com.teamwut.plasma.plasmapong.R.layout.pause_screen_on, null);
+    	this.addContentView(pauseoverlay, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+    	Button unpause = (Button) this.findViewById(com.teamwut.plasma.plasmapong.R.id.unpause);
+    	unpause.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				pauseoverlay.setVisibility(View.GONE);
+				paused = false;
+			}});
+    	Button quit = (Button) this.findViewById(com.teamwut.plasma.plasmapong.R.id.quit);
+    	quit.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+			}});
+    	
+    	pauseoverlay.setVisibility(View.GONE);
+    	
+	}
+
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		paused = true;
+		pauseoverlay.setVisibility(View.VISIBLE);
+		return false;
+	}
+
 	
 	public void setup() {
 	    // use OPENGL rendering for bilinear filtering on texture
@@ -32,7 +69,7 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	    //hint( ENABLE_OPENGL_4X_SMOOTH );    // Turn on 4X antialiasing
 		hint(DISABLE_DEPTH_TEST);
 		hint(DISABLE_OPENGL_ERROR_REPORT);
-	    frameRate(60);
+	    frameRate(40);
 	
 	    fluid = new PlasmaFluid(this);
 	    mtManager = new MTManager();
@@ -94,13 +131,11 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	public void draw() {
 		updateCursors();
 		
-		
 	    background(0);
-	    fluid.draw(this);
+	    fluid.draw(this, !paused);
 	    drawPong();
 	    
 	    if (this.frameCount % 60 == 0) println(this.frameRate+"");
-	
 	}
 
 	public void initPong() {
@@ -108,7 +143,7 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	}
 
 	public void drawPong() {
-		g.drawPong();
+		g.drawPong(!paused);
 	}
 	@Override
 	public void touchEvent(MotionEvent me, int i, float x, float y, float vx,

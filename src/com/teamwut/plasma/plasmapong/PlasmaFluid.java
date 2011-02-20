@@ -50,9 +50,12 @@ public class PlasmaFluid {
 	
 	
 	public void draw(PApplet p) {
+		draw(p, true);
+	}
+	public void draw(PApplet p, boolean stepforward) {
 	    p.colorMode(PApplet.RGB, 1);  
 
-	    fluidSolver.update();
+	    if (stepforward) fluidSolver.update();
 	    
 	    imgFluid.loadPixels();
 	    int cellcount = fluidSolver.getNumCells();

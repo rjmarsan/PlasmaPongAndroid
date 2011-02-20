@@ -38,7 +38,7 @@ public class Ball {
 	  
 	  float noiseScale, noiseVal, fluidvx,fluidvy;
 	  int index;
-	  public void draw(MSAFluidSolver2D fluidSolver) {
+	  public void draw(MSAFluidSolver2D fluidSolver, boolean stepforward) {
 	    p.pushStyle();
 	    noiseScale = 0.01f;
 	    noiseVal = p.noise(x*noiseScale, y*noiseScale)*255;
@@ -61,8 +61,10 @@ public class Ball {
 	    p.ellipse(x,y,30,30);
 	    p.popStyle();
 	    
-	    x = x+vx;
-	    y = y+vy;
+	    if (stepforward) {
+		    x = x+vx;
+		    y = y+vy;
+	    }
 	    checkBounds();
 	  }
 	  public void checkBounds() {

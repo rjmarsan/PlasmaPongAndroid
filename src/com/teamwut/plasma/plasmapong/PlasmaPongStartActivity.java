@@ -55,11 +55,10 @@ public class PlasmaPongStartActivity extends PApplet implements MTCallback {
 	
 	public void setup() {
 	    // use OPENGL rendering for bilinear filtering on texture
-	    //size(screen.width * 49/50, screen.height * 49/50, OPENGL);
 	    //hint( ENABLE_OPENGL_4X_SMOOTH );    // Turn on 4X antialiasing
 		hint(DISABLE_DEPTH_TEST);
 		hint(DISABLE_OPENGL_ERROR_REPORT);
-	    frameRate(60);
+	    frameRate(40);
 	
 	    fluid = new PlasmaFluid(this);
 	    fluid.setRandomness(true);

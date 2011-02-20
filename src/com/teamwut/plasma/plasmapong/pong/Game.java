@@ -17,7 +17,7 @@ public class Game {
 	final float width;
 	final float height;
 
-	
+	public boolean paused;
 	
 	public final static int NOTHING = 0;
 	public final static int PREGAME_WAIT = 1;
@@ -56,6 +56,13 @@ public class Game {
 		this.p = p;
 		this.width = p.width;
 		this.height = p.height;
+	}
+	
+	public void pause() {
+		paused = true;
+	}
+	public void unpause() {
+		paused = false;
 	}
 
 	public void initPong() {
@@ -222,11 +229,11 @@ public class Game {
 
 	
 	
-	public void drawPong() {
+	public void drawPong(boolean stepforward) {
 		p.pushStyle();
 		p.colorMode(p.RGB, 255, 255, 255, 255);
 
-		ball.draw(fluid.fluidSolver);
+		ball.draw(fluid.fluidSolver, stepforward);
 		goals.draw(p);
 		hud.draw(p);
 		statoverlay.draw(p, this);
@@ -234,7 +241,7 @@ public class Game {
 		
 		p.popStyle();
 		
-		updateGameState();
+		if (!paused && stepforward) updateGameState();
 	}
 
 
