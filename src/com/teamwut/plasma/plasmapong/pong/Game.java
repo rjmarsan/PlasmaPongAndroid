@@ -16,6 +16,22 @@ public class Game {
 	final float width;
 	final float height;
 
+	
+	
+	public final static int NOTHING = 0;
+	public final static int PREGAME_WAIT = 1;
+	public final static int PLAYING = 2;
+	public final static int JUST_SCORED = 3;
+	public final static int JUST_SCORED_WAIT = 4;
+	public final static int GAME_OVER = 5;
+	
+	public int mode = NOTHING;
+	public int modeFrameCountdown = -1;
+	
+
+	
+	
+	
 	Ball ball;
 	Goals goals;
 	HUD hud;
@@ -27,29 +43,12 @@ public class Game {
 	int scoreP1 = 0;
 	int scoreP2 = 0;
 
-	int maxScore = 5;
-	int waitPeriod = 60; // number of frames to keep the status message
-
-	int justScored = 0; // the frame it happened
-	int lastScored = 0; // the player who last scored
-	int gameOver = 0; // the frame it happened
-	int initWait = 0; // the frame it happened
+	int maxScore = 7;
 
 	
-	public final static int NOTHING = 0;
-	public final static int PREGAME_WAIT = 1;
-	public final static int PLAYING = 2;
-	public final static int JUST_SCORED = 3;
-	public final static int JUST_SCORED_WAIT = 4;
-	public final static int GAME_OVER = 5;
-	
-	int mode = NOTHING;
+	int whoJustScored = Const.NO_PLAYER;
 	
 	
-	int modeFrameCountdown = -1;
-	
-	
-	String statusMessage;
 
 	public Game(PlasmaPong p, PlasmaFluid fluid) {
 		this.fluid = fluid;
@@ -80,6 +79,7 @@ public class Game {
 	public void initGameLogic() {
 		scoreP1 = 0;
 		scoreP2 = 0;
+		setGameState(PREGAME_WAIT);
 	}
 	
 	
@@ -91,6 +91,7 @@ public class Game {
 		case PREGAME_WAIT:
 			break;
 		case PLAYING:
+			this.updateGameLogic();
 			break;
 		case JUST_SCORED:
 			break;
@@ -99,21 +100,91 @@ public class Game {
 		case GAME_OVER:
 			break;
 		}
+		this.testGameStateChange();
+	}
+	
+	public void testGameStateChange() {
+		if (this.modeFrameCountdown >= 0)
+			this.modeFrameCountdown -= 1;
+		if (this.modeFrameCountdown == 0) {
+			switch (mode) {
+			case PREGAME_WAIT:
+				this.transitionFromPregameWait(); break;
+			case JUST_SCORED:
+				this.transitionFromJustScored(); break;
+			case JUST_SCORED_WAIT:
+				this.transitionFromJustScoredWait(); break;
+			case GAME_OVER:
+				this.transitionFromGameOver();	break;
+			}
+		}
+	}
+	
+	public void setGameState(int mode) {
+		this.mode = mode;
+		this.modeFrameCountdown = -1;
+		switch (mode) {
+		case PREGAME_WAIT:
+			this.modeFrameCountdown = Const.PREGAME_WAIT_COUNT;
+			break;
+		case JUST_SCORED:
+			this.modeFrameCountdown = Const.JUST_SCORED_COUNT;
+			break;
+		case JUST_SCORED_WAIT:
+			this.modeFrameCountdown = Const.JUST_SCORED_WAIT_COUNT;
+			break;
+		case GAME_OVER:
+			this.modeFrameCountdown = Const.GAME_OVER_COUNT;
+			break;
+		}
 	}
 	
 
 	public void updateGameLogic() {
-		if (justScored == 0) {
-			int scored = goals.puckGoalStatus(ball);
-			if (scored == Const.PLAYER_1) {
-				
-			} else if (scored == Const.PLAYER_2) {
-
-			}
-
+		int scored = goals.puckGoalStatus(ball);
+		if (scored == Const.PLAYER_1) {
+			this.whoJustScored = Const.PLAYER_1;
+			transitionToJustScored();
+		} else if (scored == Const.PLAYER_2) {
+			this.whoJustScored = Const.PLAYER_2;
+			transitionToJustScored();
 		}
 		makeGameHarder();
-		
+	}
+	
+	
+	public void transitionFromPregameWait() {
+		resetPuck();
+		setGameState(PLAYING);
+	}
+	
+	public void transitionFromJustScored() {
+		setGameState(JUST_SCORED_WAIT);
+	}
+	public void transitionFromJustScoredWait() {
+		setGameState(PLAYING);
+	}
+	public void transitionFromGameOver() {
+		//finish!
+	}
+	
+	public void transitionToJustScored() {
+		updateScores();
+		setGameState(JUST_SCORED);
+	}
+	public void transitionToJustScoredWait() {
+		setGameState(JUST_SCORED_WAIT);
+	}
+	public void transitionToGameOver() {
+		updateScores();
+		setGameState(GAME_OVER);
+	}
+
+	
+	
+	public void updateScores() {
+		hud.setP1Score(scoreP1);
+		hud.setP2Score(scoreP2);
 	}
 
 	public void makeGameHarder() {
@@ -124,12 +195,8 @@ public class Game {
 
 
 	public void resetPuck() {
-		if (justScored != 0 && p.frameCount - justScored > waitPeriod) {
-			ball.resetBall();
-			justScored = 0;
-			resetFluid();
-		}
-
+		ball.resetBall();
+		resetFluid();
 	}
 
 	public void resetFluid() {
