@@ -15,6 +15,10 @@ public class Const {
 
 	
 	
+	public final static int PLAYER_1_OFFSET = 0;
+	public final static int PLAYER_2_OFFSET = 135;
+	public final static int OTHER_OFFSET = 270;
+	
 	
 	
 	public final static String WINNER = "winner";

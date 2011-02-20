@@ -180,7 +180,7 @@ public class Game {
 	}
 	
 	public void transitionFromJustScored() {
-		transitionToJustScoredWait();
+		transitionToPlaying();
 	}
 	public void transitionFromJustScoredWait() {
 		transitionToPlaying();
@@ -244,10 +244,10 @@ public class Game {
 		p.colorMode(p.RGB, 255, 255, 255, 255);
 
 		goals.draw(p);
-		ball.draw(fluid, stepforward);
+		ball.draw(fluid, stepforward && mode == PLAYING);
 
 		hud.draw(p);
-		statoverlay.draw(p, this);
+		statoverlay.draw(p, this, fluid);
 		
 		watson.thinkAndMove(p);
 		
