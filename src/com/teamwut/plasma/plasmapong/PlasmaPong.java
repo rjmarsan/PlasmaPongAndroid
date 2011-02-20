@@ -12,7 +12,9 @@ import com.teamwut.plasma.plasmapong.mt.MTManager;
 import com.teamwut.plasma.plasmapong.pong.Game;
 
 public class PlasmaPong extends PApplet implements MTCallback {
-
+	public final static String PLAYER_KEY = PlasmaPong.class+"PLAYER";
+	public final static String ONE_PLAYER_PLAY = "ONE_PLAYER_PLAY";
+	public final static String TWO_PLAYER_PLAY = "TWO_PLAYER_PLAY";
 
 	public int sketchWidth() { return this.screenWidth; }
 	public int sketchHeight() { return this.screenHeight; }
@@ -21,9 +23,7 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	PlasmaFluid fluid;
 	
 	MTManager mtManager;
-	
-	boolean evenframe=true;
-	
+		
 	Game g;
 	
 	public void setup() {
@@ -60,9 +60,7 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	//mt version
 	public boolean surfaceTouchEvent(MotionEvent me) {
 		if (mtManager != null) mtManager.surfaceTouchEvent(me);
-		
 		return super.surfaceTouchEvent(me);
-	
 	}
 	
 	public void addForce(float x, float y) {
@@ -95,10 +93,10 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	
 	public void draw() {
 		updateCursors();
+		
+		
 	    background(0);
-	
 	    fluid.draw(this);
-	
 	    drawPong();
 	    
 	    if (this.frameCount % 60 == 0) println(this.frameRate+"");
@@ -115,8 +113,6 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	@Override
 	public void touchEvent(MotionEvent me, int i, float x, float y, float vx,
 			float vy, float size) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

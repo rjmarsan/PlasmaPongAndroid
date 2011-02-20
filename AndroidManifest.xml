@@ -2,12 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.teamwut.plasma.plasmapong" android:versionCode="1" android:versionName="1.0">
   <uses-sdk android:minSdkVersion="8"/>
   <application android:label="Plasma Pong">
+    
+    
     <activity android:name=".PlasmaPong"
     		  android:screenOrientation="landscape">
+    </activity>
+    
+   <activity android:name=".PlasmaPongStartActivity"
+    		  android:screenOrientation="portrait">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
+    
   </application>
 </manifest>

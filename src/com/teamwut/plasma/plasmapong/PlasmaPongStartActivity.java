@@ -1,0 +1,133 @@
+package com.teamwut.plasma.plasmapong;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+import processing.core.PApplet;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
+
+import com.teamwut.plasma.plasmapong.mt.Cursor;
+import com.teamwut.plasma.plasmapong.mt.MTCallback;
+import com.teamwut.plasma.plasmapong.mt.MTManager;
+import com.teamwut.plasma.plasmapong.pong.objects.Goals;
+
+public class PlasmaPongStartActivity extends PApplet implements MTCallback {
+
+
+	public int sketchWidth() { return this.screenWidth; }
+	public int sketchHeight() { return this.screenHeight; }
+	public String sketchRenderer() { return PApplet.OPENGL; }
+
+	PlasmaFluid fluid;
+	
+	MTManager mtManager;
+	
+	Goals goals;
+	
+	Random r = new Random();
+	
+	public void onCreate(Bundle savedinstance) {
+		super.onCreate(savedinstance);
+    	View v = this.getLayoutInflater().inflate(com.teamwut.plasma.plasmapong.R.layout.main_screen_on, null);
+    	this.addContentView(v, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+    	Button play1p = (Button) this.findViewById(com.teamwut.plasma.plasmapong.R.id.play_1p);
+    	play1p.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent i = new Intent(PlasmaPongStartActivity.this, PlasmaPong.class);
+				i.putExtra(PlasmaPong.PLAYER_KEY, PlasmaPong.ONE_PLAYER_PLAY);
+				startActivity(i);
+			}});
+    	Button play2p = (Button) this.findViewById(com.teamwut.plasma.plasmapong.R.id.play_2p);
+    	play2p.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent i = new Intent(PlasmaPongStartActivity.this, PlasmaPong.class);
+				i.putExtra(PlasmaPong.PLAYER_KEY, PlasmaPong.TWO_PLAYER_PLAY);
+				startActivity(i);
+			}});
+	}
+
+	
+	public void setup() {
+	    // use OPENGL rendering for bilinear filtering on texture
+	    //size(screen.width * 49/50, screen.height * 49/50, OPENGL);
+	    //hint( ENABLE_OPENGL_4X_SMOOTH );    // Turn on 4X antialiasing
+		hint(DISABLE_DEPTH_TEST);
+		hint(DISABLE_OPENGL_ERROR_REPORT);
+	    frameRate(60);
+	
+	    fluid = new PlasmaFluid(this);
+	    fluid.setRandomness(true);
+	    mtManager = new MTManager();
+	    
+	    goals = new Goals(this);
+	    	    
+	}
+		
+	//mt version
+	public boolean surfaceTouchEvent(MotionEvent me) {
+		if (mtManager != null) mtManager.surfaceTouchEvent(me);
+		return super.surfaceTouchEvent(me);
+	}
+	
+	public void addForce(float x, float y) {
+		float vx, vy;	
+		if (y/height > 0.5f) 
+			vx = -25;
+		else 
+			vx = 20;
+		vy = 0;
+		
+	    fluid.addForce(this, x/width, y/height, vy/width, vx/height);
+	    
+	    vy = -4;
+	    vx = vx / 10;
+	    fluid.addForce(this, x/width, y/height, vy/width, vx/height);
+	    
+	    vy = 4;
+	    fluid.addForce(this, x/width, y/height, vy/width, vx/height);
+	}
+	
+	public void addRandomForce() {
+		float x = r.nextInt(width);
+		float y = r.nextInt(height);
+		int max = 200;
+		float dx = r.nextInt(max) - max/2;
+		float dy = r.nextInt(max) - max/2;
+		fluid.addForce(this, x/width, y/height, dy/width, dx/height, 50);
+	}
+	
+	public void updateCursors() {
+		ArrayList<Cursor> cursors = (ArrayList<Cursor>) mtManager.cursors.clone();
+		for (Cursor c : cursors ) {
+			if (c != null && c.currentPoint != null)
+				addForce(c.currentPoint.x, c.currentPoint.y);
+		}
+	}
+	
+	
+	public void draw() {
+		updateCursors();
+		
+		
+	    background(0);
+	    fluid.draw(this);
+//	    goals.draw(this);
+	    
+	    if (r.nextInt(20) == 0) addRandomForce();
+	    
+	    if (this.frameCount % 60 == 0) println(this.frameRate+"");
+	
+	}
+
+	@Override
+	public void touchEvent(MotionEvent me, int i, float x, float y, float vx,
+			float vy, float size) {
+	}
+
+}

@@ -22,15 +22,20 @@ public class PlasmaFluid {
 	PImage imgFluid;
 	boolean touchupdated = false;
 	
+	boolean random = false;
+	
 	public PlasmaFluid(PApplet p) {
 		this.p = p;
 	    // create fluid and set options
-	    fluidSolver = new MSAFluidSolver2D((int)(FLUID_WIDTH), (int)(FLUID_WIDTH * p.height/p.width));
+		if (p.width < p.height) {
+		    fluidSolver = new MSAFluidSolver2D((int)(FLUID_WIDTH * p.width/p.height), (int)(FLUID_WIDTH));
+		} else {
+			fluidSolver = new MSAFluidSolver2D((int)(FLUID_WIDTH), (int)(FLUID_WIDTH * p.height/p.width));
+		}
 	    setupFluid();
 	
 	    // create image to hold fluid picture
 	    imgFluid = p.createImage(fluidSolver.getWidth(), fluidSolver.getHeight(), PApplet.RGB);
-	    
 	}
 	
 	public void setupFluid() {
@@ -38,6 +43,10 @@ public class PlasmaFluid {
 		  //fluidSolver.enableRGB(true).setFadeSpeed(0.01f).setDeltaT(1).setVisc(1).setSolverIterations(5);
 	}
 	
+	
+	public void setRandomness(boolean random) {
+		this.random = random;
+	}
 	
 	
 	public void draw(PApplet p) {
@@ -58,10 +67,12 @@ public class PlasmaFluid {
 	
 	}
 	
-	
-	// add force and dye to fluid, and create particles
 	public void addForce(PApplet p, float x, float y, float dx, float dy) {
-	        float colorMult = 9;
+		this.addForce(p, x, y, dx, dy, 4);
+	}
+
+	// add force and dye to fluid, and create particles
+	public void addForce(PApplet p, float x, float y, float dx, float dy, float colorMult) {
 	        float velocityMult = 30.0f;
 	
 //	        if (dx > 1) dx = 1;
@@ -71,8 +82,12 @@ public class PlasmaFluid {
 	
 	        p.colorMode(PApplet.HSB, 360, 1, 1);
 	        float hue = (p.frameCount/10) % 360;
-	        if (x < 0.5f)
-	        	hue = (hue + 135) % 360;
+	        if (!random) {
+		        if (x < 0.5f)
+		        	hue = (hue + 135) % 360;
+	        } else {
+	        	hue = (((x+10) * (y+10))*10 + p.frameCount/10) % 360;
+	        }
 	        drawColor = p.color(hue, 1, 1);
 	        p.colorMode(PApplet.RGB, 1);  
 //	        for (int i=0; i<3; i++) {
