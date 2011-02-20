@@ -15,24 +15,22 @@ import com.teamwut.plasma.plasmapong.pong.objects.Ball;
  *
  * Currently a completely non-intelligent AI that shoots balls back when needed. Pretty damn stupid.
  */
-public class WatsonAI {
+public class UMadBot {
 	Game parent;
 	PlasmaFluid fluid;
 	Ball ball;
 	PImage icon;
-	PImage sadicon;
 	float target_x=-1, target_y=-1, x=-1, y=-1;
 	
-	static final float MAX_FORCE = 30;
-	static final float MAX_VELOCITY = 20.0f; // pixels per frame
+	static final float MAX_FORCE = 80;
+	static final float MAX_VELOCITY = 1000.0f; // pixels per frame
 	static final float DESIRED_DIST_BEHIND = 160;
 	
-	public WatsonAI(Game parent, PlasmaFluid fluid, Ball ball) {
+	public UMadBot(Game parent, PlasmaFluid fluid, Ball ball) {
 		this.parent = parent;
 		this.fluid = fluid;
 		this.ball = ball;
 		icon = null;
-		sadicon = null;
 	}
 	
 	public void youJustLost() {
@@ -74,9 +72,8 @@ public class WatsonAI {
 		p.translate(x, y);
 		p.rotate((float)p.frameCount/(parent.scoreP1*parent.scoreP1));
 		if (icon == null) icon = p.loadImage("trollface.gif");
-		if (sadicon == null) sadicon = p.loadImage("sadtroll.png");
-		if (parent.scoreP1 > parent.scoreP2) p.image(sadicon, 0, 0);
-		else p.image(icon, 0, 0);
+		p.image(icon, 0, 0);
+		
 		if (y < p.height / 3) {
 			fluid.addForce(p, (x-5)/p.width, y/p.height, 0, MAX_FORCE/p.height, Const.PLAYER_2_OFFSET);
 			fluid.addForce(p, (x)/p.width, y/p.height, 0, MAX_FORCE/p.height, Const.PLAYER_2_OFFSET);

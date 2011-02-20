@@ -46,8 +46,8 @@ public class Game {
 	
 	
 	int maxScore = 7;
-	int scoreP1 = maxScore;
-	int scoreP2 = maxScore;
+	public int scoreP1 = maxScore;
+	public int scoreP2 = maxScore;
 	
 	int whoJustScored = Const.NO_PLAYER;
 	
@@ -252,7 +252,8 @@ public class Game {
 		hud.draw(p);
 		statoverlay.draw(p, this, fluid);
 		
-		watson.thinkAndMove(p);
+		if (players == 1)
+			watson.thinkAndMove(p);
 		
 		p.popStyle();
 		
