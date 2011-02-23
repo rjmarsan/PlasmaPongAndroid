@@ -2,7 +2,6 @@ package com.teamwut.plasma.plasmapong.pong.bots;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
-import android.content.Intent;
 
 import com.teamwut.plasma.plasmapong.PlasmaFluid;
 import com.teamwut.plasma.plasmapong.pong.Game;

@@ -2,7 +2,6 @@ package com.teamwut.plasma.plasmapong.mt;
 
 import java.util.ArrayList;
 
-import android.util.Log;
 import android.view.MotionEvent;
 
 

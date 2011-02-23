@@ -2,15 +2,7 @@ package com.teamwut.plasma.plasmapong;
 
 import msafluid.MSAFluidSolver2D;
 import processing.core.PApplet;
-import processing.core.PFont;
 import processing.core.PImage;
-import android.util.DisplayMetrics;
-import android.view.MotionEvent;
-
-import com.teamwut.plasma.plasmapong.mt.MTCallback;
-import com.teamwut.plasma.plasmapong.mt.MTManager;
-import com.teamwut.plasma.plasmapong.pong.Game;
-import com.teamwut.plasma.plasmapong.pong.objects.Ball;
 
 public class PlasmaFluid {
 	PApplet p;

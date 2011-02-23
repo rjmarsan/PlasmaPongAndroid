@@ -3,7 +3,6 @@ package com.teamwut.plasma.plasmapong.pong;
 import processing.core.PApplet;
 import processing.core.PFont;
 import android.content.Intent;
-import android.os.Bundle;
 
 import com.teamwut.plasma.plasmapong.PlasmaFluid;
 import com.teamwut.plasma.plasmapong.PlasmaPong;
