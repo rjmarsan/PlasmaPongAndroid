@@ -68,6 +68,7 @@ public class UMadBot {
 		if (y > p.height-75) y = p.height-75; 
 		
 		p.colorMode(PConstants.RGB);
+		p.rectMode(PApplet.CENTER);
 		p.fill(255,0, 0);
 		p.translate(x, y);
 		p.rotate((float)p.frameCount/(parent.scoreP1*parent.scoreP1));

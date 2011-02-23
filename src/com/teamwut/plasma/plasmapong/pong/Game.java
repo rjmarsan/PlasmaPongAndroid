@@ -251,7 +251,7 @@ public class Game {
 		hud.draw(p);
 		statoverlay.draw(p, this, fluid);
 		
-		if (players == 1)
+		if (players == 1 && stepforward)
 			watson.thinkAndMove(p);
 		
 		p.popStyle();

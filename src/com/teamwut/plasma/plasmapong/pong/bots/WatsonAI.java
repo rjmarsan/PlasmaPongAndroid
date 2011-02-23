@@ -69,14 +69,16 @@ public class WatsonAI {
 		if (y <= 75) y = 75;
 		if (y > p.height-75) y = p.height-75; 
 		
+//		p.pushStyle();
 		p.colorMode(PConstants.RGB);
 		p.fill(255,0, 0);
-		p.translate(x, y);
-		p.rotate((float)p.frameCount/(parent.scoreP1*parent.scoreP1));
-		if (icon == null) icon = p.loadImage("trollface.gif");
-		if (sadicon == null) sadicon = p.loadImage("sadtroll.png");
-		if (parent.scoreP1 > parent.scoreP2) p.image(sadicon, 0, 0);
-		else p.image(icon, 0, 0);
+		p.ellipseMode(PApplet.CENTER);
+		p.ellipse(x, y, 5, 5);
+		p.fill(255, 0, 0, 120);
+		p.stroke(200);
+		p.ellipse(x, y, 15, 15);
+//		p.popStyle();
+		
 		if (y < p.height / 3) {
 			fluid.addForce(p, (x-5)/p.width, y/p.height, 0, MAX_FORCE/p.height, Const.PLAYER_2_OFFSET);
 			fluid.addForce(p, (x)/p.width, y/p.height, 0, MAX_FORCE/p.height, Const.PLAYER_2_OFFSET);
