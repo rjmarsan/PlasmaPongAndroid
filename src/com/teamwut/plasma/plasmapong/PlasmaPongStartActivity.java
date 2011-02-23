@@ -5,17 +5,24 @@ import java.util.Random;
 
 import processing.core.PApplet;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 
+import com.teamwut.plasma.plasmapong.R;
 import com.teamwut.plasma.plasmapong.mt.Cursor;
 import com.teamwut.plasma.plasmapong.mt.MTCallback;
 import com.teamwut.plasma.plasmapong.mt.MTManager;
+import com.teamwut.plasma.plasmapong.pong.Const;
 import com.teamwut.plasma.plasmapong.pong.Drawbl;
+import com.teamwut.plasma.plasmapong.pong.Prefs;
 import com.teamwut.plasma.plasmapong.pong.objects.Goals;
 
 public class PlasmaPongStartActivity extends PApplet implements MTCallback {
@@ -129,5 +136,45 @@ public class PlasmaPongStartActivity extends PApplet implements MTCallback {
 	public void touchEvent(MotionEvent me, int i, float x, float y, float vx,
 			float vy, float size) {
 	}
+	
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(com.teamwut.plasma.plasmapong.R.menu.main_menu, menu);
+	    return true;
+	}
+
+
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+	    switch (item.getItemId()) {
+	    case com.teamwut.plasma.plasmapong.R.id.game_settings:
+	        Intent i = new Intent(this, PlasmaPongSettings.class);
+	        startActivity(i);
+	        return true;
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }
+	}
+	
+	@Override
+	public void onActivityResult(int i, int j, Intent res) {
+		super.onActivityResult(i, j, res);
+		readSettings();
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		readSettings();
+	}
+
+    public void readSettings() {
+        SharedPreferences mPrefs = this.getSharedPreferences(Const.SHARED_PREF_NAME, 0);
+        Prefs.botName = mPrefs.getString("bottype", getResources().getString(com.teamwut.plasma.plasmapong.R.string.bot_watson));
+    }
+
+
 
 }

@@ -3,11 +3,15 @@ package com.teamwut.plasma.plasmapong.pong;
 import processing.core.PApplet;
 import processing.core.PFont;
 import android.content.Intent;
+import android.util.Log;
 
 import com.teamwut.plasma.plasmapong.PlasmaFluid;
 import com.teamwut.plasma.plasmapong.PlasmaPong;
 import com.teamwut.plasma.plasmapong.PlasmaPongFinishedActivity;
+import com.teamwut.plasma.plasmapong.R;
 import com.teamwut.plasma.plasmapong.pong.bots.Bot;
+import com.teamwut.plasma.plasmapong.pong.bots.RevengeBot;
+import com.teamwut.plasma.plasmapong.pong.bots.UMadBot;
 import com.teamwut.plasma.plasmapong.pong.bots.WatsonAI;
 import com.teamwut.plasma.plasmapong.pong.objects.Ball;
 import com.teamwut.plasma.plasmapong.pong.objects.Goals;
@@ -73,10 +77,30 @@ public class Game {
 		ball = new Ball(p);
 		goals = new Goals(p);
 		hud = new HUD(p);
-		watson = new WatsonAI(this, fluid, ball);
+		setupBot();
 		updateScores();
 		statoverlay = new StatusOverlay(p);
 		initGameLogic();
+	}
+	
+	public void setupBot() {
+		Log.d("PlasmaGame", "Bot name: "+Prefs.botName);
+		if (Prefs.botName != null) {
+			if (Prefs.botName.equalsIgnoreCase(p.getResources().getString(R.string.bot_watson))) {
+				watson = new WatsonAI(this, fluid, ball);
+			}
+			else if (Prefs.botName.equalsIgnoreCase(p.getResources().getString(R.string.bot_umad))) {
+				watson = new UMadBot(this, fluid, ball);
+			}
+			else if (Prefs.botName.equalsIgnoreCase(p.getResources().getString(R.string.bot_revenge))) {
+				watson = new RevengeBot(this, fluid, ball);
+			} else {
+				watson = new WatsonAI(this, fluid, ball);
+			}
+		} else {
+			watson = new WatsonAI(this, fluid, ball);
+		}
+		watson.setup(p);
 	}
 	
 	public void glInit() {

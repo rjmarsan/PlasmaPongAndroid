@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="game_settings">Settings</string>
+    
     <string name="bot_watson">watson</string>
     <string name="bot_umad">umadbot</string>
     <string name="bot_revenge">revenge</string>
