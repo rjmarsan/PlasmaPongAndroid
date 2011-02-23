@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string-array name="botnames">
+<item>Watson</item>
+<item>U Mad Bot</item>
+<item>Revenge Bot</item>
+</string-array>
+
+<string-array name="botvalues">
+<item>@string/bot_watson</item>
+<item>@string/bot_umad</item>
+<item>@string/bot_revenge</item>
+</string-array>
+
+
+
+
+
+</resources>

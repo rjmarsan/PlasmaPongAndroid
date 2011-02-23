@@ -1,7 +1,12 @@
 package com.teamwut.plasma.plasmapong.pong;
 
+import com.teamwut.plasma.plasmapong.PlasmaPong;
+
 public class Const {
 
+	public final static String SHARED_PREF_NAME = PlasmaPong.class+"plasmapongprefs";
+	
+	
 	public final static int PLAYER_1 = 1;
 	public final static int PLAYER_2 = 2;
 	public final static int NO_PLAYER = 0;

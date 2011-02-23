@@ -20,5 +20,11 @@
     		  android:screenOrientation="portrait">
     </activity>
     
+    <activity
+            android:label="Plasma Pong Settings"
+            android:name=".PlasmaPongSettings"
+            android:exported="true">
+    </activity>
+    
   </application>
 </manifest>
