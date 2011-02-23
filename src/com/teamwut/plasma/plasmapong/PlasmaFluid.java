@@ -4,6 +4,8 @@ import msafluid.MSAFluidSolver2D;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+import com.teamwut.plasma.plasmapong.pong.Const;
+
 public class PlasmaFluid {
 	PApplet p;
 	
@@ -31,7 +33,7 @@ public class PlasmaFluid {
 	}
 	
 	public void setupFluid() {
-		  fluidSolver.enableRGB(true).setFadeSpeed(0.01f).setDeltaT(0.5f).setVisc(0.0001f).setSolverIterations(3);
+		  fluidSolver.enableRGB(true).setFadeSpeed(0.01f).setDeltaT(0.5f*Const.FLUID_DELTAT_MULT).setVisc(0.0001f*Const.FLUID_VISC_MULT).setSolverIterations(3);
 		  //fluidSolver.enableRGB(true).setFadeSpeed(0.01f).setDeltaT(1).setVisc(1).setSolverIterations(5);
 	}
 	
@@ -80,11 +82,9 @@ public class PlasmaFluid {
 		this.addForce(p, x, y, dx, dy, colorOffset, 4);
 	}
 
-
 	// add force and dye to fluid, and create particles
 	public void addForce(PApplet p, float x, float y, float dx, float dy, float colorOffset, float colorMult) {
-	        float velocityMult = 30.0f;
-	
+			colorMult = colorMult * Const.FLUID_COLOR_MULT;
 //	        if (dx > 1) dx = 1;
 //	        if (dy > 5) dy = 1;
 	
@@ -117,8 +117,8 @@ public class PlasmaFluid {
 	        fluidSolver.gOld[index]  += p.green(drawColor) * colorMult;
 	        fluidSolver.bOld[index]  += p.blue(drawColor) * colorMult;
 	
-	        fluidSolver.uOld[index] += dx * velocityMult;
-	        fluidSolver.vOld[index] += dy * velocityMult;
+	        fluidSolver.uOld[index] += dx * Const.FLUID_VEL_MULT;
+	        fluidSolver.vOld[index] += dy * Const.FLUID_VEL_MULT;
 
 	        //experimental code. interpolate between points.
 	        //convert back to normal

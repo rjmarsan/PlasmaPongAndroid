@@ -5,10 +5,9 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 import com.teamwut.plasma.plasmapong.PlasmaFluid;
+import com.teamwut.plasma.plasmapong.pong.Const;
 
 public class Ball {
-	  final static float FLUID_SCALE = 10;
-
 	  final PApplet p;
 	  
 	  public float x;
@@ -26,6 +25,8 @@ public class Ball {
 	  float padding = 30;
 	  float upperBoundsY = yPadding;
 	  float lowerBoundsY;
+	  
+	  int gutterCount = 0;
 	  
 	  
 	  float scalingFactor = 500;
@@ -61,8 +62,8 @@ public class Ball {
 	    
 
 	    //fluidvscale = 100/abs(fluidvx + fluidvy+0.001); 
-	    vy = (fluidvy)/FLUID_SCALE+(FLUID_SCALE-1)*vy/FLUID_SCALE;
-	    vx = (fluidvx)/FLUID_SCALE+(FLUID_SCALE-1)*vx/FLUID_SCALE;
+	    vy = (fluidvy)/Const.BALL_FLUID_MULT+(Const.BALL_FLUID_MULT-1)*vy/Const.BALL_FLUID_MULT;
+	    vx = (fluidvx)/Const.BALL_FLUID_MULT+(Const.BALL_FLUID_MULT-1)*vx/Const.BALL_FLUID_MULT;
 	    if (vx > 200) vx = 200;
 	    if (vy > 200) vy = 200;
 //	    p.ellipse(x,y,30,30);
@@ -80,13 +81,14 @@ public class Ball {
 	    if (x < padding) {
 	      x=padding;
 	      vx = -vx;
-	      fluid.addForce(p, x/width, y/height, vx/width*2, 0, 270, 30);
+	      fluid.addForce(p, x/width, y/height, vx/width*Const.SIDEBAR_HIT_VEL_MULT, 0, 270, Const.SIDEBAR_HIT_COLOR_MULT);
 	    }
 	    else if (x > width-padding) {
 	      x=width-padding;
 	      vx = -vx;
-	      fluid.addForce(p, x/width, y/height, vx/width*2, 0, 270, 30);
+	      fluid.addForce(p, x/width, y/height, vx/width*Const.SIDEBAR_HIT_VEL_MULT, 0, 270, Const.SIDEBAR_HIT_COLOR_MULT);
 	    }
+	    gutterFix(fluid);
 	    if (y < upperBoundsY) {
 	      y=upperBoundsY;
 	      vy = -vy;
@@ -96,6 +98,26 @@ public class Ball {
 	      vy = -vy;
 	    }
 
+	  }
+	  
+	  public void gutterFix(PlasmaFluid fluid) {
+		  if (x > width-padding*2) {
+		    	gutterCount ++;
+		    	if (gutterCount > Const.SIDEBAR_GUTTER_COUNT) {
+		  	      fluid.addForce(p, 1, y/height, Const.SIDEBAR_GUTTER_FIX_MULT, 0, 270, Const.SIDEBAR_GUTTER_FIX_COLOR);
+		  	      gutterCount = 0;
+		    	}
+		    }
+		    else if (x < padding*2) {
+		    	gutterCount ++;
+		    	if (gutterCount > Const.SIDEBAR_GUTTER_COUNT) {
+		  	      fluid.addForce(p, 0, y/height, Const.SIDEBAR_GUTTER_FIX_MULT, 0, 270, Const.SIDEBAR_GUTTER_FIX_COLOR);
+		  	      gutterCount = 0;
+		    	}
+		    }
+		    else {
+		    	gutterCount = 0;
+		    }
 	  }
 	  
 	  

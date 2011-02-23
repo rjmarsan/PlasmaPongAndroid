@@ -29,5 +29,20 @@ public class Const {
 	public final static String GAMES_KEY = "games";
 	public final static String PLAYER_1_KEY = "p1score";
 	public final static String PLAYER_2_KEY = "p2score";
+	
+	
+	public final static float FLUID_VISC_MULT = 1.0f;
+	public final static float FLUID_DELTAT_MULT = 1.0f;
+
+	
+	public final static float FLUID_VEL_MULT = 30f;
+	public final static float FLUID_COLOR_MULT = 1.2f;                                                                                                           ;
+	
+	public final static float BALL_FLUID_MULT = 20f;
+	public final static float SIDEBAR_HIT_COLOR_MULT = 290f;
+	public final static float SIDEBAR_HIT_VEL_MULT = 3f;
+	public final static float SIDEBAR_GUTTER_FIX_MULT = 10f;
+	public final static float SIDEBAR_GUTTER_FIX_COLOR = 400f;
+	public final static int SIDEBAR_GUTTER_COUNT = 30;
 
 }
