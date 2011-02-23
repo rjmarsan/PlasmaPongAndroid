@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#11ffffff"
+    android:background="@drawable/mainscreen"
     >
 
 
@@ -14,14 +14,14 @@
 		>
 		<Button
 			android:id="@+id/play_1p"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:layout_width="70dp"
+			android:layout_height="70dp"
 			android:text="1p"
 		/>
 		<Button
 			android:id="@+id/play_2p"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:layout_width="70dp"
+			android:layout_height="70dp"
 			android:text="2p"
 		/>
 	</LinearLayout>

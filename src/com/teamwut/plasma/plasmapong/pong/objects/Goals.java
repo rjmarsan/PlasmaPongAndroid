@@ -4,6 +4,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 import com.teamwut.plasma.plasmapong.pong.Const;
+import com.teamwut.plasma.plasmapong.pong.Drawbl;
 
 public class Goals {
 	final PApplet p;
@@ -24,12 +25,9 @@ public class Goals {
 		this.height = p.height;
 		goalColor = p.color(150, 150, 150, 150);
 		
-		top = p.loadImage("TopGoalLine_5pxSq.png");
-		top.resize(p.width, top.height);
-		bottom = p.loadImage("BottomGoalLine_5pxSq.png");
-		bottom.resize(p.width, bottom.height);
-		middle = p.loadImage("MiddleLine_Small.png");
-		middle.resize(p.width, middle.height);
+		top = Drawbl.getGoalTop(p);
+		bottom = Drawbl.getGoalBottom(p);
+		middle = Drawbl.getGoalMiddle(p);
 	}
 
 	public void draw(PApplet p) {
@@ -44,6 +42,7 @@ public class Goals {
 		p.image(bottom, p.width-bottom.width, p.height-bottom.height);
 		p.imageMode(PApplet.CENTER);
 		p.image(middle, width/2, height/2);
+		p.imageMode(PApplet.CORNER);
 	}
 	
 	

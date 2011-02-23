@@ -66,10 +66,14 @@ public class PlasmaFluid {
 
             imgFluid.pixels[i] = 0xff000000 | (r << 16) | (g << 8) | b;
 	    }  
+	    p.pushStyle();
+	    p.pushMatrix();
 	    imgFluid.updatePixels();//  fastblur(imgFluid, 2);
 	    
 	    p.image(imgFluid, 0, 0, p.width, p.height);
-	
+	    p.popStyle();
+	    p.popMatrix();
+
 //	    p.colorMode(PApplet.RGB, 255);  
 	
 	}

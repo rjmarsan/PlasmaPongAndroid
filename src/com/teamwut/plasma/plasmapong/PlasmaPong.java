@@ -17,6 +17,7 @@ import com.teamwut.plasma.plasmapong.mt.Cursor;
 import com.teamwut.plasma.plasmapong.mt.MTCallback;
 import com.teamwut.plasma.plasmapong.mt.MTManager;
 import com.teamwut.plasma.plasmapong.pong.Const;
+import com.teamwut.plasma.plasmapong.pong.Drawbl;
 import com.teamwut.plasma.plasmapong.pong.Game;
 
 public class PlasmaPong extends PApplet implements MTCallback {
@@ -74,7 +75,8 @@ public class PlasmaPong extends PApplet implements MTCallback {
 		hint(DISABLE_OPENGL_ERROR_REPORT);
 	    frameRate(40);
 	
-	    fluid = new PlasmaFluid(this);
+	    fluid = Drawbl.getFluidSim(this);
+	    fluid.setRandomness(false);
 	    mtManager = new MTManager();
 	    
 	    //GAME CODE
