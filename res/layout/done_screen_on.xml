@@ -57,14 +57,12 @@
 		 
 		<Button
 			android:id="@+id/again"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/MainButton"
 			android:text="again?"
 		/>
 		<Button
 			android:id="@+id/quit"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/MainButton"
 			android:text="quit"
 		/>
 	

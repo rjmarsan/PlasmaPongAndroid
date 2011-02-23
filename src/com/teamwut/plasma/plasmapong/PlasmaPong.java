@@ -6,6 +6,7 @@ import processing.core.PApplet;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -46,23 +47,37 @@ public class PlasmaPong extends PApplet implements MTCallback {
     	Button unpause = (Button) this.findViewById(com.teamwut.plasma.plasmapong.R.id.unpause);
     	unpause.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				pauseoverlay.setVisibility(View.GONE);
-				paused = false;
+				unpause();
 			}});
     	Button quit = (Button) this.findViewById(com.teamwut.plasma.plasmapong.R.id.quit);
     	quit.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
+				finish();
 			}});
     	
     	pauseoverlay.setVisibility(View.GONE);
     	
 	}
+	
+	public void dopause() {
+		paused = true;
+		pauseoverlay.setVisibility(View.VISIBLE);
+	}
+	
+	public void unpause() {
+		pauseoverlay.setVisibility(View.GONE);
+		paused = false;
+	}
+	
+	public void togglePause() {
+		if (paused) unpause();
+		else dopause();
+	}
 
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		paused = true;
-		pauseoverlay.setVisibility(View.VISIBLE);
+		togglePause();
 		return false;
 	}
 
@@ -177,5 +192,21 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	public void touchEvent(MotionEvent me, int i, float x, float y, float vx,
 			float vy, float size) {
 	}
-
+	
+	public void onBackPressed() {
+//		if (paused) unpause();
+	}
+	
+	public void keyPressed() {
+//		keyCode = 0; // don't quit by default
+		// doing other things here, and then:
+		if (key == CODED && keyCode == KeyEvent.KEYCODE_BACK) {
+			if (paused) {
+				keyCode = 0; // don't quit by default
+				this.runOnUiThread(new Runnable() {
+				public void run() {unpause();}
+				});
+			}
+		}
+	}
 }

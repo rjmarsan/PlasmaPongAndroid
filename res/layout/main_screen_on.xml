@@ -14,14 +14,12 @@
 		>
 		<Button
 			android:id="@+id/play_1p"
-			android:layout_width="70dp"
-			android:layout_height="70dp"
+			style="@style/MainButton"
 			android:text="1p"
 		/>
 		<Button
 			android:id="@+id/play_2p"
-			android:layout_width="70dp"
-			android:layout_height="70dp"
+			style="@style/MainButton"
 			android:text="2p"
 		/>
 	</LinearLayout>

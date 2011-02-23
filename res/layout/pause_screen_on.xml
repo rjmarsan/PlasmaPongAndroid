@@ -12,14 +12,13 @@
 		 
 		<Button
 			android:id="@+id/unpause"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/MainButton"
+			android:textSize="10dp"
 			android:text="Unpause"
 		/>
 		<Button
 			android:id="@+id/quit"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/MainButton"
 			android:text="Quit"
 		/>
 	</LinearLayout>

@@ -148,8 +148,8 @@ public class PlasmaFluid {
 	//	        fluidSolver.uOld[index] += dx/width * 1f;
 	//	        fluidSolver.vOld[index] += dy/height * 1f;
 	//        }        
-	
 	}
+	
 	
 
 
