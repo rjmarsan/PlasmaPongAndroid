@@ -7,6 +7,7 @@ import android.content.Intent;
 import com.teamwut.plasma.plasmapong.PlasmaFluid;
 import com.teamwut.plasma.plasmapong.PlasmaPong;
 import com.teamwut.plasma.plasmapong.PlasmaPongFinishedActivity;
+import com.teamwut.plasma.plasmapong.pong.bots.Bot;
 import com.teamwut.plasma.plasmapong.pong.bots.WatsonAI;
 import com.teamwut.plasma.plasmapong.pong.objects.Ball;
 import com.teamwut.plasma.plasmapong.pong.objects.Goals;
@@ -39,7 +40,7 @@ public class Game {
 	Goals goals;
 	HUD hud;
 	StatusOverlay statoverlay;
-	WatsonAI watson;
+	Bot watson;
 	
 	PFont font;
 	

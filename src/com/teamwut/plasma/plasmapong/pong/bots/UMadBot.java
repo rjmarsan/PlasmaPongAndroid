@@ -15,7 +15,7 @@ import com.teamwut.plasma.plasmapong.pong.objects.Ball;
  *
  * Currently a completely non-intelligent AI that shoots balls back when needed. Pretty damn stupid.
  */
-public class UMadBot {
+public class UMadBot extends Bot {
 	Game parent;
 	PlasmaFluid fluid;
 	Ball ball;
@@ -27,10 +27,12 @@ public class UMadBot {
 	static final float DESIRED_DIST_BEHIND = 160;
 	
 	public UMadBot(Game parent, PlasmaFluid fluid, Ball ball) {
-		this.parent = parent;
-		this.fluid = fluid;
-		this.ball = ball;
+		super(parent,fluid,ball);
 		icon = null;
+	}
+	
+	public void setup(PApplet p) {
+		if (icon == null) icon = p.loadImage("trollface.gif");
 	}
 	
 	public void youJustLost() {
@@ -72,7 +74,6 @@ public class UMadBot {
 		p.fill(255,0, 0);
 		p.translate(x, y);
 		p.rotate((float)p.frameCount/(parent.scoreP1*parent.scoreP1));
-		if (icon == null) icon = p.loadImage("trollface.gif");
 		p.image(icon, 0, 0);
 		
 		if (y < p.height / 3) {
