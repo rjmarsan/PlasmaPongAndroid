@@ -29,7 +29,7 @@ public class PlasmaFluid {
 	    setupFluid();
 	
 	    // create image to hold fluid picture
-	    imgFluid = p.createImage(fluidSolver.getWidth(), fluidSolver.getHeight(), PApplet.RGB);
+	    imgFluid = p.createImage(fluidSolver.getWidth(), fluidSolver.getHeight(), PApplet.ARGB);
 	}
 	
 	public void setupFluid() {
