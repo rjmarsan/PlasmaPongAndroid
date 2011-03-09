@@ -6,7 +6,7 @@ import com.teamwut.plasma.plasmapong.PlasmaPong;
 
 public class Const {
 
-	public final static String RENDER_MODE = PApplet.A3D;
+	public final static String RENDER_MODE = PApplet.A2D;
 	
 	public final static String SHARED_PREF_NAME = PlasmaPong.class+"plasmapongprefs";
 	

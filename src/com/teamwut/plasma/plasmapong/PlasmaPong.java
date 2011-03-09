@@ -89,6 +89,7 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	    //hint( ENABLE_OPENGL_4X_SMOOTH );    // Turn on 4X antialiasing
 		hint(DISABLE_DEPTH_TEST);
 		hint(DISABLE_OPENGL_ERROR_REPORT);
+		smooth();
 	    frameRate(40);
 	
 	    fluid = Drawbl.getFluidSim(this);
