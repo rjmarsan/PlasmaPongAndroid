@@ -16,7 +16,7 @@ public class Cursor {
 	public static final float MAX_VEL = 1f;
 	public static final float MIN_VEL = -MAX_VEL;
 	
-	public Cursor(Point p, int curId) {
+	public Cursor(final Point p, final int curId) {
 		firstPoint = p;
 		currentPoint = p;
 		this.curId = curId;
@@ -24,11 +24,11 @@ public class Cursor {
 		points.add(p);
 	}
 	
-	public void updateCursor(Point p) {
+	public void updateCursor(final Point p) {
 		//something about velocity
 		
-		long t = p.time-currentPoint.time;
-		float dt = (float)t/1000f;
+		final long t = p.time-currentPoint.time;
+		final float dt = t/1000f;
 
 		
 		float rvx = (p.x - currentPoint.x) * dt;

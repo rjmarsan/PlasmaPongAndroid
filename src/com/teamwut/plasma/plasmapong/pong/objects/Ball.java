@@ -32,7 +32,7 @@ public class Ball {
 	  float scalingFactor = 500;
 	  
 	  PImage ballimage;
-	  public Ball(PApplet p) {
+	  public Ball(final PApplet p) {
 		  this.p = p;
 		  this.x = p.width/2;
 		  this.y = p.height/2;
@@ -45,8 +45,8 @@ public class Ball {
 	  
 	  float noiseScale, noiseVal, fluidvx,fluidvy;
 	  int index;
-	  public void draw(PlasmaFluid fluid, boolean stepforward) {
-		  MSAFluidSolver2D fluidSolver = fluid.fluidSolver;
+	  public void draw(final PlasmaFluid fluid, final boolean stepforward) {
+		  final MSAFluidSolver2D fluidSolver = fluid.fluidSolver;
 	    p.pushStyle();
 //	    noiseScale = 0.01f;
 //	    noiseVal = p.noise(x*noiseScale, y*noiseScale)*255;
@@ -77,7 +77,7 @@ public class Ball {
 	    }
 	    checkBounds(fluid);
 	  }
-	  public void checkBounds(PlasmaFluid fluid) {
+	  public void checkBounds(final PlasmaFluid fluid) {
 	    if (x < padding) {
 	      x=padding;
 	      vx = -vx;
@@ -100,7 +100,7 @@ public class Ball {
 
 	  }
 	  
-	  public void gutterFix(PlasmaFluid fluid) {
+	  public void gutterFix(final PlasmaFluid fluid) {
 		  if (x > width-padding*2) {
 		    	gutterCount ++;
 		    	if (gutterCount > Const.SIDEBAR_GUTTER_COUNT) {

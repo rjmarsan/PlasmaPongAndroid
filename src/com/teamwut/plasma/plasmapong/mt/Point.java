@@ -5,7 +5,7 @@ public class Point {
 	public final float y; 
 	public long time;
 
-	public Point(float x, float y) {
+	public Point(final float x, final float y) {
 		this.x = x;
 		this.y = y;
 		time = System.currentTimeMillis();

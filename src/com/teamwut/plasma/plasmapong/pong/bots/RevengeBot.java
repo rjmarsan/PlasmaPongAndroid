@@ -21,11 +21,11 @@ public class RevengeBot extends Bot {
 	static final float MAX_VELOCITY_X = 4.0f; // pixels per frame
 	static final float DESIRED_DIST_BEHIND = 160;
 	
-	public RevengeBot(Game parent, PlasmaFluid fluid, Ball ball) {
+	public RevengeBot(final Game parent, final PlasmaFluid fluid, final Ball ball) {
 			super(parent,fluid,ball);
 	}
 	
-	public void thinkAndMove(PApplet p) {
+	public void thinkAndMove(final PApplet p) {
 		// initial frame use only
 		if (x == -1) x = p.width/2;
 		if (y == -1) y = p.height/3;
@@ -33,8 +33,8 @@ public class RevengeBot extends Bot {
 		target_x = ball.x;
 		target_y = ball.y - DESIRED_DIST_BEHIND; //want to get behind the ball
 		
-		float diff_x = target_x - x;
-		float diff_y = target_y - y;
+		final float diff_x = target_x - x;
+		final float diff_y = target_y - y;
 		if (diff_x < MAX_VELOCITY_X) {
 			x = target_x;
 		}

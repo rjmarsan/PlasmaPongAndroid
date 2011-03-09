@@ -13,7 +13,7 @@ public class HUD extends PObject {
 	PImage[] images = new PImage[8];
 	
 
-	public HUD(PApplet p) {
+	public HUD(final PApplet p) {
 		super(p);
 //		font = p.loadFont("AmericanTypewriter-48.vlw");
 		for (int i=0;i<8;i++) {
@@ -21,7 +21,7 @@ public class HUD extends PObject {
 		}
 	}
 	
-	public void draw(PApplet p) {
+	public void draw(final PApplet p) {
 //		System.out.println("p1score: " + p1score + ", p2score: " + p2score);
 		// Player 1
 		p.pushMatrix();
@@ -49,11 +49,11 @@ public class HUD extends PObject {
 	    p.popMatrix();
 	}
 	
-	public void setP1Score(int p1) {
+	public void setP1Score(final int p1) {
 		this.p1score = p1;
 	}
 	
-	public void setP2Score(int p2) {
+	public void setP2Score(final int p2) {
 		this.p2score = p2;
 	}
 

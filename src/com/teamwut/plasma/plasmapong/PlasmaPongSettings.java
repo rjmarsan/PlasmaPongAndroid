@@ -26,7 +26,7 @@ import com.teamwut.plasma.plasmapong.pong.Const;
 public class PlasmaPongSettings extends PreferenceActivity {
 
     @Override
-    protected void onCreate(Bundle icicle) {
+    protected void onCreate(final Bundle icicle) {
         super.onCreate(icicle);
         getPreferenceManager().setSharedPreferencesName(
                 Const.SHARED_PREF_NAME);

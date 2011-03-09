@@ -57,7 +57,7 @@ public class Game {
 	
 	
 
-	public Game(PlasmaPong p, PlasmaFluid fluid, int players) {
+	public Game(final PlasmaPong p, final PlasmaFluid fluid, final int players) {
 		this.fluid = fluid;
 		this.p = p;
 		this.width = p.width;
@@ -157,7 +157,7 @@ public class Game {
 		}
 	}
 	
-	public void setGameState(int mode) {
+	public void setGameState(final int mode) {
 		PApplet.println("Changing mode to:"+mode);
 		this.mode = mode;
 		this.modeFrameCountdown = -1;
@@ -179,7 +179,7 @@ public class Game {
 	
 
 	public void updateGameLogic() {
-		int scored = goals.puckGoalStatus(ball);
+		final int scored = goals.puckGoalStatus(ball);
 		if (scored == Const.PLAYER_1) {
 			this.whoJustScored = Const.PLAYER_1;
 			this.scoreP2 -= 1;
@@ -210,7 +210,7 @@ public class Game {
 		transitionToPlaying();
 	}
 	public void transitionFromGameOver() {
-		Intent i = new Intent(p, PlasmaPongFinishedActivity.class);
+		final Intent i = new Intent(p, PlasmaPongFinishedActivity.class);
 		i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		int winner = 0;
 		if (this.scoreP1 == 0) winner = Const.PLAYER_2;
@@ -266,7 +266,7 @@ public class Game {
 
 	
 	
-	public void drawPong(boolean stepforward) {
+	public void drawPong(final boolean stepforward) {
 		p.pushStyle();
 		p.colorMode(p.RGB, 255, 255, 255, 255);
 

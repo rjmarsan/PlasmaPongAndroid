@@ -19,7 +19,7 @@ public class Goals {
 	PImage bottom;
 	PImage middle;
 	
-	public Goals(PApplet p) {
+	public Goals(final PApplet p) {
 		this.p = p;
 		this.width = p.width;
 		this.height = p.height;
@@ -30,7 +30,7 @@ public class Goals {
 		middle = Drawbl.getGoalMiddle(p);
 	}
 
-	public void draw(PApplet p) {
+	public void draw(final PApplet p) {
 		// for now
 //		p.stroke(goalColor);
 //		p.strokeWeight(3);
@@ -47,7 +47,7 @@ public class Goals {
 	
 	
 	
-	public int puckGoalStatus(Ball b) {
+	public int puckGoalStatus(final Ball b) {
 		if (b.y < goalBoarder) {
 			return Const.PLAYER_1;
 		} else if (b.y > height - goalBoarder) {

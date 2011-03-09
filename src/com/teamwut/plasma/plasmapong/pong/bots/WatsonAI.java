@@ -2,7 +2,6 @@ package com.teamwut.plasma.plasmapong.pong.bots;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
-import processing.core.PImage;
 
 import com.teamwut.plasma.plasmapong.PlasmaFluid;
 import com.teamwut.plasma.plasmapong.pong.Const;
@@ -22,7 +21,7 @@ public class WatsonAI extends Bot {
 	static final float MAX_VELOCITY = 20.0f; // pixels per frame
 	static final float DESIRED_DIST_BEHIND = 160;
 	
-	public WatsonAI(Game parent, PlasmaFluid fluid, Ball ball) {
+	public WatsonAI(final Game parent, final PlasmaFluid fluid, final Ball ball) {
 		super(parent, fluid,ball);
 	}
 	
@@ -33,7 +32,7 @@ public class WatsonAI extends Bot {
 		target_y = -1;
 	}
 	
-	public void thinkAndMove(PApplet p) {
+	public void thinkAndMove(final PApplet p) {
 		// initial frame use only
 		if (x == -1) x = p.width/2;
 		if (y == -1) y = p.height/3;
@@ -41,10 +40,10 @@ public class WatsonAI extends Bot {
 		target_x = ball.x + ball.vx*2;
 		target_y = ball.y + ball.vy*2 - DESIRED_DIST_BEHIND; //want to get behind the ball
 		
-		float diff_x = target_x - x;
-		float diff_y = target_y - y;
-		float d_sqrd = diff_x*diff_x + diff_y*diff_y;
-		double angle = Math.atan2(Math.abs(diff_y), Math.abs(diff_x));
+		final float diff_x = target_x - x;
+		final float diff_y = target_y - y;
+		final float d_sqrd = diff_x*diff_x + diff_y*diff_y;
+		final double angle = Math.atan2(Math.abs(diff_y), Math.abs(diff_x));
 		if (d_sqrd < MAX_VELOCITY*MAX_VELOCITY) {
 			x = target_x;
 			y = target_y;

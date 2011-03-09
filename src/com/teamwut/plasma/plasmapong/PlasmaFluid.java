@@ -7,29 +7,31 @@ import processing.core.PImage;
 import com.teamwut.plasma.plasmapong.pong.Const;
 
 public class PlasmaFluid {
-	PApplet p;
+	final PApplet p;
 	
-	final float FLUID_WIDTH = 60;
+	final int FLUID_WIDTH = 60;
 	
 	public final MSAFluidSolver2D fluidSolver;
 	
 	PImage imgFluid;
+	int[] pixels;
 	boolean touchupdated = false;
 	
 	boolean random = false;
 	
-	public PlasmaFluid(PApplet p) {
+	public PlasmaFluid(final PApplet p) {
 		this.p = p;
 	    // create fluid and set options
 		if (p.width < p.height) {
-		    fluidSolver = new MSAFluidSolver2D((int)(FLUID_WIDTH * p.width/p.height), (int)(FLUID_WIDTH));
+		    fluidSolver = new MSAFluidSolver2D((FLUID_WIDTH * p.width/p.height), (FLUID_WIDTH));
 		} else {
-			fluidSolver = new MSAFluidSolver2D((int)(FLUID_WIDTH), (int)(FLUID_WIDTH * p.height/p.width));
+			fluidSolver = new MSAFluidSolver2D((FLUID_WIDTH), (FLUID_WIDTH * p.height/p.width));
 		}
 	    setupFluid();
 	
 	    // create image to hold fluid picture
 	    imgFluid = p.createImage(fluidSolver.getWidth(), fluidSolver.getHeight(), PApplet.ARGB);
+	    pixels = new int[fluidSolver.getNumCells()];
 	}
 	
 	public void setupFluid() {
@@ -38,23 +40,25 @@ public class PlasmaFluid {
 	}
 	
 	
-	public void setRandomness(boolean random) {
+	public void setRandomness(final boolean random) {
 		this.random = random;
 	}
 	
 	
-	public void draw(PApplet p) {
+	public void draw(final PApplet p) {
 		draw(p, true);
 	}
 	
 	int r,g,b;
-	public void draw(PApplet p, boolean stepforward) {
+	public void draw(final PApplet p, final boolean stepforward) {
+//		PGraphicsAndroid3D g3d = (PGraphicsAndroid3D) p.g;
+//		g3d.gl.
 //	    p.colorMode(PApplet.RGB, 1);  
 
 	    if (stepforward) fluidSolver.update();
 	    
 	    imgFluid.loadPixels();
-	    int cellcount = fluidSolver.getNumCells();
+	    final int cellcount = fluidSolver.getNumCells();
 	    for(int i=0; i<cellcount; i++) { //optimize here.
 //	        imgFluid.pixels[i] = p.color(fluidSolver.r[i], fluidSolver.g[i], fluidSolver.b[i]);
             r=(int)(fluidSolver.r[i]*255);
@@ -78,16 +82,54 @@ public class PlasmaFluid {
 	
 	}
 	
-	public void addForce(PApplet p, float x, float y, float dx, float dy) {
+//    public void draw(PApplet p, boolean stepforward) {
+////    	Log.d("PlasmaColorWallpaper","drawing! "+frameCount);
+//	    if (stepforward) fluidSolver.update();
+//
+//	    int d = 2;
+//	    int cellcount = fluidSolver.getNumCells();
+//	    int fluidWidth = fluidSolver.getWidth();
+//	    int fluidHeight = fluidSolver.getHeight();
+//	    int color = 0;
+//	    float x,y,z;
+//	    int ix, iy, iz;
+//	    for(int i=0; i<cellcount; i++) { //optimize here.
+//	    	x=fluidSolver.r[i];
+//	    	y=fluidSolver.g[i];
+//	    	z=fluidSolver.b[i];
+//	    	if (x > 255) x = 255; else if (x < 0) x = 0;
+//	        if (y > 255) y = 255; else if (y < 0) y = 0;
+//	        if (z > 255) z = 255; else if (z < 0) z = 0;
+//
+//	        color = 0xff000000 | ((int)x << 16) | ((int)y << 8) | (int)z;
+//	        pixels[i] = color;
+//	    	//bitmap.setPixel(i / fluidWidth, i % fluidHeight, color);
+//	    }  
+//	    Bitmap bitmap = imgFluid.getBitmap();
+//	    bitmap.setPixels(pixels, 0, FLUID_WIDTH+2, 0, 0, FLUID_WIDTH+2, FLUID_WIDTH+2);
+////	    p.pushStyle();
+////	    p.pushMatrix();
+////	    imgFluid.updatePixels();//  fastblur(imgFluid, 2);
+////	    
+////	    p.image(imgFluid, 0, 0, p.width, p.height);
+////	    p.popStyle();
+////	    p.popMatrix();
+////
+//////	    p.colorMode(PApplet.RGB, 255);  
+//
+//    }
+
+	
+	public void addForce(final PApplet p, final float x, final float y, final float dx, final float dy) {
 		this.addForce(p, x, y, dx, dy, 0);
 	}
 	
-	public void addForce(PApplet p, float x, float y, float dx, float dy, float colorOffset) {
+	public void addForce(final PApplet p, final float x, final float y, final float dx, final float dy, final float colorOffset) {
 		this.addForce(p, x, y, dx, dy, colorOffset, 4);
 	}
 
 	// add force and dye to fluid, and create particles
-	public void addForce(PApplet p, float x, float y, float dx, float dy, float colorOffset, float colorMult) {
+	public void addForce(final PApplet p, final float x, final float y, final float dx, final float dy, final float colorOffset, float colorMult) {
 			colorMult = colorMult * Const.FLUID_COLOR_MULT;
 //	        if (dx > 1) dx = 1;
 //	        if (dy > 5) dy = 1;
@@ -116,7 +158,7 @@ public class PlasmaFluid {
 //	        	}
 //	        }
 	        
-        	int index = fluidSolver.getIndexForNormalizedPosition(x, y);
+        	final int index = fluidSolver.getIndexForNormalizedPosition(x, y);
 	        fluidSolver.rOld[index]  += p.red(drawColor) * colorMult;
 	        fluidSolver.gOld[index]  += p.green(drawColor) * colorMult;
 	        fluidSolver.bOld[index]  += p.blue(drawColor) * colorMult;

@@ -29,6 +29,7 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	public int sketchWidth() { return this.screenWidth; }
 	public int sketchHeight() { return this.screenHeight; }
 	public String sketchRenderer() { return PApplet.A3D; }
+	public boolean sketchTranslucency() { return false;  }
 
 	PlasmaFluid fluid;
 	
@@ -39,19 +40,19 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	
 	View pauseoverlay;
 	
-	public void onCreate(Bundle savedinstance) {
+	public void onCreate(final Bundle savedinstance) {
 		super.onCreate(savedinstance);
 		
     	pauseoverlay = this.getLayoutInflater().inflate(com.teamwut.plasma.plasmapong.R.layout.pause_screen_on, null);
     	this.addContentView(pauseoverlay, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-    	Button unpause = (Button) this.findViewById(com.teamwut.plasma.plasmapong.R.id.unpause);
+    	final Button unpause = (Button) this.findViewById(com.teamwut.plasma.plasmapong.R.id.unpause);
     	unpause.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
+			public void onClick(final View v) {
 				unpause();
 			}});
-    	Button quit = (Button) this.findViewById(com.teamwut.plasma.plasmapong.R.id.quit);
+    	final Button quit = (Button) this.findViewById(com.teamwut.plasma.plasmapong.R.id.quit);
     	quit.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
+			public void onClick(final View v) {
 				finish();
 			}});
     	
@@ -76,7 +77,7 @@ public class PlasmaPong extends PApplet implements MTCallback {
 
 	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(final Menu menu) {
 		togglePause();
 		return false;
 	}
@@ -95,8 +96,8 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	    mtManager = new MTManager();
 	    
 	    //GAME CODE
-	    Intent lastIntent = this.getIntent();
-		String playerKey = lastIntent.getStringExtra(PLAYER_KEY);
+	    final Intent lastIntent = this.getIntent();
+		final String playerKey = lastIntent.getStringExtra(PLAYER_KEY);
 		int players = 0;
 		if (playerKey.equals(ONE_PLAYER_PLAY))
 			players = 1;
@@ -111,10 +112,10 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	
 	public void debug() {
 		  // Place this inside your setup() method
-		  DisplayMetrics dm = new DisplayMetrics();
+		  final DisplayMetrics dm = new DisplayMetrics();
 		  getWindowManager().getDefaultDisplay().getMetrics(dm);
-		  float density = dm.density; 
-		  int densityDpi = dm.densityDpi;
+		  final float density = dm.density; 
+		  final int densityDpi = dm.densityDpi;
 		  println("density is " + density); 
 		  println("densityDpi is " + densityDpi);
 		  println("HEY! the screen size is "+width+"x"+height);
@@ -122,27 +123,27 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	
 	
 	//mt version
-	public boolean surfaceTouchEvent(MotionEvent me) {
+	public boolean surfaceTouchEvent(final MotionEvent me) {
 		if (mtManager != null) mtManager.surfaceTouchEvent(me);
 		return super.surfaceTouchEvent(me);
 	}
 	
-	public void addForce(float x, float y) {
+	public void addForce(final float x, final float y) {
 		addForce(x,y,x,y);
 	}
-	public void addForce(float x, float y, float targetx, float targety) {
+	public void addForce(final float x, final float y, final float targetx, final float targety) {
 		float vx, vy;	
 		
 		vy = 30;
 
 		vx = 0;
 		
-		float distancesqrt = (x-targetx)*(x-targetx) + (y-targety)*(y-targety);
+		final float distancesqrt = (x-targetx)*(x-targetx) + (y-targety)*(y-targety);
 		if (distancesqrt < 30010) {
 			println("Redirecting!");
-			float diffx = (targetx-x)/width;
-			float diffy = Math.abs((targety-y)/height);
-			float diffangle = (float)Math.atan2(diffy, diffx);
+			final float diffx = (targetx-x)/width;
+			final float diffy = Math.abs((targety-y)/height);
+			final float diffangle = (float)Math.atan2(diffy, diffx);
 			vx = (float) Math.cos(diffangle)*30;
 			vy = (float) Math.sin(diffangle)*30;
 		}
@@ -163,8 +164,8 @@ public class PlasmaPong extends PApplet implements MTCallback {
 	}
 	
 	public void updateCursors() {
-		ArrayList<Cursor> cursors = (ArrayList<Cursor>) mtManager.cursors.clone();
-		for (Cursor c : cursors ) {
+		final ArrayList<Cursor> cursors = (ArrayList<Cursor>) mtManager.cursors.clone();
+		for (final Cursor c : cursors ) {
 			if (c != null && c.currentPoint != null)
 				addForce(c.currentPoint.x, c.currentPoint.y, g.getBall().x, g.getBall().y);
 		}
@@ -189,8 +190,8 @@ public class PlasmaPong extends PApplet implements MTCallback {
 		g.drawPong(!paused);
 	}
 	@Override
-	public void touchEvent(MotionEvent me, int i, float x, float y, float vx,
-			float vy, float size) {
+	public void touchEvent(final MotionEvent me, final int i, final float x, final float y, final float vx,
+			final float vy, final float size) {
 	}
 	
 	public void onBackPressed() {

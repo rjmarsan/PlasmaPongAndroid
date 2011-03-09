@@ -7,13 +7,13 @@ public class PObject {
 	final float width;
 	final float height;
 
-	public PObject(PApplet p) {
+	public PObject(final PApplet p) {
 		this.p = p;
 		this.width = p.width;
 		this.height = p.height;
 	}
 	
-	public void draw(PApplet p) {
+	public void draw(final PApplet p) {
 		
 	}
 }

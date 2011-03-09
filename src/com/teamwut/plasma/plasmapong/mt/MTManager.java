@@ -11,7 +11,7 @@ public class MTManager {
 	public ArrayList<Point> points;
 	public ArrayList<Cursor> cursors;
 	
-	private ArrayList<TouchListener> listeners;
+	private final ArrayList<TouchListener> listeners;
 	
 	
 	public MTManager() {
@@ -20,16 +20,16 @@ public class MTManager {
 		this.listeners = new ArrayList<TouchListener>(8);
 	}
 
-	public void addTouchListener(TouchListener t) {
+	public void addTouchListener(final TouchListener t) {
 		if (t == null) {
 			System.out.println("Hey jerk! Quit trying to add a null touch listener to MTManager");
 		}
 		listeners.add(t);
 	}
 	
-	public void surfaceTouchEvent(MotionEvent me) {
+	public void surfaceTouchEvent(final MotionEvent me) {
 		synchronized (cursors) {
-			int numPointers = me.getPointerCount();
+			final int numPointers = me.getPointerCount();
 			if (numPointers == 0) {
 				//callback.touchEvent(me, 0, 0,0,0,0,0);
 			}
@@ -41,8 +41,8 @@ public class MTManager {
 			}
 			if (me.getPointerCount() < cursors.size()) {
 				for (int i = 0; i < cursors.size(); i++) {
-					int pointerId = me.getPointerId(i);
-					int index = me.findPointerIndex(pointerId);
+					final int pointerId = me.getPointerId(i);
+					final int index = me.findPointerIndex(pointerId);
 					if (index < 0) {
 						cursors.remove(i);
 					}
@@ -55,20 +55,20 @@ public class MTManager {
 	}
 	
 	
-	public void touchEvent(MotionEvent me, int i) {		
-		int pointerId = me.getPointerId(i);
-		float x = me.getX(i);
-		float y = me.getY(i);
+	public void touchEvent(final MotionEvent me, final int i) {		
+		final int pointerId = me.getPointerId(i);
+		final float x = me.getX(i);
+		final float y = me.getY(i);
 		
 		float vx = 0;
 		float vy = 0;
 		
-		int index = me.findPointerIndex(pointerId);
+		final int index = me.findPointerIndex(pointerId);
 		
 		maybeAddCapacity(cursors,index);
 		
 		Cursor c = cursors.get(index);
-		long ctime = System.currentTimeMillis();
+		final long ctime = System.currentTimeMillis();
 		if (c != null && c.curId == pointerId && ctime - c.currentPoint.time < 100 ) {
 			c.updateCursor(new Point(x,y));
 
@@ -86,12 +86,12 @@ public class MTManager {
 		vy = c.velY;
 		
 
-		float size = me.getSize(i);
+		final float size = me.getSize(i);
 
 		fireTouchEvent(me, c);
 	}
 
-	public void maybeAddCapacity(ArrayList<?> something, int index) {
+	public void maybeAddCapacity(final ArrayList<?> something, final int index) {
 		if (something.size() < index+1) {
 			//points.ensureCapacity(index+4);
 			something.add(null);
@@ -102,7 +102,7 @@ public class MTManager {
 	}
 	
 	
-	public void fireTouchEvent(MotionEvent me, Cursor c) {
+	public void fireTouchEvent(final MotionEvent me, final Cursor c) {
 		if (me.getAction() == MotionEvent.ACTION_DOWN) {
 			fireTouchDown(me, c);
 		}
@@ -120,20 +120,20 @@ public class MTManager {
 	
 	
 
-	public void fireTouchDown(MotionEvent e, Cursor c) {
-		for (TouchListener l : listeners) l.touchDown(c);
+	public void fireTouchDown(final MotionEvent e, final Cursor c) {
+		for (final TouchListener l : listeners) l.touchDown(c);
 	}
 
-	public void fireTouchMoved(MotionEvent e, Cursor c) {
-		for (TouchListener l : listeners) l.touchMoved(c);
+	public void fireTouchMoved(final MotionEvent e, final Cursor c) {
+		for (final TouchListener l : listeners) l.touchMoved(c);
 	}
 
-	public void fireTouchUp(MotionEvent e, Cursor c) {
-		for (TouchListener l : listeners) l.touchUp(c);
+	public void fireTouchUp(final MotionEvent e, final Cursor c) {
+		for (final TouchListener l : listeners) l.touchUp(c);
 	}
 
-	public void fireTouchAllUp(MotionEvent e, Cursor c) {
-		for (TouchListener l : listeners) l.touchAllUp(c);
+	public void fireTouchAllUp(final MotionEvent e, final Cursor c) {
+		for (final TouchListener l : listeners) l.touchAllUp(c);
 	}	
 	
 	

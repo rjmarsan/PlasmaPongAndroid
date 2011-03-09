@@ -10,13 +10,13 @@ import com.teamwut.plasma.plasmapong.pong.Game;
 
 public class StatusOverlay extends PObject {
 	Random r = new Random();
-	public StatusOverlay(PApplet p) {
+	public StatusOverlay(final PApplet p) {
 		super(p);
 	}
 	
 	int lastnum = 0;
 	
-	public void draw(PApplet p, Game g, PlasmaFluid fluid) {
+	public void draw(final PApplet p, final Game g, final PlasmaFluid fluid) {
 		p.pushStyle();
 		
 		p.stroke(255);
@@ -30,7 +30,7 @@ public class StatusOverlay extends PObject {
 			int numcircles = 0;
 			
 			
-			int count = g.modeFrameCountdown;
+			final int count = g.modeFrameCountdown;
 			if (count > (Const.PREGAME_WAIT_COUNT * 2 / 3)) {
 				numcircles = 3;
 			} else if (count > (Const.PREGAME_WAIT_COUNT / 3)) {
@@ -39,8 +39,8 @@ public class StatusOverlay extends PObject {
 				numcircles = 1;
 			}
 
-			float stepsize = width/8;
-			float size = width/9f;
+			final float stepsize = width/8;
+			final float size = width/9f;
 			if (numcircles > 2) {
 				p.ellipse(stepsize*2, height/2, size*0.75f, size*0.75f);
 				p.ellipse(stepsize*6, height/2, size*0.75f, size*0.75f);

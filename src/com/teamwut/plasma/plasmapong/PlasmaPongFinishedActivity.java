@@ -49,10 +49,10 @@ public class PlasmaPongFinishedActivity extends PApplet implements MTCallback {
 	String p1name = "Player 1";
 	String p2name = "Player 2";
 	
-	public void onCreate(Bundle savedinstance) {
+	public void onCreate(final Bundle savedinstance) {
 		super.onCreate(savedinstance);
 		
-		Intent i = this.getIntent();
+		final Intent i = this.getIntent();
 		p1score = i.getIntExtra(Const.PLAYER_1_SCORE, 0);
 		p2score = i.getIntExtra(Const.PLAYER_2_SCORE, 0);
 		winner = i.getIntExtra(Const.WINNER, Const.NO_PLAYER);
@@ -69,7 +69,7 @@ public class PlasmaPongFinishedActivity extends PApplet implements MTCallback {
 		else
 			p2record += 1;
 		
-		Editor edit = prefs.edit();
+		final Editor edit = prefs.edit();
 		edit.putInt(Const.GAMES_KEY, games);
 		edit.putInt(Const.PLAYER_1_KEY, p1record);
 		edit.putInt(Const.PLAYER_2_KEY, p2record);
@@ -78,50 +78,50 @@ public class PlasmaPongFinishedActivity extends PApplet implements MTCallback {
 
 
 		
-    	View v = this.getLayoutInflater().inflate(com.teamwut.plasma.plasmapong.R.layout.done_screen_on, null);
+    	final View v = this.getLayoutInflater().inflate(com.teamwut.plasma.plasmapong.R.layout.done_screen_on, null);
     	this.addContentView(v, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
     	
     	
-    	Button again = (Button) this.findViewById(com.teamwut.plasma.plasmapong.R.id.again);
+    	final Button again = (Button) this.findViewById(com.teamwut.plasma.plasmapong.R.id.again);
     	again.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				Intent i = new Intent(PlasmaPongFinishedActivity.this, PlasmaPong.class);
+			public void onClick(final View v) {
+				final Intent i = new Intent(PlasmaPongFinishedActivity.this, PlasmaPong.class);
 				i.putExtra(PlasmaPong.PLAYER_KEY, PlasmaPong.TWO_PLAYER_PLAY);
 				i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(i);
 			}});
     	
-    	Button quit = (Button) this.findViewById(com.teamwut.plasma.plasmapong.R.id.quit);
+    	final Button quit = (Button) this.findViewById(com.teamwut.plasma.plasmapong.R.id.quit);
     	quit.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				Editor edit = prefs.edit();
+			public void onClick(final View v) {
+				final Editor edit = prefs.edit();
 				edit.clear();
 				edit.commit();
-				Intent i = new Intent(PlasmaPongFinishedActivity.this,PlasmaPongStartActivity.class);
+				final Intent i = new Intent(PlasmaPongFinishedActivity.this,PlasmaPongStartActivity.class);
 				i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(i);
 			}});
     	
     	
-    	TextView p1scoreview = (TextView)this.findViewById(com.teamwut.plasma.plasmapong.R.id.player1_score);
+    	final TextView p1scoreview = (TextView)this.findViewById(com.teamwut.plasma.plasmapong.R.id.player1_score);
     	p1scoreview.setText(p1score+"");
-    	TextView p2scoreview = (TextView)this.findViewById(com.teamwut.plasma.plasmapong.R.id.player2_score);
+    	final TextView p2scoreview = (TextView)this.findViewById(com.teamwut.plasma.plasmapong.R.id.player2_score);
     	p2scoreview.setText(p2score+"");
     	
-    	TextView p1recordview = (TextView)this.findViewById(com.teamwut.plasma.plasmapong.R.id.player1_record);
+    	final TextView p1recordview = (TextView)this.findViewById(com.teamwut.plasma.plasmapong.R.id.player1_record);
     	p1recordview.setText(p1record+"\nof\n"+games);
-    	TextView p2recordview = (TextView)this.findViewById(com.teamwut.plasma.plasmapong.R.id.player2_record);
+    	final TextView p2recordview = (TextView)this.findViewById(com.teamwut.plasma.plasmapong.R.id.player2_record);
     	p2recordview.setText(p2record+"\nof\n"+games);
     	
-    	TextView p1nameview = (TextView)this.findViewById(com.teamwut.plasma.plasmapong.R.id.player1_name);
+    	final TextView p1nameview = (TextView)this.findViewById(com.teamwut.plasma.plasmapong.R.id.player1_name);
     	p1nameview.setText(p1name+"");
-    	TextView p2nameview = (TextView)this.findViewById(com.teamwut.plasma.plasmapong.R.id.player2_name);
+    	final TextView p2nameview = (TextView)this.findViewById(com.teamwut.plasma.plasmapong.R.id.player2_name);
     	p2nameview.setText(p2name+"");
     	
 	}
 	
 	public void onBackPressed() {
-		Intent i = new Intent(PlasmaPongFinishedActivity.this,PlasmaPongStartActivity.class);
+		final Intent i = new Intent(PlasmaPongFinishedActivity.this,PlasmaPongStartActivity.class);
 		i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
 	}
@@ -143,12 +143,12 @@ public class PlasmaPongFinishedActivity extends PApplet implements MTCallback {
 	}
 		
 	//mt version
-	public boolean surfaceTouchEvent(MotionEvent me) {
+	public boolean surfaceTouchEvent(final MotionEvent me) {
 		if (mtManager != null) mtManager.surfaceTouchEvent(me);
 		return super.surfaceTouchEvent(me);
 	}
 	
-	public void addForce(float x, float y) {
+	public void addForce(final float x, final float y) {
 		float vx, vy;	
 		if (y/height > 0.5f) 
 			vx = -25;
@@ -167,17 +167,17 @@ public class PlasmaPongFinishedActivity extends PApplet implements MTCallback {
 	}
 	
 	public void addRandomForce() {
-		float x = r.nextInt(width);
-		float y = r.nextInt(height);
-		int max = 200;
-		float dx = r.nextInt(max) - max/2;
-		float dy = r.nextInt(max) - max/2;
+		final float x = r.nextInt(width);
+		final float y = r.nextInt(height);
+		final int max = 200;
+		final float dx = r.nextInt(max) - max/2;
+		final float dy = r.nextInt(max) - max/2;
 		fluid.addForce(this, x/width, y/height, dy/width, dx/height, 0, 50);
 	}
 	
 	public void updateCursors() {
-		ArrayList<Cursor> cursors = (ArrayList<Cursor>) mtManager.cursors.clone();
-		for (Cursor c : cursors ) {
+		final ArrayList<Cursor> cursors = (ArrayList<Cursor>) mtManager.cursors.clone();
+		for (final Cursor c : cursors ) {
 			if (c != null && c.currentPoint != null)
 				addForce(c.currentPoint.x, c.currentPoint.y);
 		}
@@ -199,8 +199,8 @@ public class PlasmaPongFinishedActivity extends PApplet implements MTCallback {
 	}
 
 	@Override
-	public void touchEvent(MotionEvent me, int i, float x, float y, float vx,
-			float vy, float size) {
+	public void touchEvent(final MotionEvent me, final int i, final float x, final float y, final float vx,
+			final float vy, final float size) {
 	}
 
 }

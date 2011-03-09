@@ -1,7 +1,6 @@
 package com.teamwut.plasma.plasmapong.pong.bots;
 
 import processing.core.PApplet;
-import processing.core.PConstants;
 
 import com.teamwut.plasma.plasmapong.PlasmaFluid;
 import com.teamwut.plasma.plasmapong.pong.Game;
@@ -18,14 +17,14 @@ public abstract class Bot {
 	PlasmaFluid fluid;
 	Ball ball;
 		
-	public Bot(Game parent, PlasmaFluid fluid, Ball ball) {
+	public Bot(final Game parent, final PlasmaFluid fluid, final Ball ball) {
 		this.parent = parent;
 		this.fluid = fluid;
 		this.ball = ball;
 	}
 	
 	public abstract void thinkAndMove(PApplet p);
-	public void setup(PApplet p) {}
+	public void setup(final PApplet p) {}
 	
 	public void youJustLost() {}
 }
