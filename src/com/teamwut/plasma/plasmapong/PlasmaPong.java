@@ -28,7 +28,7 @@ public class PlasmaPong extends PApplet implements MTCallback {
 
 	public int sketchWidth() { return this.screenWidth; }
 	public int sketchHeight() { return this.screenHeight; }
-	public String sketchRenderer() { return PApplet.A3D; }
+	public String sketchRenderer() { return Const.RENDER_MODE; }
 	public boolean sketchTranslucency() { return false;  }
 
 	PlasmaFluid fluid;

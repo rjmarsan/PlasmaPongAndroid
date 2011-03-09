@@ -1,9 +1,13 @@
 package com.teamwut.plasma.plasmapong.pong;
 
+import processing.core.PApplet;
+
 import com.teamwut.plasma.plasmapong.PlasmaPong;
 
 public class Const {
 
+	public final static String RENDER_MODE = PApplet.A3D;
+	
 	public final static String SHARED_PREF_NAME = PlasmaPong.class+"plasmapongprefs";
 	
 	

@@ -29,7 +29,7 @@ public class PlasmaPongStartActivity extends PApplet implements MTCallback {
 
 	public int sketchWidth() { return this.screenWidth; }
 	public int sketchHeight() { return this.screenHeight; }
-	public String sketchRenderer() { return PApplet.OPENGL; }
+	public String sketchRenderer() { return Const.RENDER_MODE; }
 
 	PlasmaFluid fluid;
 	
