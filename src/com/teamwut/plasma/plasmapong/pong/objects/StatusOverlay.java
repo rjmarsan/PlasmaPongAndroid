@@ -52,12 +52,12 @@ public class StatusOverlay extends PObject {
 			p.ellipse(stepsize*4, height/2, size, size);
 			
 			if (numcircles == 2 && numcircles != lastnum) {
-				fluid.addForce(p, (stepsize*2)/width, 0.5f, -forceval*(1+r.nextFloat()), 0, Const.OTHER_OFFSET, colorval);
-				fluid.addForce(p, (stepsize*6)/width, 0.5f, forceval*(1+r.nextFloat()), 0, Const.OTHER_OFFSET, colorval);
+				fluid.addForce((stepsize*2)/width, 0.5f, -forceval*(1+r.nextFloat()), 0, Const.OTHER_OFFSET, colorval);
+				fluid.addForce((stepsize*6)/width, 0.5f, forceval*(1+r.nextFloat()), 0, Const.OTHER_OFFSET, colorval);
 			}
 			if (numcircles == 1 && numcircles != lastnum) {
-				fluid.addForce(p, (stepsize*5)/width, 0.5f, 0, forceval*(1+r.nextFloat()), Const.OTHER_OFFSET, colorval);
-				fluid.addForce(p, (stepsize*3)/width, 0.5f, 0, -forceval*(1+r.nextFloat()), Const.OTHER_OFFSET, colorval);
+				fluid.addForce((stepsize*5)/width, 0.5f, 0, forceval*(1+r.nextFloat()), Const.OTHER_OFFSET, colorval);
+				fluid.addForce((stepsize*3)/width, 0.5f, 0, -forceval*(1+r.nextFloat()), Const.OTHER_OFFSET, colorval);
 			}
 //			if (numcircles == 1 && count == 0) {
 //				fluid.addForce(p, (stepsize*4.2f)/width, 0.5f, 0, forceval*(1+r.nextFloat()), Const.OTHER_OFFSET, colorval);

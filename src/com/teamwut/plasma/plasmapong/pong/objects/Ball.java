@@ -81,12 +81,12 @@ public class Ball {
 	    if (x < padding) {
 	      x=padding;
 	      vx = -vx;
-	      fluid.addForce(p, x/width, y/height, vx/width*Const.SIDEBAR_HIT_VEL_MULT, 0, 270, Const.SIDEBAR_HIT_COLOR_MULT);
+	      fluid.addForce(x/width, y/height, vx/width*Const.SIDEBAR_HIT_VEL_MULT, 0, 270, Const.SIDEBAR_HIT_COLOR_MULT);
 	    }
 	    else if (x > width-padding) {
 	      x=width-padding;
 	      vx = -vx;
-	      fluid.addForce(p, x/width, y/height, vx/width*Const.SIDEBAR_HIT_VEL_MULT, 0, 270, Const.SIDEBAR_HIT_COLOR_MULT);
+	      fluid.addForce( x/width, y/height, vx/width*Const.SIDEBAR_HIT_VEL_MULT, 0, 270, Const.SIDEBAR_HIT_COLOR_MULT);
 	    }
 	    gutterFix(fluid);
 	    if (y < upperBoundsY) {
@@ -104,14 +104,14 @@ public class Ball {
 		  if (x > width-padding*2) {
 		    	gutterCount ++;
 		    	if (gutterCount > Const.SIDEBAR_GUTTER_COUNT) {
-		  	      fluid.addForce(p, 1, y/height, Const.SIDEBAR_GUTTER_FIX_MULT, 0, 270, Const.SIDEBAR_GUTTER_FIX_COLOR);
+		  	      fluid.addForce( 1, y/height, Const.SIDEBAR_GUTTER_FIX_MULT, 0, 270, Const.SIDEBAR_GUTTER_FIX_COLOR);
 		  	      gutterCount = 0;
 		    	}
 		    }
 		    else if (x < padding*2) {
 		    	gutterCount ++;
 		    	if (gutterCount > Const.SIDEBAR_GUTTER_COUNT) {
-		  	      fluid.addForce(p, 0, y/height, Const.SIDEBAR_GUTTER_FIX_MULT, 0, 270, Const.SIDEBAR_GUTTER_FIX_COLOR);
+		  	      fluid.addForce( 0, y/height, Const.SIDEBAR_GUTTER_FIX_MULT, 0, 270, Const.SIDEBAR_GUTTER_FIX_COLOR);
 		  	      gutterCount = 0;
 		    	}
 		    }

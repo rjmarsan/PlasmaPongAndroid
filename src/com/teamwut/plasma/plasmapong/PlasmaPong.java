@@ -177,7 +177,7 @@ public class PlasmaPong extends PApplet implements MTCallback {
 		updateCursors();
 		
 	    background(0);
-	    fluid.draw(this, !paused);
+	    fluid.draw(this);
 	    drawPong();
 	    
 	    if (this.frameCount % 60 == 0) println(this.frameRate+"");

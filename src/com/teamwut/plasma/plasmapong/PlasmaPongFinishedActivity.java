@@ -172,7 +172,7 @@ public class PlasmaPongFinishedActivity extends PApplet implements MTCallback {
 		final int max = 200;
 		final float dx = r.nextInt(max) - max/2;
 		final float dy = r.nextInt(max) - max/2;
-		fluid.addForce(this, x/width, y/height, dy/width, dx/height, 0, 50);
+		fluid.addForce(x/width, y/height, dy/width, dx/height, 0, 50);
 	}
 	
 	public void updateCursors() {

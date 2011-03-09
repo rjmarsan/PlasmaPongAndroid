@@ -18,7 +18,7 @@ public class Drawbl {
 //		fluid = new PlasmaFluid(p);
 //		FLUID = new SoftReference<PlasmaFluid>(fluid);
 //		return fluid;
-		return new PlasmaFluid(p);
+		return new PlasmaFluid(p.width, p.height);
 	}
 	
 	
