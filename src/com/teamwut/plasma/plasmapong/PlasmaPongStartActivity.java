@@ -26,28 +26,23 @@ import com.teamwut.plasma.plasmapong.pong.Const;
 import com.teamwut.plasma.plasmapong.pong.Prefs;
 import com.teamwut.plasma.plasmapong.pong.objects.Goals;
 
-public class PlasmaPongStartActivity extends Activity implements MTCallback, SurfaceHolder.Callback {
+public class PlasmaPongStartActivity extends PActivity {
 
 
 
-	PlasmaFluid fluid;
-	
-	MTManager mtManager;
-	SurfaceHolder holder;
-	
-	int width, height;
 	
 	Goals goals;
 	
-	Random r = new Random();
 	
 	public void onCreate(final Bundle savedinstance) {
 		super.onCreate(savedinstance);
 		
-		this.setContentView(R.layout.main_screen_on);
+//		this.setContentView(R.layout.main_screen_on);
 		
-		createSurface();
-		
+//		createSurface();
+    	View overlay = this.getLayoutInflater().inflate(R.layout.main_screen_on, null);
+    	this.addContentView(overlay, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+
     	final Button play1p = (Button) this.findViewById(com.teamwut.plasma.plasmapong.R.id.play_1p);
     	play1p.setOnClickListener(new OnClickListener() {
 			public void onClick(final View v) {
@@ -64,36 +59,6 @@ public class PlasmaPongStartActivity extends Activity implements MTCallback, Sur
 			}});
 	}
 	
-	private void createSurface() {
-		final SurfaceView surface = (SurfaceView) this.findViewById(R.id.surfacevieww);
-		holder = surface.getHolder();
-		holder.addCallback(this);
-	}
-	static boolean alreadyone = false;
-
-	private class UpdateThread extends Thread {
-		public void run() {
-			if (!alreadyone) {
-				alreadyone = true;
-				Canvas c;
-				while(1==1) {
-					c = holder.lockCanvas();
-					if (c != null) {
-						draw(c);
-						holder.unlockCanvasAndPost(c);
-					}
-					try {
-						Thread.sleep(30);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-	}
-
-	
 	public void setup() {
 	    fluid = new PlasmaFluid(width, height);
 	    fluid.setRandomness(true);
@@ -102,48 +67,6 @@ public class PlasmaPongStartActivity extends Activity implements MTCallback, Sur
 //	    goals = new Goals(this);
 	    new UpdateThread().start();
 	}
-		
-	//mt version
-	public boolean onTouchEvent(final MotionEvent me) {
-		if (mtManager != null) mtManager.surfaceTouchEvent(me);
-		return true;
-	}
-	
-	public void addForce(final float x, final float y) {
-		float vx, vy;	
-		if (y/height > 0.5f) 
-			vx = -25;
-		else 
-			vx = 20;
-		vy = 0;
-		
-	    fluid.addForce( x/width, y/height, vy/width, vx/height);
-	    
-	    vy = -4;
-	    vx = vx / 10;
-	    fluid.addForce( x/width, y/height, vy/width, vx/height);
-	    
-	    vy = 4;
-	    fluid.addForce( x/width, y/height, vy/width, vx/height);
-	}
-	
-	public void addRandomForce() {
-		final float x = r.nextInt(width);
-		final float y = r.nextInt(height);
-		final int max = 200;
-		final float dx = r.nextInt(max) - max/2;
-		final float dy = r.nextInt(max) - max/2;
-		fluid.addForce( x/width, y/height, dy/width, dx/height, 0, 50);
-	}
-	
-	public void updateCursors() {
-		final ArrayList<Cursor> cursors = (ArrayList<Cursor>) mtManager.cursors.clone();
-		for (final Cursor c : cursors ) {
-			if (c != null && c.currentPoint != null)
-				addForce(c.currentPoint.x, c.currentPoint.y);
-		}
-	}
-	
 	
 	public void draw(Canvas c) {
 		updateCursors();
@@ -162,11 +85,6 @@ public class PlasmaPongStartActivity extends Activity implements MTCallback, Sur
 	
 	}
 
-	@Override
-	public void touchEvent(final MotionEvent me, final int i, final float x, final float y, final float vx,
-			final float vy, final float size) {
-	}
-	
 	
 	@Override
 	public boolean onCreateOptionsMenu(final Menu menu) {
@@ -204,29 +122,5 @@ public class PlasmaPongStartActivity extends Activity implements MTCallback, Sur
         final SharedPreferences mPrefs = this.getSharedPreferences(Const.SHARED_PREF_NAME, 0);
         Prefs.botName = mPrefs.getString("bottype", getResources().getString(com.teamwut.plasma.plasmapong.R.string.bot_watson));
     }
-
-
-	@Override
-	public void surfaceChanged(SurfaceHolder holder, int format, int width,
-			int height) {
-		this.width = width;;
-		this.height = height;;
-		setup();
-	}
-
-
-	@Override
-	public void surfaceCreated(SurfaceHolder holder) {
-		
-	}
-
-
-	@Override
-	public void surfaceDestroyed(SurfaceHolder holder) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 
 }

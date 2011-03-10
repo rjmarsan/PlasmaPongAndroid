@@ -134,7 +134,7 @@ public class PlasmaPongFinishedActivity extends PApplet implements MTCallback {
 		hint(DISABLE_OPENGL_ERROR_REPORT);
 	    frameRate(40);
 	
-	    fluid = Drawbl.getFluidSim(this);
+	    fluid = Drawbl.getFluidSim(width, height);
 	    fluid.setRandomness(true);
 	    mtManager = new MTManager();
 	    

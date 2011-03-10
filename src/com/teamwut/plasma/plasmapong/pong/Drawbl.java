@@ -10,7 +10,7 @@ import com.teamwut.plasma.plasmapong.PlasmaFluid;
 public class Drawbl {
 
 	public static SoftReference<PlasmaFluid> FLUID = new SoftReference<PlasmaFluid>(null);
-	public static PlasmaFluid getFluidSim(final PApplet p) {
+	public static PlasmaFluid getFluidSim(int width, int height) {
 //		PlasmaFluid fluid = FLUID.get();
 //		if (fluid != null) {
 //			return fluid;
@@ -18,7 +18,7 @@ public class Drawbl {
 //		fluid = new PlasmaFluid(p);
 //		FLUID = new SoftReference<PlasmaFluid>(fluid);
 //		return fluid;
-		return new PlasmaFluid(p.width, p.height);
+		return new PlasmaFluid(width, height);
 	}
 	
 	

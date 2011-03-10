@@ -19,7 +19,7 @@ import com.teamwut.plasma.plasmapong.pong.objects.HUD;
 import com.teamwut.plasma.plasmapong.pong.objects.StatusOverlay;
 
 public class Game {
-	final PlasmaPong p;
+	final PApplet p;
 	final PlasmaFluid fluid;
 	
 	final float width;
@@ -59,7 +59,7 @@ public class Game {
 
 	public Game(final PlasmaPong p, final PlasmaFluid fluid, final int players) {
 		this.fluid = fluid;
-		this.p = p;
+		this.p = null;
 		this.width = p.width;
 		this.height = p.height;
 		this.players = players;
