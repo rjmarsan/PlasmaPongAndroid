@@ -4,13 +4,14 @@ import java.util.Random;
 
 import processing.core.PApplet;
 
+import com.teamwut.plasma.plasmapong.PActivity;
 import com.teamwut.plasma.plasmapong.PlasmaFluid;
 import com.teamwut.plasma.plasmapong.pong.Const;
 import com.teamwut.plasma.plasmapong.pong.Game;
 
 public class StatusOverlay extends PObject {
 	Random r = new Random();
-	public StatusOverlay(final PApplet p) {
+	public StatusOverlay(final PActivity p) {
 		super(p);
 	}
 	

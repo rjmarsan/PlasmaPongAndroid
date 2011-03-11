@@ -3,8 +3,10 @@ package com.teamwut.plasma.plasmapong.pong;
 import processing.core.PApplet;
 import processing.core.PFont;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.util.Log;
 
+import com.teamwut.plasma.plasmapong.PActivity;
 import com.teamwut.plasma.plasmapong.PlasmaFluid;
 import com.teamwut.plasma.plasmapong.PlasmaPong;
 import com.teamwut.plasma.plasmapong.PlasmaPongFinishedActivity;
@@ -19,9 +21,8 @@ import com.teamwut.plasma.plasmapong.pong.objects.HUD;
 import com.teamwut.plasma.plasmapong.pong.objects.StatusOverlay;
 
 public class Game {
-	final PApplet p;
 	final PlasmaFluid fluid;
-	
+	final PActivity p;
 	final float width;
 	final float height;
 	final int players;
@@ -59,7 +60,7 @@ public class Game {
 
 	public Game(final PlasmaPong p, final PlasmaFluid fluid, final int players) {
 		this.fluid = fluid;
-		this.p = null;
+		this.p = p;
 		this.width = p.width;
 		this.height = p.height;
 		this.players = players;
@@ -79,7 +80,7 @@ public class Game {
 		hud = new HUD(p);
 		setupBot();
 		updateScores();
-		statoverlay = new StatusOverlay(p);
+//		statoverlay = new StatusOverlay(p);
 		initGameLogic();
 	}
 	
@@ -100,16 +101,16 @@ public class Game {
 		} else {
 			watson = new WatsonAI(this, fluid, ball);
 		}
-		watson.setup(p);
+//		watson.setup(p);
 	}
 	
 	public void glInit() {
-		p.textMode(PApplet.MODEL);
-		//font = p.loadFont("GillSans-Bold-48.vlw");
-
-//		p.textFont(font, 48);
-		p.textAlign(PApplet.CENTER);
-		p.rectMode(PApplet.CENTER);
+//		p.textMode(PApplet.MODEL);
+//		//font = p.loadFont("GillSans-Bold-48.vlw");
+//
+////		p.textFont(font, 48);
+//		p.textAlign(PApplet.CENTER);
+//		p.rectMode(PApplet.CENTER);
 	}
 
 	public void initGameLogic() {
@@ -266,20 +267,19 @@ public class Game {
 
 	
 	
-	public void drawPong(final boolean stepforward) {
-		p.pushStyle();
-		p.colorMode(p.RGB, 255, 255, 255, 255);
+	public void drawPong(Canvas c, final boolean stepforward) {
+		c.save();
 
-		goals.draw(p);
-		ball.draw(fluid, stepforward && mode == PLAYING);
+		goals.draw(c);
+		ball.draw(c, fluid, stepforward && mode == PLAYING);
 
-		hud.draw(p);
-		statoverlay.draw(p, this, fluid);
+//		hud.draw(c);
+//		statoverlay.draw(c, this, fluid);
+//		
+//		if (players == 1 && stepforward)
+//			watson.thinkAndMove(c);
 		
-		if (players == 1 && stepforward)
-			watson.thinkAndMove(p);
-		
-		p.popStyle();
+		c.restore();
 		
 		if (!paused && stepforward) updateGameState();
 	}

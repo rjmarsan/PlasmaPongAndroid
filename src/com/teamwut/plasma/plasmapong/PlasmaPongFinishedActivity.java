@@ -138,7 +138,7 @@ public class PlasmaPongFinishedActivity extends PApplet implements MTCallback {
 	    fluid.setRandomness(true);
 	    mtManager = new MTManager();
 	    
-	    goals = new Goals(this);
+//	    goals = new Goals(this);
 	    	    
 	}
 		

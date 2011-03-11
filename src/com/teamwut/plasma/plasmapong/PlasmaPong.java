@@ -5,15 +5,14 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 
-import com.teamwut.plasma.plasmapong.PActivity.UpdateThread;
 import com.teamwut.plasma.plasmapong.mt.Cursor;
-import com.teamwut.plasma.plasmapong.mt.MTManager;
 import com.teamwut.plasma.plasmapong.pong.Const;
 import com.teamwut.plasma.plasmapong.pong.Drawbl;
 import com.teamwut.plasma.plasmapong.pong.Game;
@@ -74,7 +73,6 @@ public class PlasmaPong extends PActivity {
 	public void setup() {
 	    fluid = Drawbl.getFluidSim(width, height);
 	    fluid.setRandomness(false);
-	    mtManager = new MTManager();
 	    
 	    //GAME CODE
 	    final Intent lastIntent = this.getIntent();
@@ -84,10 +82,9 @@ public class PlasmaPong extends PActivity {
 			players = 1;
 		else if (playerKey.equals(TWO_PLAYER_PLAY))
 			players = 2;
-			g = new Game(this, fluid, players);
-//	    initPong(); UNDO
+		g = new Game(this, fluid, players);
+	    initPong();
 			
-		    new UpdateThread().start();
 
 	    
 	}
@@ -134,18 +131,20 @@ public class PlasmaPong extends PActivity {
 		final ArrayList<Cursor> cursors = (ArrayList<Cursor>) mtManager.cursors.clone();
 		for (final Cursor c : cursors ) {
 			if (c != null && c.currentPoint != null)
-				addForce(c.currentPoint.x, c.currentPoint.y, g.getBall().x, g.getBall().y);
+//				addForce(c.currentPoint.x, c.currentPoint.y, g.getBall().x, g.getBall().y);
+				addForce(c.currentPoint.x, c.currentPoint.y, 1,1);
 		}
 	}
 	
 	
 	public void draw(Canvas c) {
-		updateCursors();
+//		Log.d("PlasmaPong", "Drawing");
 		
-		c.drawRGB(1,5,100);
+		
+//		c.drawRGB(1,5,100);
 //	    background(0);
 	    fluid.draw(c);
-//	    drawPong();
+	    drawPong(c);
 	    
 //	    if (this.frameCount % 60 == 0) println(this.frameRate+"");
 	}
@@ -154,14 +153,18 @@ public class PlasmaPong extends PActivity {
 		g.initPong();
 	}
 
-	public void drawPong() {
-		g.drawPong(!paused);
+	public void drawPong(Canvas c) {
+		g.drawPong(c, !paused);
 	}
 	
 	public void onBackPressed() {
 		if (paused) {
 			this.runOnUiThread(new Runnable() {
 			public void run() {unpause();}
+			});
+		} else {
+			this.runOnUiThread(new Runnable() {
+				public void run() {dopause();}
 			});
 		}
 	}

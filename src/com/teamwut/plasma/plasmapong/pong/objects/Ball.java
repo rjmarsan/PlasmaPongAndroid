@@ -1,14 +1,16 @@
 package com.teamwut.plasma.plasmapong.pong.objects;
 
 import msafluid.MSAFluidSolver2D;
-import processing.core.PApplet;
-import processing.core.PImage;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 
+import com.teamwut.plasma.plasmapong.PActivity;
 import com.teamwut.plasma.plasmapong.PlasmaFluid;
 import com.teamwut.plasma.plasmapong.pong.Const;
 
 public class Ball {
-	  final PApplet p;
+	  final PActivity p;
 	  
 	  public float x;
 	  public float y;
@@ -31,8 +33,9 @@ public class Ball {
 	  
 	  float scalingFactor = 500;
 	  
-	  PImage ballimage;
-	  public Ball(final PApplet p) {
+	  Bitmap ballimage;
+	  Paint ballimagepaint;
+	  public Ball(final PActivity p) {
 		  this.p = p;
 		  this.x = p.width/2;
 		  this.y = p.height/2;
@@ -40,19 +43,18 @@ public class Ball {
 		  this.height = p.height;
 		  this.lowerBoundsY = height - yPadding;
 		  ballimage = p.loadImage("puck6b.png");
+		  ballimagepaint = new Paint();
 	  }
 	  
 	  
 	  float noiseScale, noiseVal, fluidvx,fluidvy;
 	  int index;
-	  public void draw(final PlasmaFluid fluid, final boolean stepforward) {
-		  final MSAFluidSolver2D fluidSolver = fluid.fluidSolver;
-	    p.pushStyle();
+	  public void draw(final Canvas c, PlasmaFluid fluid, final boolean stepforward) {
+		final MSAFluidSolver2D fluidSolver = fluid.fluidSolver;
+	    c.save();
 //	    noiseScale = 0.01f;
 //	    noiseVal = p.noise(x*noiseScale, y*noiseScale)*255;
 //	    p.fill(noiseVal,noiseVal,noiseVal,150);
-	    p.stroke(0);
-	    p.strokeWeight(3);
 	    index = fluidSolver.getIndexForNormalizedPosition(x/width,y/height);
 	    fluidvy = fluidSolver.v[index]*scalingFactor;
 	    fluidvx = fluidSolver.u[index]*scalingFactor;
@@ -67,10 +69,11 @@ public class Ball {
 	    if (vx > 200) vx = 200;
 	    if (vy > 200) vy = 200;
 //	    p.ellipse(x,y,30,30);
-	    p.imageMode(PApplet.CENTER);
-	    p.image(ballimage, x, y);
-	    p.popStyle();
 	    
+//	    p.image(ballimage, x, y);
+	    c.drawBitmap(ballimage, x, y, ballimagepaint);
+
+	    c.restore();
 	    if (stepforward) {
 		    x = x+vx;
 		    y = y+vy;

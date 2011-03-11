@@ -62,15 +62,11 @@ public class PlasmaPongStartActivity extends PActivity {
 	public void setup() {
 	    fluid = new PlasmaFluid(width, height);
 	    fluid.setRandomness(true);
-	    mtManager = new MTManager();
 	    
 //	    goals = new Goals(this);
-	    new UpdateThread().start();
 	}
 	
-	public void draw(Canvas c) {
-		updateCursors();
-		
+	public void draw(Canvas c) {		
 //		Log.d("asdf","asdf");
 		
 //		c.drawRGB(20, 100, 200);

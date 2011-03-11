@@ -1,7 +1,8 @@
 package com.teamwut.plasma.plasmapong.pong.objects;
 
-import processing.core.PApplet;
-import processing.core.PImage;
+import android.graphics.Bitmap;
+
+import com.teamwut.plasma.plasmapong.PActivity;
 
 public class HUD extends PObject {
 	
@@ -10,10 +11,10 @@ public class HUD extends PObject {
 	
 //	PFont font;
 	
-	PImage[] images = new PImage[8];
+	Bitmap[] images = new Bitmap[8];
 	
 
-	public HUD(final PApplet p) {
+	public HUD(final PActivity p) {
 		super(p);
 //		font = p.loadFont("AmericanTypewriter-48.vlw");
 		for (int i=0;i<8;i++) {
@@ -21,32 +22,32 @@ public class HUD extends PObject {
 		}
 	}
 	
-	public void draw(final PApplet p) {
+	public void draw(final PActivity p) {
 //		System.out.println("p1score: " + p1score + ", p2score: " + p2score);
 		// Player 1
-		p.pushMatrix();
-		p.pushStyle();
-		p.imageMode(PApplet.CENTER);
-		
-		p.translate(50, p.height/2-50);
-		p.rotate(PApplet.PI);
-//	    p.colorMode(p.RGB, 255);
-//	    p.fill(255, 0, 0);
-//	    p.textFont(font, 48);
-//	    p.fill(255);
-//	    p.text(p2score, 0, 0);
-		p.image(images[p2score], 0, 0);
-
-		p.translate(-p.width+100, -100);
-		p.rotate(PApplet.PI);
-//	    p.fill(255, 0, 0);
-//	    p.textFont(font, 48);
-//	    p.fill(255);
-//	    p.text(p1score, 0, 0);
-		p.image(images[p1score], 0, 0);
-
-	    p.popStyle();
-	    p.popMatrix();
+//		p.pushMatrix();
+//		p.pushStyle();
+//		p.imageMode(PApplet.CENTER);
+//		
+//		p.translate(50, p.height/2-50);
+//		p.rotate(PApplet.PI);
+////	    p.colorMode(p.RGB, 255);
+////	    p.fill(255, 0, 0);
+////	    p.textFont(font, 48);
+////	    p.fill(255);
+////	    p.text(p2score, 0, 0);
+//		p.image(images[p2score], 0, 0);
+//
+//		p.translate(-p.width+100, -100);
+//		p.rotate(PApplet.PI);
+////	    p.fill(255, 0, 0);
+////	    p.textFont(font, 48);
+////	    p.fill(255);
+////	    p.text(p1score, 0, 0);
+//		p.image(images[p1score], 0, 0);
+//
+//	    p.popStyle();
+//	    p.popMatrix();
 	}
 	
 	public void setP1Score(final int p1) {
