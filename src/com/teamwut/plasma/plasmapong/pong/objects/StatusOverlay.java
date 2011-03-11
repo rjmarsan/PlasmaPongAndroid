@@ -3,6 +3,10 @@ package com.teamwut.plasma.plasmapong.pong.objects;
 import java.util.Random;
 
 import processing.core.PApplet;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
 
 import com.teamwut.plasma.plasmapong.PActivity;
 import com.teamwut.plasma.plasmapong.PlasmaFluid;
@@ -11,21 +15,26 @@ import com.teamwut.plasma.plasmapong.pong.Game;
 
 public class StatusOverlay extends PObject {
 	Random r = new Random();
+	Paint paint = new Paint();
 	public StatusOverlay(final PActivity p) {
 		super(p);
+		paint.setStrokeWidth(3);
+		paint.setStyle(Style.FILL_AND_STROKE);
+		paint.setColor(Color.argb(50, 150, 150, 150));
 	}
 	
 	int lastnum = 0;
 	
-	public void draw(final PApplet p, final Game g, final PlasmaFluid fluid) {
-		p.pushStyle();
+	public void draw(final Canvas c, final Game g, final PlasmaFluid fluid) {
+		c.save();
 		
-		p.stroke(255);
-		p.strokeWeight(3);
-		p.fill(150,150);
-		p.ellipseMode(PApplet.CENTER);
+//		p.stroke(255);
+//		p.strokeWeight(3);
+//		p.fill(150,150);
+//		p.ellipseMode(PApplet.CENTER);
+//		
 		
-		p.rectMode(PApplet.CORNER);
+//		p.rectMode(PApplet.CORNER);
 		if (g.mode == Game.PREGAME_WAIT || g.mode == Game.JUST_SCORED || g.mode == Game.JUST_SCORED_WAIT) {
 			
 			int numcircles = 0;
@@ -40,25 +49,32 @@ public class StatusOverlay extends PObject {
 				numcircles = 1;
 			}
 
-			final float stepsize = width/8;
-			final float size = width/9f;
+			final float stepsize = height/8;
+			final float size = height/16f;
 			if (numcircles > 2) {
-				p.ellipse(stepsize*2, height/2, size*0.75f, size*0.75f);
-				p.ellipse(stepsize*6, height/2, size*0.75f, size*0.75f);
+				c.drawCircle(width/2, stepsize*2,  size*0.75f, paint);
+//				p.ellipse(stepsize*2,   size*0.75f, size*0.75f);
+//				p.ellipse(stepsize*6,   size*0.75f, size*0.75f);
+				c.drawCircle(width/2, stepsize*6, size*0.75f, paint);
+
 			}
 			if (numcircles > 1) {
-				p.ellipse(stepsize*5, height/2, size*0.9f, size*0.9f);
-				p.ellipse(stepsize*3, height/2, size*0.9f, size*0.9f);
+				c.drawCircle(width/2, stepsize*5,   size*0.9f, paint);
+				c.drawCircle(width/2, stepsize*3,   size*0.9f, paint);
+
+//				p.ellipse(stepsize*5,   size*0.9f, size*0.9f);
+//				p.ellipse(stepsize*3,   size*0.9f, size*0.9f);
 			}
-			p.ellipse(stepsize*4, height/2, size, size);
-			
+//			p.ellipse(stepsize*4,   size, size);
+			c.drawCircle(width/2, stepsize*4,   size, paint);
+
 			if (numcircles == 2 && numcircles != lastnum) {
-				fluid.addForce((stepsize*2)/width, 0.5f, -forceval*(1+r.nextFloat()), 0, Const.OTHER_OFFSET, colorval);
-				fluid.addForce((stepsize*6)/width, 0.5f, forceval*(1+r.nextFloat()), 0, Const.OTHER_OFFSET, colorval);
+				fluid.addForce(0.5f, (stepsize*2)/height, -forceval*(1+r.nextFloat()), 0, Const.OTHER_OFFSET, colorval);
+				fluid.addForce(0.5f, (stepsize*6)/height, forceval*(1+r.nextFloat()), 0, Const.OTHER_OFFSET, colorval);
 			}
 			if (numcircles == 1 && numcircles != lastnum) {
-				fluid.addForce((stepsize*5)/width, 0.5f, 0, forceval*(1+r.nextFloat()), Const.OTHER_OFFSET, colorval);
-				fluid.addForce((stepsize*3)/width, 0.5f, 0, -forceval*(1+r.nextFloat()), Const.OTHER_OFFSET, colorval);
+				fluid.addForce(0.5f, (stepsize*5)/height, 0, forceval*(1+r.nextFloat()), Const.OTHER_OFFSET, colorval);
+				fluid.addForce(0.5f, (stepsize*3)/height, 0, -forceval*(1+r.nextFloat()), Const.OTHER_OFFSET, colorval);
 			}
 //			if (numcircles == 1 && count == 0) {
 //				fluid.addForce(p, (stepsize*4.2f)/width, 0.5f, 0, forceval*(1+r.nextFloat()), Const.OTHER_OFFSET, colorval);
@@ -69,12 +85,16 @@ public class StatusOverlay extends PObject {
 		}
 			
 		else if (g.mode == Game.GAME_OVER) {
-			p.stroke(255);
-			p.fill(255);
-			p.rect(width/2, height/2, g.modeFrameCountdown*3, 30);
+//			p.stroke(255);
+//			p.fill(255);
+//			p.rect(width/2, height/2, g.modeFrameCountdown*3, 30);
+//			
+//			c.drawCircle(stepsize*5, height/2, size*0.9f, paint);
+			c.drawText("Game over!", width/2, height/2, paint);
 		}
 		
-		p.popStyle();
+//		p.popStyle();
+		c.restore();
 	}
 	final float forceval = 1;
 	final float colorval = 100;

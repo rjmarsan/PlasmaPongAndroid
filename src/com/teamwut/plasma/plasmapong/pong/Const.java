@@ -11,16 +11,21 @@ public class Const {
 	public final static String SHARED_PREF_NAME = PlasmaPong.class+"plasmapongprefs";
 	
 	
+	public static final long ANIMATION_THREAD_SLEEP_MS = 5;
+	
+	public static boolean IS_PORTRAIT = true;
+
+	
 	public final static int PLAYER_1 = 1;
 	public final static int PLAYER_2 = 2;
 	public final static int NO_PLAYER = 0;
 	
 	
 	
-	public final static int PREGAME_WAIT_COUNT = 90;
-	public final static int JUST_SCORED_COUNT = 90;
-	public final static int JUST_SCORED_WAIT_COUNT = 90;
-	public final static int GAME_OVER_COUNT = 120;
+	public final static int PREGAME_WAIT_COUNT = 45;
+	public final static int JUST_SCORED_COUNT = 45;
+	public final static int JUST_SCORED_WAIT_COUNT = 45;
+	public final static int GAME_OVER_COUNT = 60;
 
 	
 	
@@ -53,5 +58,6 @@ public class Const {
 	public final static float SIDEBAR_GUTTER_FIX_MULT = 10f;
 	public final static float SIDEBAR_GUTTER_FIX_COLOR = 400f;
 	public final static int SIDEBAR_GUTTER_COUNT = 30;
+
 
 }

@@ -27,6 +27,7 @@ import android.view.WindowManager;
 import com.teamwut.plasma.plasmapong.mt.Cursor;
 import com.teamwut.plasma.plasmapong.mt.MTCallback;
 import com.teamwut.plasma.plasmapong.mt.MTManager;
+import com.teamwut.plasma.plasmapong.pong.Const;
 
 public abstract class PActivity extends Activity implements MTCallback, SurfaceHolder.Callback {
 
@@ -70,7 +71,7 @@ public abstract class PActivity extends Activity implements MTCallback, SurfaceH
 						holder.unlockCanvasAndPost(c);
 					}
 					try {
-						Thread.sleep(10);
+						Thread.sleep(Const.ANIMATION_THREAD_SLEEP_MS);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -158,6 +159,11 @@ public abstract class PActivity extends Activity implements MTCallback, SurfaceH
 			int height) {
 		this.width = width;;
 		this.height = height;;
+		if (width > height) {
+			Const.IS_PORTRAIT = false;
+		} else {
+			Const.IS_PORTRAIT = true;
+		}
 		setupUI();
 	}
 

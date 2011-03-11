@@ -98,9 +98,16 @@ public class PlasmaPong extends PActivity {
 	public void addForce(final float x, final float y, final float targetx, final float targety) {
 		float vx, vy;	
 		
+		
 		vy = 30;
 
 		vx = 0;
+		if (!Const.IS_PORTRAIT) {
+			vy = 0;
+
+			vx = 30;
+		}
+		
 		
 		final float distancesqrt = (x-targetx)*(x-targetx) + (y-targety)*(y-targety);
 		if (distancesqrt < 30010) {
@@ -110,11 +117,15 @@ public class PlasmaPong extends PActivity {
 			vx = (float) Math.cos(diffangle)*30;
 			vy = (float) Math.sin(diffangle)*30;
 		}
+		if (Const.IS_PORTRAIT) {
+			if (y/height > 0.5f) 
+				vy = -vy;
+		} else {
+			if (x/width > 0.5f) 
+				vx = -vx;
+		}
 		
-		if (y/height > 0.5f) 
-			vy = -vy;
-		
-		if (y / height > 0.5f) {
+		if ((Const.IS_PORTRAIT && y / height > 0.5f) || (!Const.IS_PORTRAIT && x /width > 0.5f)) {
 			fluid.addForce(x/width, y/height, vx/width, vy/height, Const.PLAYER_1_OFFSET);
 			fluid.addForce((x+5)/width, y/height, -vy/width/4, vy/height/2, Const.PLAYER_1_OFFSET);
 			fluid.addForce((x-5)/width, y/height, vy/width/4, vy/height/2, Const.PLAYER_1_OFFSET);

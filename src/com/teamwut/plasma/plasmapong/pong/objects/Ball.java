@@ -71,7 +71,7 @@ public class Ball {
 //	    p.ellipse(x,y,30,30);
 	    
 //	    p.image(ballimage, x, y);
-	    c.drawBitmap(ballimage, x, y, ballimagepaint);
+	    c.drawBitmap(ballimage, x-ballimage.getWidth()/2, y-ballimage.getHeight()/2, ballimagepaint);
 
 	    c.restore();
 	    if (stepforward) {

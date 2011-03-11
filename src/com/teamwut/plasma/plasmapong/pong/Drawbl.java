@@ -45,10 +45,19 @@ public class Drawbl {
 	public static Bitmap fillSoftReference(final PActivity p, SoftReference<Bitmap> softref, final String name, final boolean scaleVert, final boolean scaleHoriz) {
 		Bitmap Bitmaple = softref.get();
 		if (Bitmaple != null) return Bitmaple;
-		Bitmaple = p.loadImage(name);
+		if (Const.IS_PORTRAIT)
+			Bitmaple = p.loadImage(name);
+		else
+			Bitmaple = p.loadImage("ROT90_"+name);
 		if (scaleHoriz) {
-			if (Bitmaple != null)
-				Bitmaple = Bitmap.createScaledBitmap(Bitmaple, p.width, Bitmaple.getHeight(),false);
+			if (Bitmaple != null) {
+				if (Const.IS_PORTRAIT) {
+					Bitmaple = Bitmap.createScaledBitmap(Bitmaple, p.width, Bitmaple.getHeight(),false);
+				} else {
+					Bitmaple = Bitmap.createScaledBitmap(Bitmaple, Bitmaple.getWidth(), p.height, false);
+					
+				}
+			}
 		}		
 		softref = new SoftReference<Bitmap>(Bitmaple);
 		return Bitmaple;

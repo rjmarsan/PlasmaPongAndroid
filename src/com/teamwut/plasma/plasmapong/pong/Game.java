@@ -80,7 +80,7 @@ public class Game {
 		hud = new HUD(p);
 		setupBot();
 		updateScores();
-//		statoverlay = new StatusOverlay(p);
+		statoverlay = new StatusOverlay(p);
 		initGameLogic();
 	}
 	
@@ -273,8 +273,8 @@ public class Game {
 		goals.draw(c);
 		ball.draw(c, fluid, stepforward && mode == PLAYING);
 
-//		hud.draw(c);
-//		statoverlay.draw(c, this, fluid);
+		hud.draw(c);
+		statoverlay.draw(c, this, fluid);
 //		
 //		if (players == 1 && stepforward)
 //			watson.thinkAndMove(c);
