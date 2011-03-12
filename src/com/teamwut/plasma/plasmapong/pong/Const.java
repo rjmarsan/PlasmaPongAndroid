@@ -11,9 +11,12 @@ public class Const {
 	public final static String SHARED_PREF_NAME = PlasmaPong.class+"plasmapongprefs";
 	
 	
-	public static final long ANIMATION_THREAD_SLEEP_MS = 5;
+	public static final long ANIMATION_THREAD_SLEEP_MS = 2;
 	
 	public static boolean IS_PORTRAIT = true;
+	
+	public final static int PLASMA_QUALITY = 66;
+	public final static int PLASMA_ITERS = 3;
 
 	
 	public final static int PLAYER_1 = 1;
@@ -33,6 +36,8 @@ public class Const {
 	public final static int PLAYER_2_OFFSET = 135;
 	public final static int OTHER_OFFSET = 270;
 	
+	
+	public final static int AUTO_AIM_RADIUS_SQRD = 30010;
 	
 	
 	public final static String WINNER = "winner";

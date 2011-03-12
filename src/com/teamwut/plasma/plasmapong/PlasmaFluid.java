@@ -13,7 +13,7 @@ import com.teamwut.plasma.plasmapong.pong.Const;
 
 public class PlasmaFluid {
 	
-	final int FLUID_WIDTH = 60;
+	final int FLUID_WIDTH = Const.PLASMA_QUALITY;
 	
 	public final MSAFluidSolver2D fluidSolver;
 	
@@ -56,7 +56,7 @@ public class PlasmaFluid {
 	}
 	
 	public void setupFluid() {
-		  fluidSolver.enableRGB(true).setFadeSpeed(0.01f).setDeltaT(0.5f*Const.FLUID_DELTAT_MULT).setVisc(0.0001f*Const.FLUID_VISC_MULT).setSolverIterations(3);
+		  fluidSolver.enableRGB(true).setFadeSpeed(0.01f).setDeltaT(0.5f*Const.FLUID_DELTAT_MULT).setVisc(0.0001f*Const.FLUID_VISC_MULT).setSolverIterations(Const.PLASMA_ITERS);
 		  //fluidSolver.enableRGB(true).setFadeSpeed(0.01f).setDeltaT(1).setVisc(1).setSolverIterations(5);
 	}
 	

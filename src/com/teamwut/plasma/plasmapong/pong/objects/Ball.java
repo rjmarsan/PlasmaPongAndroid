@@ -81,46 +81,81 @@ public class Ball {
 	    checkBounds(fluid);
 	  }
 	  public void checkBounds(final PlasmaFluid fluid) {
-	    if (x < padding) {
-	      x=padding;
-	      vx = -vx;
-	      fluid.addForce(x/width, y/height, vx/width*Const.SIDEBAR_HIT_VEL_MULT, 0, 270, Const.SIDEBAR_HIT_COLOR_MULT);
-	    }
-	    else if (x > width-padding) {
-	      x=width-padding;
-	      vx = -vx;
-	      fluid.addForce( x/width, y/height, vx/width*Const.SIDEBAR_HIT_VEL_MULT, 0, 270, Const.SIDEBAR_HIT_COLOR_MULT);
-	    }
+		if (Const.IS_PORTRAIT) {
+		    if (x < padding) {
+			      x=padding;
+			      vx = -vx;
+			      fluid.addForce(x/width, y/height,  0, vx/width*Const.SIDEBAR_HIT_VEL_MULT,  270, Const.SIDEBAR_HIT_COLOR_MULT);
+			    }
+			    else if (x > width-padding) {
+			      x=width-padding;
+			      vx = -vx;
+			      fluid.addForce( x/width, y/height, 0, vx/width*Const.SIDEBAR_HIT_VEL_MULT,  270, Const.SIDEBAR_HIT_COLOR_MULT);
+			    }
+
+		} else {
+		    if (y < padding) {
+		      y=padding;
+		      vy = -vy;
+		      fluid.addForce(x/width, y/height,  0, vy/height*Const.SIDEBAR_HIT_VEL_MULT,  270, Const.SIDEBAR_HIT_COLOR_MULT);
+		    }
+		    else if (y > height-padding) {
+		      y=height-padding;
+		      vy = -vy;
+		      fluid.addForce( x/width, y/height, 0, vy/height*Const.SIDEBAR_HIT_VEL_MULT,  270, Const.SIDEBAR_HIT_COLOR_MULT);
+		    }
+		}
 	    gutterFix(fluid);
-	    if (y < upperBoundsY) {
-	      y=upperBoundsY;
-	      vy = -vy;
-	    }
-	    else if (y > lowerBoundsY) {
-	      y=lowerBoundsY;
-	      vy = -vy;
-	    }
+//	    if (y < upperBoundsY) {
+//	      y=upperBoundsY;
+//	      vy = -vy;
+//	    }
+//	    else if (y > lowerBoundsY) {
+//	      y=lowerBoundsY;
+//	      vy = -vy;
+//	    }
 
 	  }
 	  
 	  public void gutterFix(final PlasmaFluid fluid) {
-		  if (x > width-padding*2) {
-		    	gutterCount ++;
-		    	if (gutterCount > Const.SIDEBAR_GUTTER_COUNT) {
-		  	      fluid.addForce( 1, y/height, Const.SIDEBAR_GUTTER_FIX_MULT, 0, 270, Const.SIDEBAR_GUTTER_FIX_COLOR);
-		  	      gutterCount = 0;
-		    	}
-		    }
-		    else if (x < padding*2) {
-		    	gutterCount ++;
-		    	if (gutterCount > Const.SIDEBAR_GUTTER_COUNT) {
-		  	      fluid.addForce( 0, y/height, Const.SIDEBAR_GUTTER_FIX_MULT, 0, 270, Const.SIDEBAR_GUTTER_FIX_COLOR);
-		  	      gutterCount = 0;
-		    	}
-		    }
-		    else {
-		    	gutterCount = 0;
-		    }
+		  if (!Const.IS_PORTRAIT) {
+			  if (y > height-padding*2) {
+			    	gutterCount ++;
+			    	if (gutterCount > Const.SIDEBAR_GUTTER_COUNT) {
+			  	      fluid.addForce( x/width,1, 0, -Const.SIDEBAR_GUTTER_FIX_MULT, 270, Const.SIDEBAR_GUTTER_FIX_COLOR);
+			  	      gutterCount = 0;
+			    	}
+			    }
+			    else if (y < padding*2) {
+			    	gutterCount ++;
+			    	if (gutterCount > Const.SIDEBAR_GUTTER_COUNT) {
+			  	      fluid.addForce( x/width, 0, 0,  Const.SIDEBAR_GUTTER_FIX_MULT, 270, Const.SIDEBAR_GUTTER_FIX_COLOR);
+			  	      gutterCount = 0;
+			    	}
+			    }
+			    else {
+			    	gutterCount = 0;
+			    }
+		  } else {
+			  if (x > height-padding*2) {
+			    	gutterCount ++;
+			    	if (gutterCount > Const.SIDEBAR_GUTTER_COUNT) {
+			  	      fluid.addForce( 1,y/height,  -Const.SIDEBAR_GUTTER_FIX_MULT, 0, 270, Const.SIDEBAR_GUTTER_FIX_COLOR);
+			  	      gutterCount = 0;
+			    	}
+			    }
+			    else if (x < padding*2) {
+			    	gutterCount ++;
+			    	if (gutterCount > Const.SIDEBAR_GUTTER_COUNT) {
+			  	      fluid.addForce(  0,y/height, Const.SIDEBAR_GUTTER_FIX_MULT, 0, 270, Const.SIDEBAR_GUTTER_FIX_COLOR);
+			  	      gutterCount = 0;
+			    	}
+			    }
+			    else {
+			    	gutterCount = 0;
+			    }
+
+		  }
 	  }
 	  
 	  

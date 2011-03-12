@@ -110,14 +110,21 @@ public class PlasmaPong extends PActivity {
 		
 		
 		final float distancesqrt = (x-targetx)*(x-targetx) + (y-targety)*(y-targety);
-		if (distancesqrt < 30010) {
+		if (distancesqrt < Const.AUTO_AIM_RADIUS_SQRD) {
 			final float diffx = (targetx-x)/width;
-			final float diffy = Math.abs((targety-y)/height);
+			final float diffy = (targety-y)/height;
 			final float diffangle = (float)Math.atan2(diffy, diffx);
+			//so we don't lose control
+//			if (Const.IS_PORTRAIT) {
+//				if (y/height > 0.5f) 
+//					diffangle = diffangle / 2;
+//
+//			} else {
+//				vy = vy / 2;
+//			}
 			vx = (float) Math.cos(diffangle)*30;
 			vy = (float) Math.sin(diffangle)*30;
-		}
-		if (Const.IS_PORTRAIT) {
+		} else if (Const.IS_PORTRAIT) {
 			if (y/height > 0.5f) 
 				vy = -vy;
 		} else {
@@ -127,13 +134,13 @@ public class PlasmaPong extends PActivity {
 		
 		if ((Const.IS_PORTRAIT && y / height > 0.5f) || (!Const.IS_PORTRAIT && x /width > 0.5f)) {
 			fluid.addForce(x/width, y/height, vx/width, vy/height, Const.PLAYER_1_OFFSET);
-			fluid.addForce((x+5)/width, y/height, -vy/width/4, vy/height/2, Const.PLAYER_1_OFFSET);
-			fluid.addForce((x-5)/width, y/height, vy/width/4, vy/height/2, Const.PLAYER_1_OFFSET);
+//			fluid.addForce((x+5)/width, y/height, -vy/width/4, vy/height/2, Const.PLAYER_1_OFFSET);
+//			fluid.addForce((x-5)/width, y/height, vy/width/4, vy/height/2, Const.PLAYER_1_OFFSET);
 		}
 		else {
 			fluid.addForce(x/width, y/height, vx/width, vy/height, Const.PLAYER_2_OFFSET);
-			fluid.addForce((x+5)/width, y/height, vy/width/4, vy/height/2, Const.PLAYER_2_OFFSET);
-			fluid.addForce((x-5)/width, y/height, -vy/width/4, vy/height/2, Const.PLAYER_2_OFFSET);
+//			fluid.addForce((x+5)/width, y/height, vy/width/4, vy/height/2, Const.PLAYER_2_OFFSET);
+//			fluid.addForce((x-5)/width, y/height, -vy/width/4, vy/height/2, Const.PLAYER_2_OFFSET);
 		}
 	}
 	
@@ -142,8 +149,8 @@ public class PlasmaPong extends PActivity {
 		final ArrayList<Cursor> cursors = (ArrayList<Cursor>) mtManager.cursors.clone();
 		for (final Cursor c : cursors ) {
 			if (c != null && c.currentPoint != null)
-//				addForce(c.currentPoint.x, c.currentPoint.y, g.getBall().x, g.getBall().y);
-				addForce(c.currentPoint.x, c.currentPoint.y, 1,1);
+				addForce(c.currentPoint.x, c.currentPoint.y, g.getBall().x, g.getBall().y);
+//				addForce(c.currentPoint.x, c.currentPoint.y, 1,1);
 		}
 	}
 	
